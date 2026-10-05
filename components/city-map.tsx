@@ -80,6 +80,46 @@ export function CityMap({
     process.env.NEXT_PUBLIC_AMAP_KEY ? "loading" : "demo",
   );
   const [demoScale, setDemoScale] = useState(1);
+  const demoPlane = useRef<HTMLDivElement>(null);
+  const labelLayer = useRef<HTMLDivElement>(null);
+  const [labelPositions, setLabelPositions] = useState<
+    Record<string, { left: number; top: number }>
+  >({});
+  useEffect(() => {
+    const plane = demoPlane.current;
+    const layer = labelLayer.current;
+    if (!plane || !layer || status === "live") return;
+    let frame = 0;
+    let until = 0;
+    // Project anchors with the map, but render text in a separate flat layer.
+    const measure = () => {
+      const bounds = layer.getBoundingClientRect();
+      const positions: Record<string, { left: number; top: number }> = {};
+      plane
+        .querySelectorAll<HTMLElement>("[data-spot-anchor]")
+        .forEach((anchor) => {
+          const point = anchor.getBoundingClientRect();
+          positions[anchor.dataset.spotAnchor!] = {
+            left: Math.round(point.left - bounds.left),
+            top: Math.round(point.top - bounds.top),
+          };
+        });
+      setLabelPositions(positions);
+      if (performance.now() < until) frame = requestAnimationFrame(measure);
+    };
+    const refresh = () => {
+      cancelAnimationFrame(frame);
+      until = performance.now() + 650;
+      measure();
+    };
+    const observer = new ResizeObserver(refresh);
+    observer.observe(plane);
+    refresh();
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
+  }, [demoScale, mode, status, visible, nearby]);
   useEffect(() => {
     if (!process.env.NEXT_PUBLIC_AMAP_KEY || !el.current) return;
     let cancelled = false;
@@ -177,6 +217,7 @@ export function CityMap({
       {status !== "live" && (
         <div className="demo-map" onClick={() => onDeselect?.()}>
           <div
+            ref={demoPlane}
             className="map-plane"
             style={{
               transform: `scale(${demoScale}) ${mode === "3D" ? "perspective(1100px) rotateX(24deg) rotateZ(-9deg)" : "rotate(0deg)"}`,
@@ -276,6 +317,16 @@ export function CityMap({
               </g>
             </svg>
             {visible.map((s) => (
+              <span
+                key={s.id}
+                data-spot-anchor={s.id}
+                className="map-anchor"
+                style={{ left: s.x + "%", top: s.y + "%" }}
+              />
+            ))}
+          </div>
+          <div ref={labelLayer} className="map-label-layer">
+            {visible.map((s) => (
               <button
                 key={s.id}
                 onClick={(event) => {
@@ -283,7 +334,10 @@ export function CityMap({
                   onSelect(s);
                 }}
                 className={`map-marker ${selected?.id === s.id ? "selected" : ""}`}
-                style={{ left: `${s.x}%`, top: `${s.y}%` }}
+                style={{
+                  ...labelPositions[s.id],
+                  visibility: labelPositions[s.id] ? "visible" : "hidden",
+                }}
               >
                 <span>{s.category === "演出场馆" ? "♫" : "●"}</span>
                 <b>{s.name}</b>

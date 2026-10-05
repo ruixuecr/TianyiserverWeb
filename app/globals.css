@@ -860,13 +860,24 @@ footer > span {
   width: 18px;
   height: 18px;
 }
+.map-anchor {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.map-label-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
 .map-marker {
   position: absolute;
   transform: translate(-50%, -100%);
   display: flex;
   align-items: center;
   gap: 5px;
-  filter: drop-shadow(0 4px 6px #29492c20);
+  pointer-events: auto;
   white-space: nowrap;
 }
 .map-marker > span {
@@ -885,8 +896,10 @@ footer > span {
   padding: 6px 8px;
   background: #fffff2ed;
   border-radius: 4px;
-  font-size: 10px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 600;
+  color: #244632;
+  box-shadow: 0 4px 6px #29492c20;
 }
 .map-marker.selected > span {
   background: #c58252;
@@ -1189,7 +1202,7 @@ footer > span {
   background: #e9eddf;
 }
 .nearby-map .map-marker b {
-  font-size: 9px;
+  font-size: 12px;
 }
 .nearby-map .map-disclaimer {
   font-size: 8px;
@@ -1598,7 +1611,7 @@ footer > span {
     top: 83px;
   }
   .map-marker b {
-    font-size: 8px;
+    font-size: 12px;
     padding: 4px;
   }
   .map-marker > span {
