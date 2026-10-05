@@ -1756,3 +1756,64 @@ footer > span {
     min-height: 550px;
   }
 }
+
+/* SVG labels stay outside the CSS perspective layer and keep the map's local tilt. */
+.svg-map-labels {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  visibility: hidden;
+  overflow: visible;
+}
+.svg-map-marker {
+  pointer-events: auto;
+  cursor: pointer;
+  outline: none;
+}
+.svg-marker-hit {
+  fill: transparent;
+}
+.svg-pin {
+  fill: #527054;
+}
+.svg-pin-symbol {
+  fill: #ffffeb;
+  font-size: 11px;
+}
+.svg-label-bg {
+  fill: #fffff2;
+  stroke: #dfe5d6;
+  stroke-width: 0.6px;
+}
+.svg-spot-name {
+  fill: #294b35;
+  font-size: 13px;
+  font-weight: 500;
+  text-rendering: optimizeLegibility;
+}
+.svg-map-marker.selected .svg-pin {
+  fill: #c58252;
+}
+.svg-map-marker.selected .svg-label-bg,
+.svg-map-marker:hover .svg-label-bg {
+  fill: #315b43;
+  stroke: #315b43;
+}
+.svg-map-marker.selected .svg-spot-name,
+.svg-map-marker:hover .svg-spot-name {
+  fill: #fff;
+}
+.svg-map-marker:focus-visible .svg-label-bg {
+  stroke: #c58252;
+  stroke-width: 2px;
+}
+.nearby-map .svg-spot-name {
+  font-size: 12px;
+}
+@media (max-width: 700px) {
+  .svg-spot-name {
+    font-size: 12px;
+  }
+}

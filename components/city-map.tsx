@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { Spot, spots } from "@/lib/data";
+import { SvgMapLabels } from "./svg-map-labels";
 type MapInstance = {
   destroy: () => void;
   add: (markers: unknown[]) => void;
@@ -70,6 +71,7 @@ export function CityMap({
   nearby?: boolean;
 }) {
   const el = useRef<HTMLDivElement>(null);
+  const demoPlane = useRef<HTMLDivElement>(null);
   const instance = useRef<MapInstance | null>(null);
   const onSelectRef = useRef(onSelect);
   onSelectRef.current = onSelect;
@@ -177,6 +179,7 @@ export function CityMap({
       {status !== "live" && (
         <div className="demo-map" onClick={() => onDeselect?.()}>
           <div
+            ref={demoPlane}
             className="map-plane"
             style={{
               transform: `scale(${demoScale}) ${mode === "3D" ? "perspective(1100px) rotateX(24deg) rotateZ(-9deg)" : "rotate(0deg)"}`,
@@ -275,21 +278,15 @@ export function CityMap({
                 </text>
               </g>
             </svg>
-            {visible.map((s) => (
-              <button
-                key={s.id}
-                onClick={(event) => {
-                  event.stopPropagation();
-                  onSelect(s);
-                }}
-                className={`map-marker ${selected?.id === s.id ? "selected" : ""}`}
-                style={{ left: `${s.x}%`, top: `${s.y}%` }}
-              >
-                <span>{s.category === "演出场馆" ? "♫" : "●"}</span>
-                <b>{s.name}</b>
-              </button>
-            ))}
           </div>
+          <SvgMapLabels
+            plane={demoPlane}
+            spots={visible}
+            selected={selected}
+            onSelect={onSelect}
+            mode={mode}
+            scale={demoScale}
+          />
           <div className="map-disclaimer">
             {status === "loading"
               ? "正在加载高德地图…"
