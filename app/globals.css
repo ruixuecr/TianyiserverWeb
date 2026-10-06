@@ -2010,3 +2010,31 @@ footer > span {
 .wuhan-only-map .amap-container {
   background: #f7f8f0 !important;
 }
+
+/* Reuse the demo's location label design on real geographic markers. */
+.map-marker.amap-spot-marker {
+  position: relative;
+  transform: rotate(-8deg);
+  transform-origin: bottom center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #294b35;
+  font-family: inherit;
+}
+.map-marker.amap-spot-marker > b {
+  font-size: 13px;
+}
+.nearby-map .map-marker.amap-spot-marker > b {
+  font-size: 12px;
+}
+.map-marker.amap-spot-marker:focus-visible {
+  outline: 2px solid #c58252;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+@media (max-width: 700px) {
+  .map-marker.amap-spot-marker > b {
+    font-size: 12px;
+  }
+}

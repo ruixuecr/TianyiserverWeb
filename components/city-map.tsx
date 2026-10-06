@@ -208,15 +208,17 @@ export function CityMap({
   const [retry, setRetry] = useState(0);
   function markerContent(spot: Spot) {
     const button = document.createElement("button");
-    button.className = `amap-pin ${callbacks.current.selected?.id === spot.id ? "selected" : ""}`;
+    button.className = `map-marker amap-spot-marker ${callbacks.current.selected?.id === spot.id ? "selected" : ""}`;
     button.setAttribute("aria-label", spot.name);
     button.setAttribute(
       "aria-pressed",
       String(callbacks.current.selected?.id === spot.id),
     );
     const dot = document.createElement("span");
-    dot.textContent = "●";
-    button.append(dot, document.createTextNode(spot.name));
+    dot.textContent = spot.category === "演出场馆" ? "♫" : "●";
+    const name = document.createElement("b");
+    name.textContent = spot.name;
+    button.append(dot, name);
     button.onclick = (event) => {
       event.stopPropagation();
       callbacks.current.onSelect(spot);
