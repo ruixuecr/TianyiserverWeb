@@ -282,8 +282,7 @@ export function CityMap({
             }),
         );
         map.add(outlines.current);
-        if (!camera.current)
-          map.setFitView(outlines.current, true, [50, 40, 70, 40]);
+        // Keep the initial urban view; fitting the full boundary zooms out too far.
         const results = await Promise.all(
           visible.map((spot) => resolveSpot(sdk, spot)),
         );
