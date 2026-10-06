@@ -243,7 +243,7 @@ export function CityMap({
           rotation: -18,
           zoom: camera.current?.zoom || 11,
           center: camera.current?.center || [114.305, 30.56],
-          mapStyle: "amap://styles/normal",
+          mapStyle: "amap://styles/7444edd6e8d1980b3cb81eb2e28dc88a",
           showBuildingBlock: true,
           resizeEnable: true,
         });
