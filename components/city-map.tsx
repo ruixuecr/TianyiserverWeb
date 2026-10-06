@@ -3,9 +3,16 @@ import { useEffect, useRef, useState } from "react";
 import { Spot, spots } from "@/lib/data";
 
 type Marker = { setContent: (content: HTMLElement) => void };
+type Boundary = { lng: number; lat: number }[][];
+type Outline = object;
 type MapInstance = {
   destroy: () => void;
-  add: (markers: Marker[]) => void;
+  add: (markers: (Marker | Outline)[]) => void;
+  setFitView: (
+    overlays: Outline[],
+    immediately: boolean,
+    padding: number[],
+  ) => void;
   setZoomAndCenter: (zoom: number, center: number[]) => void;
   setZoom: (zoom: number) => void;
   getZoom: () => number;
@@ -24,6 +31,16 @@ type AmapSDK = {
   Map: new (el: HTMLElement, options: Record<string, unknown>) => MapInstance;
   Marker: new (options: Record<string, unknown>) => Marker;
   Scale: new () => unknown;
+  Polygon: new (options: Record<string, unknown>) => Outline;
+  DistrictSearch: new (options: Record<string, unknown>) => {
+    search: (
+      code: string,
+      callback: (
+        status: string,
+        result: { districtList?: { adcode: string; boundaries?: Boundary }[] },
+      ) => void,
+    ) => void;
+  };
   PlaceSearch: new (options: Record<string, unknown>) => {
     search: (
       keyword: string,
@@ -42,14 +59,15 @@ declare global {
 }
 let sdkPromise: Promise<AmapSDK> | null = null;
 function loadMap() {
-  if (window.AMap?.PlaceSearch) return Promise.resolve(window.AMap);
+  if (window.AMap?.PlaceSearch && window.AMap?.DistrictSearch)
+    return Promise.resolve(window.AMap);
   if (sdkPromise) return sdkPromise;
   sdkPromise = new Promise<AmapSDK>((resolve, reject) => {
     window._AMapSecurityConfig = {
       serviceHost: window.location.origin + "/_AMapService",
     };
     const script = document.createElement("script");
-    script.src = `https://webapi.amap.com/maps?v=2.0&key=${encodeURIComponent(process.env.NEXT_PUBLIC_AMAP_KEY || "")}&plugin=AMap.Scale,AMap.PlaceSearch`;
+    script.src = `https://webapi.amap.com/maps?v=2.0&key=${encodeURIComponent(process.env.NEXT_PUBLIC_AMAP_KEY || "")}&plugin=AMap.Scale,AMap.PlaceSearch,AMap.DistrictSearch`;
     const fail = () => {
       clearTimeout(timer);
       script.remove();
@@ -58,7 +76,9 @@ function loadMap() {
     const timer = setTimeout(fail, 15000);
     script.onload = () => {
       clearTimeout(timer);
-      window.AMap?.PlaceSearch ? resolve(window.AMap) : fail();
+      window.AMap?.PlaceSearch && window.AMap?.DistrictSearch
+        ? resolve(window.AMap)
+        : fail();
     };
     script.onerror = fail;
     document.head.appendChild(script);
@@ -67,6 +87,40 @@ function loadMap() {
     throw error;
   });
   return sdkPromise;
+}
+let boundaryPromise: Promise<Boundary> | null = null;
+function loadWuhanBoundary(sdk: AmapSDK): Promise<Boundary> {
+  if (boundaryPromise) return boundaryPromise;
+  boundaryPromise = new Promise<Boundary>((resolve, reject) => {
+    const timer = setTimeout(
+      () => reject(new Error("武汉边界加载超时，请重试")),
+      12000,
+    );
+    new sdk.DistrictSearch({
+      level: "city",
+      subdistrict: 0,
+      extensions: "all",
+    }).search("420100", (status, result) => {
+      clearTimeout(timer);
+      const district = result.districtList?.find(
+        (item) => String(item.adcode) === "420100",
+      );
+      const bounds = district?.boundaries;
+      if (
+        status !== "complete" ||
+        !bounds?.length ||
+        bounds.some((ring) => ring.length < 3)
+      ) {
+        reject(new Error("武汉行政区边界暂不可用，请重试"));
+        return;
+      }
+      resolve(bounds);
+    });
+  }).catch((error) => {
+    boundaryPromise = null;
+    throw error;
+  });
+  return boundaryPromise;
 }
 const poiCache = new Map<string, Promise<Spot | null>>();
 const normalize = (name: string) =>
@@ -125,7 +179,6 @@ export function CityMap({
   selected,
   onSelect,
   onDeselect,
-  mode = "3D",
   zoomAction = 0,
   resetAction = 0,
   nearby = false,
@@ -134,13 +187,13 @@ export function CityMap({
   selected?: Spot;
   onSelect: (spot: Spot) => void;
   onDeselect?: () => void;
-  mode?: "2D" | "3D";
   zoomAction?: number;
   resetAction?: number;
   nearby?: boolean;
 }) {
   const el = useRef<HTMLDivElement>(null);
   const instance = useRef<MapInstance | null>(null);
+  const outlines = useRef<Outline[]>([]);
   const callbacks = useRef({ onSelect, onDeselect, selected });
   callbacks.current = { onSelect, onDeselect, selected };
   const resolved = useRef(new Map<string, Spot>());
@@ -180,10 +233,14 @@ export function CityMap({
     loadMap()
       .then(async (sdk) => {
         if (cancelled || !el.current) return;
+        const boundaries = await loadWuhanBoundary(sdk);
+        if (cancelled || !el.current) return;
         map = new sdk.Map(el.current, {
-          viewMode: mode,
-          pitch: mode === "3D" ? 52 : 0,
-          rotation: mode === "3D" ? -18 : 0,
+          viewMode: "3D",
+          mask: boundaries.map((ring) => [ring]),
+          pitch: 52,
+          pitchEnable: false,
+          rotation: -18,
           zoom: camera.current?.zoom || 11,
           center: camera.current?.center || [114.305, 30.56],
           mapStyle: "amap://styles/normal",
@@ -210,6 +267,21 @@ export function CityMap({
           }
         });
         map.addControl(new sdk.Scale());
+        outlines.current = boundaries.map(
+          (path) =>
+            new sdk.Polygon({
+              path,
+              strokeColor: "#527054",
+              strokeWeight: 2,
+              strokeOpacity: 0.9,
+              fillOpacity: 0,
+              bubble: true,
+              zIndex: 10,
+            }),
+        );
+        map.add(outlines.current);
+        if (!camera.current)
+          map.setFitView(outlines.current, true, [50, 40, 70, 40]);
         const results = await Promise.all(
           visible.map((spot) => resolveSpot(sdk, spot)),
         );
@@ -230,9 +302,14 @@ export function CityMap({
         map.add(markers.current.map((item) => item.marker));
         setRevision((value) => value + 1);
       })
-      .catch(() => {
+      .catch((error: unknown) => {
         if (!cancelled) {
-          setError("高德加载失败，请检查网络及地图配置");
+          clearTimeout(renderTimer);
+          setError(
+            error instanceof Error && error.message.startsWith("武汉")
+              ? error.message
+              : "高德加载失败，请检查网络及地图配置",
+          );
           setStatus("error");
         }
       });
@@ -250,7 +327,7 @@ export function CityMap({
       instance.current = null;
       markers.current = [];
     };
-  }, [mode, visible, nearby, retry]);
+  }, [visible, nearby, retry]);
   useEffect(() => {
     const position =
       selected?.position ||
@@ -273,11 +350,12 @@ export function CityMap({
   useEffect(() => {
     if (resetAction) {
       camera.current = null;
-      instance.current?.setZoomAndCenter(11, [114.305, 30.56]);
+      if (outlines.current.length)
+        instance.current?.setFitView(outlines.current, true, [50, 40, 70, 40]);
     }
   }, [resetAction]);
   return (
-    <div className={`city-map ${mode === "3D" ? "is-3d" : ""}`}>
+    <div className="city-map is-3d wuhan-only-map">
       <div ref={el} className="live-map" />
       {status !== "live" && (
         <div className="real-map-status" role="status">
@@ -304,7 +382,7 @@ export function CityMap({
       )}
       {status === "live" && (
         <span className="live-badge">
-          高德地图 · 武汉 · {mode}
+          高德地图 · 武汉 · 3D 俯瞰
           {missing.length > 0 && (
             <small>以下地点位置待确认，暂未标注：{missing.join("、")}</small>
           )}

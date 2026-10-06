@@ -122,7 +122,6 @@ export function MapExplorer() {
           selected={selected}
           onSelect={setSelected}
           onDeselect={() => setSelected(undefined)}
-          mode="3D"
           zoomAction={zoom}
           resetAction={reset}
         />

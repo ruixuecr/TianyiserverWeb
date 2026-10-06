@@ -6,7 +6,6 @@ import { Spot, spotSearchUrl } from "@/lib/data";
 import { CityMap } from "./city-map";
 
 export function SpotDetail({ spot }: { spot: Spot }) {
-  const [mode, setMode] = useState<"2D" | "3D">("3D");
   const [failedImage, setFailedImage] = useState<string>();
   const visible = useMemo(() => [spot], [spot]);
   const uri = spot.position
@@ -21,18 +20,7 @@ export function SpotDetail({ spot }: { spot: Spot }) {
         <section className="spot-map-section" aria-label="地点地图">
           <div className="spot-map-toolbar">
             <span>地点地图</span>
-            <div className="mode-switch" aria-label="地图视角">
-              {(["2D", "3D"] as const).map((m) => (
-                <button
-                  key={m}
-                  className={m === mode ? "active" : ""}
-                  aria-pressed={m === mode}
-                  onClick={() => setMode(m)}
-                >
-                  {m}
-                </button>
-              ))}
-            </div>
+            <span>3D 俯瞰</span>
           </div>
           <div className="nearby-map spot-navigation-map">
             <div className="spot-map-preview" aria-hidden="true" inert>
@@ -40,7 +28,6 @@ export function SpotDetail({ spot }: { spot: Spot }) {
                 visible={visible}
                 selected={spot}
                 onSelect={() => {}}
-                mode={mode}
                 nearby
               />
             </div>

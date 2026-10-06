@@ -2004,3 +2004,9 @@ footer > span {
   margin-top: 4px;
   white-space: normal;
 }
+
+.wuhan-only-map,
+.wuhan-only-map .live-map,
+.wuhan-only-map .amap-container {
+  background: #f7f8f0 !important;
+}
