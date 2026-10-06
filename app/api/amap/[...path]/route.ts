@@ -21,12 +21,14 @@ export async function GET(
   target.searchParams.set("jscode", secret);
   try {
     const response = await fetch(target, {
+      cache: "no-store",
       signal: AbortSignal.timeout(10000),
       redirect: "error",
     });
     return new Response(await response.arrayBuffer(), {
       status: response.status,
       headers: {
+        "Cache-Control": "no-store, max-age=0",
         "Content-Type":
           response.headers.get("Content-Type") || "application/json",
       },
