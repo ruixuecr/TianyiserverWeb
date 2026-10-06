@@ -1969,3 +1969,38 @@ footer > span {
     right: 12px;
   }
 }
+
+.real-map-status {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px;
+  text-align: center;
+  background: #edf0e5;
+  color: #315b43;
+}
+.real-map-status p {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #73806d;
+}
+.real-map-status button {
+  padding: 10px 20px;
+  border: 1px solid #315b43;
+  border-radius: 6px;
+}
+.amap-pin.selected {
+  background: #315b43;
+  color: white;
+}
+.live-badge {
+  max-width: calc(100% - 32px);
+}
+.live-badge small {
+  display: block;
+  margin-top: 4px;
+  white-space: normal;
+}

@@ -7,6 +7,7 @@ export type Spot = {
   area: string;
   // Only populate after confirming the actual GCJ-02 POI; schematic x/y are independent.
   position?: [number, number];
+  locationPending?: boolean;
   x: number;
   y: number;
   description: string;
@@ -27,13 +28,13 @@ export const spots: Spot[] = [
     name: "中百罗森(广厦华庭店)",
     en: "LAWSON · GUANGSHA HUATING",
     category: "街角小店",
-    area: "光谷片区",
+    area: "武汉 · 门店位置待核实",
     x: 75,
     y: 59,
     description:
       "把街角的小店也收进旅程。到广厦华庭店留下一张合照，再带着好心情奔赴下一站。",
     tip: "请认准广厦华庭店；拍照时请勿遮挡店门或影响顾客通行，营业与店内活动以门店信息为准。",
-    address: "武汉市光谷片区广厦华庭（具体门牌待核实）",
+    address: "武汉市中百罗森广厦华庭店（以高德门店地址为准）",
     theme: "shop",
   },
   {
@@ -57,6 +58,7 @@ export const spots: Spot[] = [
   },
   {
     id: "tianbao",
+    locationPending: true,
     featuredImage: {
       src: "/images/spots/tianbao.png",
       alt: "天宝饭庄主题打卡图片",
@@ -112,6 +114,7 @@ export const spots: Spot[] = [
   },
   {
     id: "aoti",
+    locationPending: true,
     name: "奥体",
     en: "OLYMPIC SPORTS CENTER",
     category: "演出场馆",
