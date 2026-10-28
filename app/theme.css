@@ -3,10 +3,198 @@
   --theme-blue: #477e93;
   --theme-ink: #304d59;
   --theme-gold: #b7a276;
+  --theme-surface: #fcfdf9;
+  --theme-wash: #edf4f5;
+  --theme-selected: #deebef;
+  --theme-hover: #365f71;
+  /* Map the shared interface tokens to the home palette. */
+  --paper: #fbfcf8;
+  --ink: var(--theme-ink);
+  --muted: #637d88;
+  --green: var(--theme-blue);
+  --line: #dce6e7;
+  --mint: var(--theme-wash);
+  --orange: var(--theme-gold);
   min-height: 100vh;
   overflow-x: clip;
+  color: var(--ink);
   background:
-    radial-gradient(ellipse at 88% 4%, #e8f2f66b, transparent 36%), #fbfcf8;
+    radial-gradient(ellipse at 88% 4%, #e8f2f66b, transparent 36%), var(--paper);
+}
+.encore-theme ::selection {
+  background: #d6e8ed;
+  color: var(--ink);
+}
+.encore-theme :where(button, a, input):focus-visible {
+  outline-color: var(--theme-gold);
+}
+.encore-theme
+  :is(
+    .header nav a,
+    .back-link,
+    .eyebrow,
+    .search,
+    .filters button,
+    .list-caption,
+    .list-caption span,
+    .location-row p,
+    .sidebar-note,
+    .sidebar-note small,
+    .map-bottom-note,
+    .close-card,
+    .card-title > span,
+    .spot-card > p,
+    .detail-description,
+    .spot-introduction p,
+    .spot-photo-placeholder,
+    .notice-tag,
+    footer,
+    footer > p,
+    footer > span
+  ) {
+  color: var(--muted);
+}
+.encore-theme
+  :is(
+    .header nav a.active,
+    .header nav a:hover,
+    .back-link:hover,
+    .text-link,
+    .card-title > svg,
+    .notice-list > a > svg,
+    .map-compass,
+    .real-map-status,
+    .notice-icon
+  ) {
+  color: var(--theme-blue);
+}
+.encore-theme
+  :is(
+    .text-link:hover,
+    .spot-card:hover .card-title,
+    .notice-list > a:hover h2
+  ) {
+  color: var(--theme-hover);
+}
+.encore-theme .eyebrow > span {
+  background: var(--theme-gold);
+}
+.encore-theme .button {
+  background: var(--theme-blue);
+  color: var(--theme-surface);
+}
+.encore-theme .button:hover {
+  background: var(--theme-hover);
+}
+.encore-theme
+  :is(
+    .search,
+    .map-controls,
+    .selected-card,
+    .spot-image-card,
+    .live-badge,
+    .image-pill,
+    .card-arrow
+  ) {
+  background: var(--theme-surface);
+  border-color: var(--line);
+}
+.encore-theme .search:focus-within {
+  border-color: var(--theme-blue);
+}
+.encore-theme .search input::placeholder {
+  color: var(--muted);
+}
+.encore-theme .filters button:hover {
+  background: var(--theme-wash);
+  color: var(--theme-blue);
+}
+.encore-theme .filters button.active {
+  background: var(--theme-blue);
+  border-color: var(--theme-blue);
+  color: var(--theme-surface);
+}
+.encore-theme .location-list {
+  scrollbar-color: #b5cbd2 transparent;
+}
+.encore-theme .location-row {
+  border-color: var(--line);
+  background: transparent;
+}
+.encore-theme .location-row:hover {
+  background: var(--theme-wash);
+}
+.encore-theme .location-row.selected {
+  background: var(--theme-selected);
+}
+.encore-theme .location-row > span {
+  color: var(--theme-blue);
+}
+.encore-theme
+  :is(
+    .map-canvas,
+    .home-city-map,
+    .nearby-map,
+    .real-map-status,
+    .spot-photo-area,
+    .notice-icon
+  ) {
+  background: var(--theme-wash);
+}
+.encore-theme .real-map-status p {
+  color: var(--muted);
+}
+.encore-theme .real-map-status button {
+  border-color: var(--theme-blue);
+}
+.encore-theme .real-map-status button:hover {
+  background: var(--theme-selected);
+}
+.encore-theme .map-top > span {
+  background: #fcfdf9eb;
+  box-shadow: 0 3px 15px #304d5909;
+}
+.encore-theme .status-dot {
+  background: var(--theme-blue);
+}
+.encore-theme .map-controls {
+  box-shadow: 0 3px 12px #304d5910;
+}
+.encore-theme .spot-image-card {
+  box-shadow: 0 8px 24px #304d5918;
+}
+.encore-theme .selected-card {
+  box-shadow: 0 15px 45px #304d5922;
+}
+.encore-theme .spot-map-link > span {
+  background: var(--theme-surface);
+  color: var(--theme-blue);
+  box-shadow: 0 2px 10px #304d5914;
+}
+.encore-theme .spot-map-link:hover > span {
+  background: var(--theme-blue);
+  color: var(--theme-surface);
+}
+.encore-theme .demo-notice {
+  background: #f3f1e9;
+  border-left-color: var(--theme-gold);
+  color: var(--muted);
+}
+/* Recolor the site's vector illustrations; photos and map labels keep their colors. */
+.encore-theme .city-art {
+  --art-sky: #e9f1f4;
+  --art-horizon: #d6e6ec;
+  --art-night: #304d59;
+  --art-night-light: #638b9b;
+  --art-water: #adcdd7;
+  --art-water-deep: #5d8d9f;
+  --art-land: #a9c5ce;
+  --art-cream: #f6f1e5;
+  --art-gold: #c4b184;
+  --art-gold-deep: #a48c60;
+  --art-slate: #547486;
+  --art-ink: #304d59;
+  --art-mist: #dde9eb;
 }
 .encore-theme .header {
   border-bottom-color: #dce5e3;
@@ -431,6 +619,7 @@
 .encore-theme .listing-page {
   position: relative;
   isolation: isolate;
+  mix-blend-mode: multiply;
 }
 .encore-theme .listing-page::before {
   content: "";
@@ -491,6 +680,9 @@
   }
 }
 @media (max-width: 700px) {
+  .encore-theme .location-row:not(.selected):not(:hover) {
+    background: var(--theme-wash);
+  }
   .encore-theme .header {
     gap: 16px 8px;
   }

@@ -76,10 +76,12 @@ codex/encore-theme-elements 在 mapapi 基线上新增以下模块：
 | components/theme-artwork.tsx | 首页主视觉和可复用的飘带、花瓣、音符、环形装饰 |
 | components/ui/popover.tsx | Radix UI Popover 的 Portal、碰撞避让与样式封装 |
 | components/ui/switch.tsx | Radix UI Switch 开关封装 |
-| app/theme.css | 以 encore-theme 为范围的主题样式、钟面、动效和手机布局 |
+| app/theme.css | 以 encore-theme 为范围的全站色板、主题样式、钟面、动效和手机布局 |
 | public/images/theme/ | 用户本次参考图原文件及编号映射 |
 
 新增依赖为 @radix-ui/react-popover 1.3.1、@radix-ui/react-switch 1.4.1。服务端与客户端首次渲染均使用时间占位符，挂载后按秒更新，并以 Intl 的 Asia/Shanghai 时区格式化，避免时区差异引起水合错误。计时器在卸载时清理；时间更新限于时钟组件。
+
+各页面在 encore-theme 容器内共享首页色板；原 paper/ink/muted/green/line/mint/orange 变量映射到蓝白、淡金主题，旧变量名 green/orange 仅为兼容现有样式。地图侧栏、加载状态、卡片、按钮与通知图标的历史硬编码配色也在主题层覆盖。components/art.tsx 的 SVG 填色使用 art-* CSS 变量并保留原色回退，由主题容器提供蓝金色板；不对照片使用滤镜，不覆盖高德自定义样式或图钉标签规则。
 
 仅装饰动效偏好保存在 localStorage 的 encore-theme-motion，存储不可用时仍可在当前页面切换；prefers-reduced-motion 优先关闭装饰动画。地点筛选与选择仍不持久化。弹层由 Radix 处理焦点、Escape 关闭和移动端位置；装饰图片使用空 alt、aria-hidden 和 pointer-events: none。
 
