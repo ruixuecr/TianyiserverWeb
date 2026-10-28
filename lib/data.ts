@@ -15,6 +15,7 @@ export type Spot = {
   address: string;
   theme: string;
   searchName?: string;
+  matchAddress?: string;
   thumbnail?: SpotImage;
   featuredImage?: SpotImage;
 };
@@ -58,7 +59,8 @@ export const spots: Spot[] = [
   },
   {
     id: "tianbao",
-    locationPending: true,
+    searchName: "天宝饭庄",
+    matchAddress: "苗栗路12号",
     featuredImage: {
       src: "/images/spots/tianbao.png",
       alt: "天宝饭庄主题打卡图片",
@@ -66,13 +68,13 @@ export const spots: Spot[] = [
     name: "天宝饭庄",
     en: "TIANBAO RESTAURANT",
     category: "美食探店",
-    area: "武汉 · 门店待确认",
+    area: "江岸区",
     x: 32,
     y: 37,
     description:
       "给旅程留一顿好好吃饭的时间。和同行的人围坐一桌，把期待与快乐都聊进烟火气里。",
-    tip: "具体分店尚待确认。请先在高德搜索店名，核对门店地址、营业时间与是否需要预约。",
-    address: "武汉市（具体分店及地址待确认）",
+    tip: "门店位于西马街道苗栗路12号，从苗栗路地铁站D口步行约480米。营业时间与预约要求以门店信息为准。",
+    address: "武汉市江岸区西马街道苗栗路12号",
     theme: "food",
   },
   {
@@ -114,17 +116,17 @@ export const spots: Spot[] = [
   },
   {
     id: "aoti",
-    locationPending: true,
+    searchName: "湖北省奥林匹克体育中心体育馆西门",
     name: "奥体",
     en: "OLYMPIC SPORTS CENTER",
     category: "演出场馆",
-    area: "武汉 · 场馆待确认",
+    area: "江夏区 · 东湖高新区",
     x: 83,
     y: 78,
     description:
       "把热爱带到现场，把合唱留给夜空。提前核对具体场馆，让这场奔赴从容一点。",
-    tip: "湖北省奥体中心与光谷国际网球中心是相邻的不同场馆，当前尚待确认你要去的具体地点。",
-    address: "武汉市（具体奥体场馆待确认）",
+    tip: "目的地为湖北省奥林匹克体育中心体育馆西门，位于佛祖岭一路2号。活动当天请以主办方公布的入场安排为准。",
+    address: "武汉市江夏区东湖新技术开发区佛祖岭一路2号湖北省奥林匹克体育中心体育馆西门",
     theme: "stage",
   },
   {
@@ -152,7 +154,7 @@ export const categories = [
 ];
 export function spotSearchUrl(spot: Spot) {
   const query = new URLSearchParams({
-    keyword: spot.searchName || spot.name,
+    keyword: [spot.searchName || spot.name, spot.matchAddress].filter(Boolean).join(" "),
     city: "武汉",
     view: "list",
     src: "jiangcheng-encore",

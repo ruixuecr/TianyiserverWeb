@@ -129,10 +129,11 @@ function resolveSpot(sdk: AmapSDK, spot: Spot): Promise<Spot | null> {
   if (spot.position) return Promise.resolve(spot);
   if (spot.locationPending) return Promise.resolve(null);
   const query = spot.searchName || spot.name;
-  if (poiCache.has(query)) return poiCache.get(query)!;
+  const cacheKey = `${query}|${spot.matchAddress || ""}`;
+  if (poiCache.has(cacheKey)) return poiCache.get(cacheKey)!;
   const promise = new Promise<Spot | null>((resolve) => {
     const timer = setTimeout(() => {
-      poiCache.delete(query);
+      poiCache.delete(cacheKey);
       resolve(null);
     }, 12000);
     new sdk.PlaceSearch({
@@ -147,7 +148,12 @@ function resolveSpot(sdk: AmapSDK, spot: Spot): Promise<Spot | null> {
         status === "complete"
           ? (result.poiList?.pois || []).filter(
               (poi) =>
-                normalize(poi.name) === normalize(query) &&
+                (normalize(poi.name) === normalize(query) ||
+                  (spot.matchAddress &&
+                    poi.name.replace(/（/g, "(").startsWith(query + "("))) &&
+                (!spot.matchAddress ||
+                  (typeof poi.address === "string" &&
+                    normalize(poi.address).includes(normalize(spot.matchAddress)))) &&
                 poi.location &&
                 Number.isFinite(poi.location.lng) &&
                 Number.isFinite(poi.location.lat),
@@ -155,7 +161,7 @@ function resolveSpot(sdk: AmapSDK, spot: Spot): Promise<Spot | null> {
           : [];
       // Never take the first fuzzy result: multiple matches need explicit confirmation.
       if (matches.length !== 1) {
-        poiCache.delete(query);
+        poiCache.delete(cacheKey);
         resolve(null);
         return;
       }
@@ -171,7 +177,7 @@ function resolveSpot(sdk: AmapSDK, spot: Spot): Promise<Spot | null> {
       });
     });
   });
-  poiCache.set(query, promise);
+  poiCache.set(cacheKey, promise);
   return promise;
 }
 export function CityMap({
