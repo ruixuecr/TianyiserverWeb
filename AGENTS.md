@@ -7,3 +7,11 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+## Project handoff
+
+- Read docs/PROJECT_REQUIREMENTS.md, docs/TECHNICAL_ARCHITECTURE.md, docs/CONVERSATION_HANDOFF.md, and docs/DEVELOPMENT_HANDOFF.md before continuing this project.
+- mapapi is the current development line. Keep main as the original demo unless the user explicitly changes that decision.
+- Preserve the confirmed 3D map, label design, natural image proportions, and simplified page layouts.
+- Never commit real map credentials. Do not mistake HTTP success or a build pass for verified live map behavior.
+- Keep handoff documents aligned with implemented behavior and newly confirmed decisions; mark unresolved location and cloud setup work explicitly.
