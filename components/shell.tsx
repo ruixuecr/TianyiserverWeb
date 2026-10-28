@@ -2,10 +2,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight, MapPin, Music2 } from "lucide-react";
+import { TimeTheme, WuhanMoment } from "./time-theme";
+import { ThemeMotif } from "./theme-artwork";
 export function Shell({ children }: { children: React.ReactNode }) {
   const path = usePathname();
   return (
-    <>
+    <TimeTheme>
       <header className="header">
         <Link href="/" className="brand">
           <span className="brand-icon">
@@ -35,18 +37,24 @@ export function Shell({ children }: { children: React.ReactNode }) {
             </Link>
           ))}
         </nav>
-        <Link href="/map" className="header-link">
-          <MapPin size={15} /> 武汉城市指南 <ArrowUpRight size={15} />
-        </Link>
+        <div className="header-tools">
+          <WuhanMoment />
+          <Link href="/map" className="header-link">
+            <MapPin size={15} /> 城市指南 <ArrowUpRight size={15} />
+          </Link>
+        </div>
       </header>
       {children}
       <footer>
         <Link href="/" className="brand">
           江城 <span className="brand-en">encore.</span>
         </Link>
-        <p>为一场演唱会而来，为一座城市停留。</p>
+        <p>
+          <ThemeMotif kind="note" />
+          为一场演唱会而来，为一座城市停留。
+        </p>
         <span>武汉漫游指南 · DEMO 2026</span>
       </footer>
-    </>
+    </TimeTheme>
   );
 }

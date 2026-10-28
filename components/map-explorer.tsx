@@ -15,6 +15,7 @@ import { spots, categories, Spot } from "@/lib/data";
 import { CityMap } from "./city-map";
 import { Art } from "./art";
 import { SpotImageCard, SpotVisual } from "./spot-image-card";
+import { ThemeMotif } from "./theme-artwork";
 export function MapExplorer() {
   const [category, setCategory] = useState("全部地点");
   const [query, setQuery] = useState("");
@@ -110,7 +111,7 @@ export function MapExplorer() {
           )}
         </div>
         <div className="sidebar-note">
-          <Compass size={18} />
+          <ThemeMotif kind="ribbon" />
           <span>
             不赶路，去感受路。<small>{spots.length} 个精选地点，慢慢逛。</small>
           </span>

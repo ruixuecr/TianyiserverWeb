@@ -8,6 +8,8 @@
 
 最初的两个实验分支 codex/crisp-map-labels 与 codex/svg-tilted-labels 已保留。后续以 Git 的实际提交记录为准。
 
+本次主题工作分支为 codex/encore-theme-elements，基于 mapapi 的 0d4bc49。已按用户提供的素材添加时光主题与 Radix UI 组件；未移动 main 或 mapapi 的分支指针。主题需求和实现说明分别见 PROJECT_REQUIREMENTS.md 与 TECHNICAL_ARCHITECTURE.md。
+
 ## 新环境启动
 
 1. 克隆指定分支：git clone --branch mapapi https://github.com/ruixuecr/TianyiserverWeb.git
@@ -45,9 +47,27 @@
 
 ## 当前云端状态
 
-用户最新指令是先创建云端对话，环境以后在那边配置。已发起创建并提交交接提示；没有创建环境、保存云端密钥或部署常驻网站。本文是交接准备，不是云端验收报告。
+用户已在云端对话中明确要求“创建云端环境”。2026-10-28 UTC（北京时间 2026-10-29）已完成当前会话云端工作区初始化：
 
-在云端开始配置时，选择上述仓库，保持仅本人使用，明确工作分支。安装与启动后检查首页、地图、地点详情、活动及通知；分别记录 HTTP 状态、编译结果和真实地图验证结果。不得用页面 HTTP 200 代替地图鉴权与交互验证。
+- 工作目录：/workspace/TianyiserverWeb；检出 mapapi，基线为 0d4bc49d0acbcf10fb1b3b85d308d730d3d9f3a4（在 f54774d 之上补充交接文档）。完整克隆包含 4 个远端分支及提交历史；远端默认分支仍为 main。
+- 运行时：Node.js 24.19.0、npm 11.9.0。npm ci 成功，使用锁文件中的 Next.js 16.3.8、React 19.3.0；没有升级依赖。
+- npm run build 与 npm run typecheck 均通过。
+- npm run dev 已启动并监听 0.0.0.0:3000；云端内部地址为 http://127.0.0.1:3000。此地址不是用户本机地址或公开预览链接，进程状态以当前会话为准；停止后可在工作目录重新运行 npm run dev。
+- HTTP 检查：首页、地图、天宝/奥体/武汉博物馆详情、活动列表及 weekend 详情、通知列表及 welcome 详情均返回 200；武汉博物馆详情响应包含新名称和青年路373号。
+- 高德变量 NEXT_PUBLIC_AMAP_KEY、AMAP_SECURITY_CODE 均未配置。/_AMapService/v4/map/styles 返回预期的 503，说明缺少安全密钥时的代理路径已生效；未验证真实高德鉴权、底图、标签或入口坐标。
+
+本次初始化的是当前会话开发工作区，未保存可复用的平台环境配置，也未部署常驻网站。初始化阶段未修改应用源码与锁文件；后续主题变更位于独立工作分支，临时预览状态见下文。后续真实地图测试需通过云端安全配置入口提供凭据，并在实际浏览器检查高德网络与交互。不得用页面 HTTP 200 代替地图鉴权与交互验证。
+
+## 云端临时预览
+
+用户确认类似 trycloudflare.com 的临时链接即可，无需为本次预览连接 Vercel 或部署永久托管。
+
+- 已在云端启动生产预览：npm run start -- --port 3100；当前已更新为 codex/encore-theme-elements 的生产构建。
+- Cloudflare Quick Tunnel 创建失败：客户端直连被拒绝；通过当前 HTTP 代理访问实际创建接口 https://api.trycloudflare.com/tunnel 返回 403，响应为 Your request was blocked。未生成可用 Cloudflare 地址。
+- 已改用 Tunnelmole 2.4.0，WebSocket 连接显式使用继承的 HTTP/HTTPS 代理并保持 TLS 验证。辅助程序与依赖均位于 Git 忽略的 .preview/；启动命令为 node .preview/start-tunnel.mjs，当前临时链接记录在 .preview/url.txt，不在文档固化地址。
+- 外网已核对首页、/map、武汉博物馆详情、活动及通知页面的 HTTP 200 和对应内容；地点图片、CSS 与 JS 资源均返回 200。高德样式代理返回预期的缺少安全密钥 503，真实地图仍未验证。
+- 预览链接公开可访问，依赖云端环境、3100 端口服务和隧道进程持续运行；停止或重建隧道后地址可能失效或改变。恢复预览前先核对现有进程，避免重复启动；源码变更后需重新构建并重启生产服务。
+- 新增组件后已通过 npm ci 安装锁定依赖；Next.js、React 等原有包版本保持不变。主题分支通过 build/typecheck；生产服务上完成桌面 1440px、手机 390px 浏览器交互与图片比例检查。内部检查脚本和截图保留在被忽略的 .preview/。开发服务曾因安装期间的缓存状态出现旧 HTML/新客户端不一致，已停止旧开发进程，并在全新生产构建中确认无水合错误；需要开发服务时重新运行 npm run dev。
 
 ## 本机预览
 

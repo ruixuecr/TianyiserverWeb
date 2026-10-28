@@ -65,3 +65,22 @@ Marker 内容用 DOM 创建，名称写入 textContent；外观沿用原有图�
 缺少安全密钥返回 503；上游异常返回 502。Web JS Key 不能直接当成 Web 服务 Key 使用，先前直接 REST 查询得到 USERKEY_PLAT_NOMATCH，不可据此断言浏览器 SDK 也不可用。
 
 高德编辑器“保存成功”、样式接口成功和浏览器渲染最新版是不同证据，样式更新必须在实际客户端验证。
+
+## 时光主题分支的增量结构
+
+codex/encore-theme-elements 在 mapapi 基线上新增以下模块：
+
+| 文件 | 职责 |
+| --- | --- |
+| components/time-theme.tsx | Shell 内主题容器、动效偏好 Context、武汉实时钟及设置弹层 |
+| components/theme-artwork.tsx | 首页主视觉和可复用的飘带、花瓣、音符、环形装饰 |
+| components/ui/popover.tsx | Radix UI Popover 的 Portal、碰撞避让与样式封装 |
+| components/ui/switch.tsx | Radix UI Switch 开关封装 |
+| app/theme.css | 以 encore-theme 为范围的主题样式、钟面、动效和手机布局 |
+| public/images/theme/ | 用户本次参考图原文件及编号映射 |
+
+新增依赖为 @radix-ui/react-popover 1.3.1、@radix-ui/react-switch 1.4.1。服务端与客户端首次渲染均使用时间占位符，挂载后按秒更新，并以 Intl 的 Asia/Shanghai 时区格式化，避免时区差异引起水合错误。计时器在卸载时清理；时间更新限于时钟组件。
+
+仅装饰动效偏好保存在 localStorage 的 encore-theme-motion，存储不可用时仍可在当前页面切换；prefers-reduced-motion 优先关闭装饰动画。地点筛选与选择仍不持久化。弹层由 Radix 处理焦点、Escape 关闭和移动端位置；装饰图片使用空 alt、aria-hidden 和 pointer-events: none。
+
+此次没有修改 CityMap、SpotDetail、地点数据或高德代理。完整构建、独立类型检查、桌面与手机浏览器交互检查通过；浏览器检查覆盖跨时区报时、弹层焦点、动效保存、减少动态效果、地点搜索/选择及长图比例，不包含缺少凭据的真实高德地图。
