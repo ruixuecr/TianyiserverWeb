@@ -62,8 +62,8 @@ AMAP_SECURITY_CODE=对应安全密钥
 
 地图选中地点后，上方独立图片卡片使用 `featuredImage: { src, alt }`，下方信息卡片小图使用 `thumbnail: { src, alt }`，两张图可分别配置在 `lib/data.ts`。图片建议放入 `public/images/spots/`，src 使用 `/images/spots/文件名.jpg`。未配置或图片加载失败时展示地点插画。关闭、搜索或更换分类会同时收起两张卡片。
 
-点位更新：中百罗森(广厦华庭店)、鹦鹉洲大桥、天宝饭庄、巴公房子、国博、奥体、湖北省博物馆。国博按武汉国际博览中心；天宝饭庄分店和奥体具体场馆等待用户确认。首页计数与筛选分类从数据自动派生，活动通过 spotIds 关联地点。
+点位更新：中百罗森(广厦华庭店)、鹦鹉洲大桥、天宝饭庄、巴公房子、国博、奥体、武汉博物馆。国博按武汉国际博览中心；天宝饭庄分店和奥体具体场馆等待用户确认。首页计数与筛选分类从数据自动派生，活动通过 spotIds 关联地点。
 
-核对资料：中百集团 https://www.whzb.com/archive/2235.html （仅证实广厦华庭店历史记录，不代表当前门牌或营业状态）；武汉市政府桥梁介绍 https://www.wuhan.gov.cn/ztzl/25zt/qiao/ywzzjdq/index.shtml ；湖北省博物馆 https://hbsbwg.cjyun.org/p/12728.html 。高德名称搜索参数 https://lbs.amap.com/api/uri-api/guide/search/search 。
+核对资料：中百集团 https://www.whzb.com/archive/2235.html （仅证实广厦华庭店历史记录，不代表当前门牌或营业状态）；武汉市政府桥梁介绍 https://www.wuhan.gov.cn/ztzl/25zt/qiao/ywzzjdq/index.shtml ；武汉博物馆 https://wlj.wuhan.gov.cn/zfxxgk/fdzdgknr/jgjj/zsdw/202008/t20200827_1437246.shtml 。高德名称搜索参数 https://lbs.amap.com/api/uri-api/guide/search/search 。
 
 所有活动、通知为示例文案。地点已替换为用户指定的 7 处。精确 POI 尚未核实，未填写经纬度；SVG 上的 x/y 仅控制示意布局。高德真实底图只渲染已核实并填入 position 的点位；未核实点位通过详情页进入高德名称搜索，由访客确认门店、场馆或入口后导航。插画和示意图是项目自有 SVG 组件。收藏只保留在当前页面状态，不涉及账号或持久化。真实高德调用仍需要有效 Key、安全密钥与网络；未提供 Key 时无法验证真实地图鉴权、楼块与客户端导航唤起效果。
