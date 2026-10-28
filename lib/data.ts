@@ -183,45 +183,13 @@ export function spotSearchUrl(spot: Spot) {
   });
   return `https://uri.amap.com/search?${query.toString()}`;
 }
-export const events = [
-  {
-    id: "weekend",
-    title: "把周末，交给现场",
-    label: "演出灵感",
-    date: "DEMO / 示例活动",
-    description:
-      "国博与奥体，收好你关心的场馆。具体演出安排与入口以主办方公告为准。",
-    theme: "stage",
-    spotIds: ["guobo", "aoti"],
-  },
-  {
-    id: "sunset",
-    title: "日落之前，江边见",
-    label: "城市漫游",
-    date: "DEMO / 示例路线",
-    description:
-      "巴公房子 → 鹦鹉洲大桥。从红砖街角到江边晚风，记得为跨江交通留足时间。",
-    theme: "river",
-    spotIds: ["bagong-house", "yingwuzhou-bridge"],
-  },
-  {
-    id: "walk",
-    title: "一张地图，慢游江城",
-    label: "打卡计划",
-    date: "DEMO / 打卡灵感",
-    description:
-      "武汉博物馆、中百罗森广厦华庭店、天宝饭庄。把文化、街角与烟火气收藏进旅程，按距离安排顺序。",
-    theme: "house",
-    spotIds: ["hubei-museum", "lawson-guangsha", "tianbao"],
-  },
-];
 export const notices = [
   {
     id: "welcome",
     title: "欢迎来到江城 Encore",
     tag: "站点公告",
     date: "演示内容",
-    text: "当前收录 7 个指定打卡点。活动为示例内容，示意地图不代表真实位置；地点入口与未确认分店请在高德中核实后再导航。",
+    text: "当前收录 7 个指定打卡点，以及服务站、应援花篮和海底捞活动入口。活动具体安排待公布，花篮首条为展示示例；地点入口与未确认分店请在高德中核实后再导航。",
   },
   {
     id: "travel",

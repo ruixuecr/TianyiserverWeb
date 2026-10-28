@@ -1,10 +1,16 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Shell } from "@/components/shell";
-import { Art } from "@/components/art";
-import { events, spots } from "@/lib/data";
+import { ActivityCover } from "@/components/activity-cover";
+import { BasketGallery } from "@/components/basket-gallery";
+import {
+  HaidilaoDetails,
+  ServiceStationDetails,
+} from "@/components/activity-details";
+import { activities } from "@/lib/activities";
+
 export function generateStaticParams() {
-  return events.map((e) => ({ id: e.id }));
+  return activities.map((activity) => ({ id: activity.id }));
 }
 export default async function Page({
   params,
@@ -12,48 +18,31 @@ export default async function Page({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const e = events.find((e) => e.id === id);
-  if (!e) notFound();
-  const related = e.spotIds;
+  if (["weekend", "sunset", "walk"].includes(id)) redirect("/events");
+  const activity = activities.find((activity) => activity.id === id);
+  if (!activity) notFound();
   return (
     <Shell>
-      <main className="detail-page">
+      <main className="detail-page community-page">
         <Link href="/events" className="back-link">
           ← 所有活动
         </Link>
-        <div className="detail-hero">
+        <header className="activity-detail-heading">
           <div>
-            <div className="eyebrow">{e.date}</div>
-            <h1>{e.title}</h1>
-            <p className="detail-description">{e.description}</p>
-            <div className="demo-notice">
-              这是展示页面，不提供真实演出时间、票务或报名服务。
-            </div>
-            <Link href="/map" className="button">
-              在地图上规划行程 ↗
-            </Link>
+            <span className="community-eyebrow">{activity.english}</span>
+            <h1>{activity.title}</h1>
+            <p>{activity.description}</p>
+            <span className="activity-status">{activity.status}</span>
           </div>
-          <Art theme={e.theme} />
-        </div>
-        <section className="section">
-          <h2>沿途，值得停留</h2>
-          <div className="spot-grid">
-            {related.map((id) => {
-              const s = spots.find((s) => s.id === id)!;
-              return (
-                <Link className="spot-card" href={`/spots/${id}`} key={id}>
-                  <div className="card-image">
-                    <Art theme={s.theme} />
-                  </div>
-                  <div className="card-title">
-                    <h3>{s.name}</h3>
-                    <span>{s.area} ↗</span>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </section>
+          <ActivityCover kind={activity.id} />
+        </header>
+        {activity.id === "flower-baskets" ? (
+          <BasketGallery />
+        ) : activity.id === "service-station" ? (
+          <ServiceStationDetails />
+        ) : (
+          <HaidilaoDetails />
+        )}
       </main>
     </Shell>
   );

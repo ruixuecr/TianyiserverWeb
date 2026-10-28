@@ -476,27 +476,52 @@
   isolation: isolate;
   mix-blend-mode: multiply;
   min-width: 0;
-  height: 430px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 .piano-duet {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   width: 112%;
   max-width: none;
   height: auto;
   margin-left: -6%;
-  mix-blend-mode: multiply;
+  mix-blend-mode: normal;
+  /* Exclude this artwork's outer white canvas so the rear clock remains visible. */
+  clip-path: polygon(
+    1% 28%,
+    11% 26%,
+    13% 5%,
+    27% 5%,
+    31% 20%,
+    40% 25%,
+    59% 27%,
+    65% 21%,
+    80% 21%,
+    84% 32%,
+    96% 39%,
+    99% 72%,
+    96% 96%,
+    69% 96%,
+    62% 83%,
+    48% 84%,
+    38% 81%,
+    28% 77%,
+    8% 71%,
+    1% 57%
+  );
 }
 .time-orbit {
   position: absolute;
-  width: 360px;
-  height: 360px;
+  z-index: 0;
+  pointer-events: none;
+  width: 500px;
+  height: 500px;
   border: 1px solid #c2d8df7a;
   border-radius: 50%;
-  top: 44%;
+  top: 50%;
   left: 51%;
   transform: translate(-50%, -50%);
 }
@@ -569,6 +594,7 @@
 }
 .time-artwork figcaption {
   position: absolute;
+  z-index: 3;
   bottom: 13px;
   left: 18%;
   display: flex;
@@ -585,6 +611,7 @@
 }
 .artwork-edition {
   position: absolute;
+  z-index: 3;
   top: 25px;
   right: 0;
   font-size: 7px;
@@ -594,6 +621,7 @@
 }
 .artwork-petals {
   position: absolute;
+  z-index: 1;
   top: 0;
   left: 8%;
   opacity: 0.65;
@@ -665,11 +693,11 @@
     grid-template-columns: 1fr 1.1fr;
   }
   .time-artwork {
-    height: 360px;
+    height: 420px;
   }
   .time-orbit {
-    width: 280px;
-    height: 280px;
+    width: 400px;
+    height: 400px;
   }
   .theme-overture {
     letter-spacing: 1px;
@@ -721,7 +749,7 @@
     font-size: 10px;
   }
   .time-artwork {
-    height: clamp(275px, 70vw, 350px);
+    height: clamp(330px, 90vw, 410px);
     margin-top: 8px;
   }
   .piano-duet {
@@ -729,9 +757,9 @@
     margin-left: 0;
   }
   .time-orbit {
-    width: min(65vw, 300px);
-    height: min(65vw, 300px);
-    top: 44%;
+    width: min(88vw, 390px);
+    height: min(88vw, 390px);
+    top: 50%;
   }
   .time-orbit::after {
     inset: -16px;

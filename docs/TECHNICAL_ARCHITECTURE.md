@@ -1,6 +1,6 @@
 # 技术架构与实现细节
 
-更新日期：2026-10-29。以 mapapi 当前代码为准。
+更新日期：2026-10-29。地图以 mapapi 为基线，主题及活动增量以 codex/encore-theme-elements 为准。
 
 ## 技术栈与目录
 
@@ -15,7 +15,7 @@
 | components/spot-detail.tsx | 左地图、右介绍、下方图片的详情布局 |
 | components/spot-image-card.tsx | 独立图片卡片和图片失败回退 |
 | components/art.tsx | 项目内 SVG 插画 |
-| lib/data.ts | 地点、活动、通知、分类和高德搜索链接 |
+| lib/data.ts | 地点、通知、分类和高德搜索链接 |
 | app/globals.css | 界面、标签及响应式样式 |
 | public/images/spots/ | 已入库的地点图片 |
 | app/api/amap/[...path]/route.ts | 高德请求代理 |
@@ -91,4 +91,24 @@ codex/encore-theme-elements 在 mapapi 基线上新增以下模块：
 
 仅装饰动效偏好保存在 localStorage 的 encore-theme-motion，存储不可用时仍可在当前页面切换；prefers-reduced-motion 优先关闭装饰动画。地点筛选与选择仍不持久化。弹层由 Radix 处理焦点、Escape 关闭和移动端位置；装饰图片使用空 alt、aria-hidden 和 pointer-events: none。
 
-此次没有修改 CityMap、SpotDetail、地点数据或高德代理。完整构建、独立类型检查、桌面与手机浏览器交互检查通过；浏览器检查覆盖跨时区报时、弹层焦点、动效保存、减少动态效果、地点搜索/选择及长图比例，不包含缺少凭据的真实高德地图。
+初次时光主题未修改地图逻辑和地点内容；后续图片优化为 SpotDetail 和地点图片补充了响应式加载及宽高信息。完整构建、独立类型检查、桌面与手机浏览器交互检查通过；浏览器检查覆盖跨时区报时、弹层焦点、动效保存、减少动态效果、地点搜索/选择及长图比例，不包含缺少凭据的真实高德地图。
+
+## 活动与推荐模块
+
+| 文件 | 职责 |
+| --- | --- |
+| lib/activities.ts | 三类活动元数据、花篮列表及 10 个展示位、服务站/海底捞信息、高德选点链接 |
+| components/activity-cover.tsx | 三类活动的轻量图标封面，复用主题素材 |
+| components/basket-gallery.tsx | 花篮列表和弹窗中的多图、无料、二维码 |
+| components/ui/dialog.tsx | Radix Dialog Portal、居中弹窗、遮罩、关闭按钮 |
+| components/activity-image.tsx | 活动图片响应式加载、错误回退与重试；二维码保留原图 |
+| components/activity-details.tsx | 服务站与海底捞位置、时间、发放资料和待公布状态 |
+| lib/recommendations.ts | 独立于地图点位的 6 条美食商场推荐 |
+| components/recommendation-explorer.tsx | 推荐类别、搜索、空状态及导航链接 |
+| app/community.css | 活动、弹窗、推荐及五项导航的响应式样式 |
+
+/events/[id] 仍使用 Promise params，预生成 service-station、flower-baskets、haidilao；旧 weekend/sunset/walk 地址通过 redirect 返回 /events，未知 ID 继续 notFound。/recommendations 是静态页，筛选与搜索由客户端组件完成。
+
+新增 @radix-ui/react-dialog 1.3.1，其他已有依赖版本不变。每个已填花篮使用独立 Dialog Root/Trigger；Portal 仅在打开时挂载详情内容，弹窗内滚动，Radix 处理遮罩、Escape、焦点圈定、背景滚动锁定和焦点恢复。Portal 不继承 Shell 的 CSS 变量，因此在 encore-dialog 中显式定义同一蓝白色板。群二维码不提供伪造值；有真实图片时才渲染，使用 unoptimized 避免有损转码影响扫描。
+
+首页 time-orbit 的 z-index 为 0，piano-duet 为 2，图像自身关闭 multiply 混合；整体外层仍与浅色底融合。主图 clip-path 仅用于当前素材的外围白色留白，更换主视觉时应重新核对边界。普通地点照片不使用此裁切规则。

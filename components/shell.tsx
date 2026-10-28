@@ -22,6 +22,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
             ["/", "首页"],
             ["/map", "探索地图"],
             ["/events", "活动现场"],
+            ["/recommendations", "美食商场"],
             ["/notices", "通知公告"],
           ].map(([url, label]) => (
             <Link
