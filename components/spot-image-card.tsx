@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Spot, SpotImage } from "@/lib/data";
 import { Art } from "./art";
 
@@ -8,18 +9,26 @@ export function SpotVisual({
   image,
   spot,
   className,
+  sizes,
+  loading = "lazy",
 }: {
   image?: SpotImage;
   spot: Spot;
   className: string;
+  sizes: string;
+  loading?: "lazy" | "eager";
 }) {
   const [failedSrc, setFailedSrc] = useState<string>();
   return (
     <div className={className}>
       {image && image.src !== failedSrc ? (
-        <img
+        <Image
           src={image.src}
           alt={image.alt}
+          width={image.width}
+          height={image.height}
+          sizes={sizes}
+          loading={loading}
           onError={() => setFailedSrc(image.src)}
         />
       ) : (
@@ -42,6 +51,8 @@ export function SpotImageCard({ spot }: { spot: Spot }) {
         image={spot.featuredImage}
         spot={spot}
         className="spot-featured-image"
+        sizes="(max-width: 700px) min(340px, calc(100vw - 76px)), 380px"
+        loading="eager"
       />
       <figcaption>
         <span>{spot.featuredImage ? "地点影像" : "地点插画"}</span>

@@ -169,6 +169,7 @@ export function MapExplorer() {
                 image={selected.thumbnail}
                 spot={selected}
                 className="selected-thumbnail"
+                sizes="(max-width: 700px) 78px, 100px"
               />
               <div>
                 <span className="eyebrow">{selected.category}</span>

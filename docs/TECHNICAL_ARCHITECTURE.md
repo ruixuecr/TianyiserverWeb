@@ -53,6 +53,12 @@ Marker 内容用 DOM 创建，名称写入 textContent；外观沿用原有图�
 
 类别、搜索和选中状态位于客户端组件内；没有跨设备保存机制。当前不实现站内完整路线规划或主动用户定位。
 
+## 图片交付
+
+主题分支使用 next/image 为 public/images/ 中的本地素材生成响应式 srcset；浏览器通过 /_next/image 按 Accept 请求 WebP。SpotImage 包含原图 width/height，组件据此保留比例并预留空间；sizes 分别匹配地图卡片、详情大图、首页主视觉和装饰的实际展示宽度。地图大图为选中后 eager 加载；首页主视觉使用 loading="eager" 和 fetchPriority="high"；详情下方照片及装饰使用默认 lazy 加载。失败回退仍显示原有插画或占位。
+
+活动与通知页的花簇由 CSS 背景改为 ThemeMotif 图片组件，以复用响应式优化。原始图片不变，服务器生成的 WebP 存在 .next/cache/images 中；使用框架默认质量 75、最少 4 小时缓存，不更改高德代理的禁用缓存策略。替换素材时使用新文件名/URL，避免复用旧优化缓存。
+
 ## 配置与代理
 
 | 变量 | 说明 |

@@ -621,18 +621,19 @@
   isolation: isolate;
   mix-blend-mode: multiply;
 }
-.encore-theme .listing-page::before {
-  content: "";
+.encore-theme .listing-blossoms {
   position: absolute;
   top: 5px;
   right: 25px;
   width: 340px;
   height: 176px;
-  background: url("/images/theme/blue-blossoms.jpg") center / contain no-repeat;
   mix-blend-mode: multiply;
   opacity: 0.42;
   pointer-events: none;
   z-index: -1;
+}
+.listing-blossoms img {
+  width: 100%;
 }
 .encore-theme footer {
   border-top-color: #dce5e3;
@@ -758,7 +759,7 @@
   .artwork-petals img {
     width: 140px;
   }
-  .encore-theme .listing-page::before {
+  .encore-theme .listing-blossoms {
     width: 165px;
     height: 100px;
     right: 10px;

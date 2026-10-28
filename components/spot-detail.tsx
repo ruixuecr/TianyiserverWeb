@@ -1,6 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight, ImageIcon } from "lucide-react";
 import { Spot, spotSearchUrl } from "@/lib/data";
 import { CityMap } from "./city-map";
@@ -52,9 +53,12 @@ export function SpotDetail({ spot }: { spot: Spot }) {
       </div>
       <section className="spot-photo-area" aria-label={`${spot.name}图片展示`}>
         {spot.featuredImage && failedImage !== spot.featuredImage.src ? (
-          <img
+          <Image
             src={spot.featuredImage.src}
             alt={spot.featuredImage.alt}
+            width={spot.featuredImage.width}
+            height={spot.featuredImage.height}
+            sizes="(max-width: 700px) calc(100vw - 44px), (max-width: 1312px) calc(100vw - 80px), 1232px"
             onError={() => setFailedImage(spot.featuredImage?.src)}
           />
         ) : (

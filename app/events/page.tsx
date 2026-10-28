@@ -2,11 +2,13 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Shell } from "@/components/shell";
 import { Art } from "@/components/art";
+import { ThemeMotif } from "@/components/theme-artwork";
 import { events } from "@/lib/data";
 export default function Page() {
   return (
     <Shell>
       <main className="listing-page">
+        <ThemeMotif kind="blossoms" className="listing-blossoms" />
         <div className="eyebrow">MORE THAN A CONCERT</div>
         <h1>把好时光，留给现场。</h1>
         <p className="page-intro">音乐响起前后，还有一整座城市值得探索。</p>

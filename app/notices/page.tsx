@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { ArrowUpRight, Bell } from "lucide-react";
 import { Shell } from "@/components/shell";
+import { ThemeMotif } from "@/components/theme-artwork";
 import { notices } from "@/lib/data";
 export default function Page() {
   return (
     <Shell>
       <main className="listing-page notice-page">
+        <ThemeMotif kind="blossoms" className="listing-blossoms" />
         <div className="eyebrow">A LITTLE HEADS-UP</div>
         <h1>出发之前，告诉你。</h1>
         <p className="page-intro">把实用提醒收好，把更多时间留给快乐。</p>

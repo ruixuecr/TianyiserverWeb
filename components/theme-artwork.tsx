@@ -1,10 +1,22 @@
 import { Music2 } from "lucide-react";
+import Image from "next/image";
 
 const motifs = {
-  ribbon: { src: "blue-gold-ribbon", width: 591, height: 374 },
-  petals: { src: "blue-petals", width: 939, height: 987 },
-  infinity: { src: "infinity", width: 922, height: 910 },
-  note: { src: "winged-note", width: 1280, height: 625 },
+  ribbon: { src: "blue-gold-ribbon", width: 591, height: 374, sizes: "66px" },
+  petals: {
+    src: "blue-petals",
+    width: 939,
+    height: 987,
+    sizes: "(max-width: 700px) 140px, 185px",
+  },
+  infinity: { src: "infinity", width: 922, height: 910, sizes: "130px" },
+  note: { src: "winged-note", width: 1280, height: 625, sizes: "85px" },
+  blossoms: {
+    src: "blue-blossoms",
+    width: 1280,
+    height: 663,
+    sizes: "(max-width: 700px) 165px, 340px",
+  },
 };
 
 export function ThemeMotif({
@@ -20,10 +32,11 @@ export function ThemeMotif({
       className={`theme-motif motif-${kind} ${className}`}
       aria-hidden="true"
     >
-      <img
+      <Image
         src={`/images/theme/${motif.src}.jpg`}
         width={motif.width}
         height={motif.height}
+        sizes={motif.sizes}
         alt=""
         draggable={false}
       />
@@ -42,12 +55,14 @@ export function TimeArtwork() {
         <span className="orbit-numeral numeral-nine">IX</span>
       </div>
       <ThemeMotif kind="petals" className="artwork-petals" />
-      <img
+      <Image
         className="piano-duet"
         src="/images/theme/piano-duet.jpg"
         alt="蓝白衣装的角色坐在钢琴琴键上，身旁环绕花簇与飘带"
         width={1280}
         height={663}
+        sizes="(max-width: 700px) calc(100vw - 44px), (max-width: 1100px) calc(59vw - 54px), (max-width: 1440px) calc(65vw - 96px), 842px"
+        loading="eager"
         fetchPriority="high"
       />
       <figcaption>

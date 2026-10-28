@@ -1,4 +1,9 @@
-export type SpotImage = { src: string; alt: string };
+export type SpotImage = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+};
 export type Spot = {
   id: string;
   name: string;
@@ -24,6 +29,8 @@ export const spots: Spot[] = [
     id: "lawson-guangsha",
     featuredImage: {
       src: "/images/spots/lawson-guangsha.png",
+      width: 1280,
+      height: 960,
       alt: "中百罗森广厦华庭店主题装饰",
     },
     name: "中百罗森(广厦华庭店)",
@@ -42,6 +49,8 @@ export const spots: Spot[] = [
     id: "yingwuzhou-bridge",
     featuredImage: {
       src: "/images/spots/yingwuzhou-bridge.png",
+      width: 2556,
+      height: 1704,
       alt: "鹦鹉洲大桥主题打卡图片",
     },
     name: "鹦鹉洲大桥",
@@ -63,6 +72,8 @@ export const spots: Spot[] = [
     matchAddress: "苗栗路12号",
     featuredImage: {
       src: "/images/spots/tianbao.png",
+      width: 1778,
+      height: 2556,
       alt: "天宝饭庄主题打卡图片",
     },
     name: "天宝饭庄",
@@ -81,6 +92,8 @@ export const spots: Spot[] = [
     id: "bagong-house",
     featuredImage: {
       src: "/images/spots/bagong-house.png",
+      width: 1260,
+      height: 2244,
       alt: "巴公房子对应的演唱会宣传海报",
     },
     name: "巴公房子",
@@ -99,6 +112,8 @@ export const spots: Spot[] = [
     id: "guobo",
     featuredImage: {
       src: "/images/spots/guobo.webp",
+      width: 1052,
+      height: 701,
       alt: "武汉国际博览中心演出现场",
     },
     name: "国博",
@@ -126,13 +141,16 @@ export const spots: Spot[] = [
     description:
       "把热爱带到现场，把合唱留给夜空。提前核对具体场馆，让这场奔赴从容一点。",
     tip: "目的地为湖北省奥林匹克体育中心体育馆西门，位于佛祖岭一路2号。活动当天请以主办方公布的入场安排为准。",
-    address: "武汉市江夏区东湖新技术开发区佛祖岭一路2号湖北省奥林匹克体育中心体育馆西门",
+    address:
+      "武汉市江夏区东湖新技术开发区佛祖岭一路2号湖北省奥林匹克体育中心体育馆西门",
     theme: "stage",
   },
   {
     id: "hubei-museum",
     featuredImage: {
       src: "/images/spots/hubei-museum.png",
+      width: 1052,
+      height: 592,
       alt: "博物馆地点主题设计图片",
     },
     name: "武汉博物馆",
@@ -155,7 +173,9 @@ export const categories = [
 ];
 export function spotSearchUrl(spot: Spot) {
   const query = new URLSearchParams({
-    keyword: [spot.searchName || spot.name, spot.matchAddress].filter(Boolean).join(" "),
+    keyword: [spot.searchName || spot.name, spot.matchAddress]
+      .filter(Boolean)
+      .join(" "),
     city: "武汉",
     view: "list",
     src: "jiangcheng-encore",
