@@ -1,3 +1,4 @@
+export const spotYears = [2020, 2023, 2025, 2026] as const;
 export type SpotImage = {
   src: string;
   alt: string;
@@ -9,6 +10,7 @@ export type Spot = {
   name: string;
   en: string;
   category: string;
+  memoryDate: { year: (typeof spotYears)[number]; month: number };
   area: string;
   // Only populate after confirming the actual GCJ-02 POI; schematic x/y are independent.
   position?: [number, number];
@@ -27,6 +29,7 @@ export type Spot = {
 export const spots: Spot[] = [
   {
     id: "lawson-guangsha",
+    memoryDate: { year: 2023, month: 7 },
     featuredImage: {
       src: "/images/spots/lawson-guangsha.png",
       width: 1280,
@@ -47,6 +50,7 @@ export const spots: Spot[] = [
   },
   {
     id: "yingwuzhou-bridge",
+    memoryDate: { year: 2020, month: 3 },
     featuredImage: {
       src: "/images/spots/yingwuzhou-bridge.png",
       width: 2556,
@@ -68,6 +72,7 @@ export const spots: Spot[] = [
   },
   {
     id: "tianbao",
+    memoryDate: { year: 2025, month: 12 },
     searchName: "天宝饭庄",
     matchAddress: "苗栗路12号",
     featuredImage: {
@@ -90,6 +95,7 @@ export const spots: Spot[] = [
   },
   {
     id: "bagong-house",
+    memoryDate: { year: 2025, month: 12 },
     featuredImage: {
       src: "/images/spots/bagong-house.png",
       width: 1260,
@@ -110,6 +116,7 @@ export const spots: Spot[] = [
   },
   {
     id: "guobo",
+    memoryDate: { year: 2025, month: 12 },
     featuredImage: {
       src: "/images/spots/guobo.webp",
       width: 1052,
@@ -131,6 +138,7 @@ export const spots: Spot[] = [
   },
   {
     id: "aoti",
+    memoryDate: { year: 2026, month: 10 },
     searchName: "湖北省奥林匹克体育中心体育馆西门",
     name: "奥体",
     en: "OLYMPIC SPORTS CENTER",
@@ -147,6 +155,7 @@ export const spots: Spot[] = [
   },
   {
     id: "hubei-museum",
+    memoryDate: { year: 2026, month: 6 },
     featuredImage: {
       src: "/images/spots/hubei-museum.png",
       width: 1052,
@@ -166,11 +175,51 @@ export const spots: Spot[] = [
     address: "武汉市江汉区青年路373号",
     theme: "museum",
   },
+  {
+    id: "donghu",
+    name: "东湖",
+    en: "EAST LAKE",
+    memoryDate: { year: 2020, month: 7 },
+    category: "湖畔漫步",
+    area: "武汉 · 东湖",
+    searchName: "东湖生态旅游风景区",
+    locationPending: true,
+    x: 78,
+    y: 45,
+    description:
+      "把夏日的风与湖光一起收进记忆。沿着东湖慢慢走，重温 2020 年 7 月的这一站。",
+    tip: "东湖范围较大，具体打卡位置与入口待补充。出发前请在高德中选择实际目的地。",
+    address: "武汉东湖风景区（具体打卡位置与入口待补充）",
+    theme: "river",
+  },
+  {
+    id: "gutian-bridge",
+    name: "古田桥",
+    en: "GUTIAN BRIDGE",
+    memoryDate: { year: 2026, month: 10 },
+    category: "江岸漫步",
+    area: "武汉 · 汉江",
+    searchName: "古田桥",
+    x: 20,
+    y: 47,
+    description:
+      "在古田桥边停留片刻，把桥影、江风与这次相聚的期待，记在 2026 年 10 月。",
+    tip: "请从合法开放的江岸或人行区域观景，具体岸侧与步行入口需在出发前确认。",
+    address: "武汉市汉江古田桥（具体到访岸侧与入口待确认）",
+    theme: "river",
+  },
 ];
-export const categories = [
-  "全部地点",
-  ...new Set(spots.map((s) => s.category)),
-];
+export const chronologicalSpots = [...spots].sort(
+  (a, b) =>
+    a.memoryDate.year - b.memoryDate.year ||
+    a.memoryDate.month - b.memoryDate.month,
+);
+export function spotDateLabel(spot: Spot) {
+  return `${spot.memoryDate.year}年${spot.memoryDate.month}月`;
+}
+export function spotDateValue(spot: Spot) {
+  return `${spot.memoryDate.year}-${String(spot.memoryDate.month).padStart(2, "0")}`;
+}
 export function spotSearchUrl(spot: Spot) {
   const query = new URLSearchParams({
     keyword: [spot.searchName || spot.name, spot.matchAddress]
@@ -189,7 +238,7 @@ export const notices = [
     title: "欢迎来到江城 Encore",
     tag: "站点公告",
     date: "演示内容",
-    text: "当前收录 7 个指定打卡点，以及服务站、应援花篮和海底捞活动入口。活动具体安排待公布，花篮首条为展示示例；地点入口与未确认分店请在高德中核实后再导航。",
+    text: `当前收录 ${spots.length} 个指定打卡点，按 2020、2023、2025、2026 年的记忆分类，并提供服务站、应援花篮和海底捞活动入口。活动具体安排待公布，花篮首条为展示示例；地点入口与未确认分店请在高德中核实后再导航。`,
   },
   {
     id: "travel",

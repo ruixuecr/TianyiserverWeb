@@ -228,7 +228,7 @@
   background: #eaf2f3;
   border-color: #adc9d1;
 }
-.moment-trigger time {
+.moment-countdown {
   font-variant-numeric: tabular-nums;
   letter-spacing: 1px;
 }
@@ -275,10 +275,30 @@
   color: #304d59;
 }
 .moment-clock {
-  width: 180px;
-  height: 180px;
+  width: 264px;
+  max-width: 100%;
+  height: auto;
   display: block;
-  margin: 24px auto 18px;
+  margin: 22px auto 12px;
+}
+.countdown-orbit-track {
+  fill: none;
+  stroke: #dae5e5;
+  stroke-width: 0.8;
+}
+.countdown-orbit-arc {
+  fill: none;
+  stroke: #baa374;
+  stroke-width: 1.2;
+  stroke-dasharray: 92 605.44;
+  transform: rotate(-114deg);
+  transform-origin: 100px 100px;
+}
+.countdown-orbit-text {
+  fill: #668a97;
+  font-size: 8px;
+  letter-spacing: 1.1px;
+  font-variant-numeric: tabular-nums;
 }
 .clock-outline {
   fill: #f5f9f8;
@@ -327,7 +347,8 @@
 .moment-readout {
   text-align: center;
 }
-.moment-readout time {
+.moment-countdown-value {
+  display: block;
   font-size: 27px;
   font-variant-numeric: tabular-nums;
   font-weight: 300;
@@ -338,26 +359,10 @@
   margin-top: 8px;
   color: #7c9299;
 }
-.moment-motion {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border-top: 1px solid #e3eae7;
-  padding-top: 19px;
-  margin-top: 23px;
-  color: #6d8b99;
-}
-.moment-motion label {
-  flex: 1;
-  font-size: 11px;
-  color: #405d68;
-  cursor: pointer;
-}
-.moment-motion small {
-  display: block;
-  font-size: 9px;
-  margin-top: 5px;
-  color: #83969a;
+.moment-readout .moment-countdown-label {
+  margin: 0 0 8px;
+  letter-spacing: 2px;
+  color: #668a97;
 }
 .encore-switch {
   width: 34px;
@@ -722,12 +727,24 @@
     margin-left: auto;
   }
   .moment-trigger {
-    font-size: 10px;
-    gap: 6px;
-    padding: 8px 10px;
+    display: grid;
+    grid-template-columns: 13px auto;
+    font-size: 9px;
+    gap: 2px 6px;
+    padding: 7px 11px;
+    text-align: left;
   }
   .moment-trigger > svg:first-child {
     width: 13px;
+    grid-row: 1 / 3;
+    align-self: center;
+  }
+  .moment-trigger > span {
+    grid-column: 2;
+  }
+  .moment-trigger .moment-countdown {
+    font-size: 12px;
+    line-height: 1.1;
   }
   .moment-chevron {
     display: none;
@@ -798,9 +815,6 @@
   }
 }
 @media (max-width: 370px) {
-  .moment-trigger > span {
-    display: none;
-  }
   .encore-theme .header .brand {
     font-size: 18px;
   }
@@ -812,5 +826,41 @@
   }
   .encore-switch-thumb {
     transition: none;
+  }
+  .countdown-orbit {
+    transform: none;
+  }
+}
+
+.encore-theme .location-row {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  gap: 10px;
+}
+.encore-theme .location-thumb {
+  width: 48px;
+}
+.location-date {
+  color: #618697;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  align-self: center;
+}
+@media (max-width: 700px) {
+  .encore-theme .location-row {
+    grid-template-columns: 38px minmax(0, 1fr);
+    column-gap: 9px;
+    row-gap: 4px;
+    min-width: 205px;
+    width: 205px;
+  }
+  .encore-theme .location-thumb {
+    width: 38px;
+    grid-row: 1 / 3;
+  }
+  .location-date {
+    grid-column: 2;
+    font-size: 9px;
   }
 }

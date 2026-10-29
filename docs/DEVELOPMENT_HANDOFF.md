@@ -14,6 +14,8 @@
 
 ## 新环境启动
 
+最新功能增量：顶部与弹层采用 2026-10-31 19:12 UTC+8 演唱会倒计时；外缘文字环随时针转动；动效默认开启，不再提供开关。9 个地点按 2020/2023/2025/2026 年筛选并显示年月，新增东湖与古田桥，奥体年月经用户确认是 2026-10。需求表与实现细节见 PROJECT_REQUIREMENTS.md 和 TECHNICAL_ARCHITECTURE.md。
+
 1. 克隆指定分支：git clone --branch mapapi https://github.com/ruixuecr/TianyiserverWeb.git
 2. 进入目录：cd TianyiserverWeb
 3. 安装锁定依赖：npm ci

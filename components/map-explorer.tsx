@@ -11,30 +11,37 @@ import {
   Compass,
   X,
 } from "lucide-react";
-import { spots, categories, Spot } from "@/lib/data";
+import {
+  spots,
+  chronologicalSpots,
+  spotYears,
+  spotDateLabel,
+  spotDateValue,
+  Spot,
+} from "@/lib/data";
 import { CityMap } from "./city-map";
 import { Art } from "./art";
 import { SpotImageCard, SpotVisual } from "./spot-image-card";
 import { ThemeMotif } from "./theme-artwork";
 export function MapExplorer() {
-  const [category, setCategory] = useState("全部地点");
+  const [year, setYear] = useState("全部地点");
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Spot>();
   const [zoom, setZoom] = useState(0);
   const [reset, setReset] = useState(0);
   const visible = useMemo(
     () =>
-      spots.filter(
+      chronologicalSpots.filter(
         (s) =>
-          (category === "全部地点" || s.category === category) &&
-          `${s.name}${s.area}${s.address}${s.searchName || ""}`.includes(
+          (year === "全部地点" || String(s.memoryDate.year) === year) &&
+          `${s.name}${s.area}${s.address}${s.searchName || ""}${spotDateLabel(s)}`.includes(
             query.trim(),
           ),
       ),
-    [category, query],
+    [year, query],
   );
-  function changeCategory(c: string) {
-    setCategory(c);
+  function changeYear(value: string) {
+    setYear(value);
     setSelected(undefined);
   }
   return (
@@ -50,7 +57,7 @@ export function MapExplorer() {
           <Search size={18} />
           <input
             aria-label="搜索地点"
-            placeholder="搜索地点、区域…"
+            placeholder="搜索地点、区域、年月…"
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
@@ -63,14 +70,15 @@ export function MapExplorer() {
             </button>
           )}
         </label>
-        <div className="filters">
-          {categories.map((c) => (
+        <div className="filters" role="group" aria-label="按年份筛选地点">
+          {["全部地点", ...spotYears.map(String)].map((value) => (
             <button
-              key={c}
-              className={category === c ? "active" : ""}
-              onClick={() => changeCategory(c)}
+              key={value}
+              className={year === value ? "active" : ""}
+              aria-pressed={year === value}
+              onClick={() => changeYear(value)}
             >
-              {c}
+              {value}
             </button>
           ))}
         </div>
@@ -78,7 +86,7 @@ export function MapExplorer() {
           发现 {visible.length} 个好地方 <span>武汉 · WUHAN</span>
         </div>
         <div className="location-list">
-          {visible.map((s, i) => (
+          {visible.map((s) => (
             <button
               key={s.id}
               className={`location-row ${selected?.id === s.id ? "selected" : ""}`}
@@ -93,7 +101,9 @@ export function MapExplorer() {
                   {s.area} · {s.category}
                 </p>
               </div>
-              <span>{String(i + 1).padStart(2, "0")}</span>
+              <time className="location-date" dateTime={spotDateValue(s)}>
+                {spotDateLabel(s)}
+              </time>
             </button>
           ))}
           {visible.length === 0 && (
@@ -102,7 +112,7 @@ export function MapExplorer() {
               <button
                 onClick={() => {
                   setQuery("");
-                  setCategory("全部地点");
+                  setYear("全部地点");
                 }}
               >
                 查看全部地点

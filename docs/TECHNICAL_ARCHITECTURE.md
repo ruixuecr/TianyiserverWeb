@@ -13,11 +13,12 @@
 | app/page.tsx | 简约首页 |
 | components/home-city-map.tsx | 首页地图与地点跳转 |
 | components/city-map.tsx | 高德 SDK 加载、边界、相机、POI 搜索和标签 |
-| components/map-explorer.tsx | 地点搜索分类、选中状态、上下卡片和缩放按钮 |
+| components/map-explorer.tsx | 地点年份/文本筛选、年月标签、选中状态、上下卡片和缩放按钮 |
 | components/spot-detail.tsx | 左地图、右介绍、下方图片的详情布局 |
 | components/spot-image-card.tsx | 独立图片卡片和图片失败回退 |
 | components/art.tsx | 项目内 SVG 插画 |
-| lib/data.ts | 地点、通知、分类和高德搜索链接 |
+| lib/data.ts | 9 个地点、memoryDate 年月、chronologicalSpots 时间排序、年份选项、通知和高德搜索链接 |
+| lib/concert.ts | 固定 UTC+8 开场时间与累计小时倒计时计算 |
 | app/globals.css | 界面、标签及响应式样式 |
 | public/images/spots/ | 已入库的地点图片 |
 | app/api/amap/[...path]/route.ts | 高德请求代理 |
@@ -82,18 +83,20 @@ codex/encore-theme-elements 在 mapapi 基线上新增以下模块：
 
 | 文件 | 职责 |
 | --- | --- |
-| components/time-theme.tsx | Shell 内主题容器、动效偏好 Context、武汉实时钟及设置弹层 |
+| components/time-theme.tsx | 默认开启动效的主题容器、顶部倒计时、北京时间钟面与随时针转动的倒计时环 |
 | components/theme-artwork.tsx | 首页主视觉和可复用的飘带、花瓣、音符、环形装饰 |
 | components/ui/popover.tsx | Radix UI Popover 的 Portal、碰撞避让与样式封装 |
 | components/ui/switch.tsx | Radix UI Switch 开关封装 |
 | app/theme.css | 以 encore-theme 为范围的全站色板、主题样式、钟面、动效和手机布局 |
 | public/images/theme/ | 用户本次参考图原文件及编号映射 |
 
-新增依赖为 @radix-ui/react-popover 1.3.1、@radix-ui/react-switch 1.4.1。服务端与客户端首次渲染均使用时间占位符，挂载后按秒更新，并以 Intl 的 Asia/Shanghai 时区格式化，避免时区差异引起水合错误。计时器在卸载时清理；时间更新限于时钟组件。
+初次主题引入 @radix-ui/react-popover 1.3.1、@radix-ui/react-switch 1.4.1；当前倒计时继续使用 Popover，不再渲染 Switch。lib/concert.ts 固定开场时间 2026-10-31T19:12:00+08:00，根据绝对毫秒差向上取整为剩余秒数，累计小时不取模，到点钳制为零。服务端和客户端首次渲染使用占位符，挂载后每秒重新计算；visibilitychange 与 focus 也更新，卸载清理计时器和监听器。指针以 Asia/Shanghai 格式化，外缘 SVG 文本环和时针使用相同的含秒角度。
 
 各页面在 encore-theme 容器内共享首页色板；原 paper/ink/muted/green/line/mint/orange 变量映射到蓝白、淡金主题，旧变量名 green/orange 仅为兼容现有样式。地图侧栏、加载状态、卡片、按钮与通知图标的历史硬编码配色也在主题层覆盖。components/art.tsx 的 SVG 填色使用 art-* CSS 变量并保留原色回退，由主题容器提供蓝金色板；不对照片使用滤镜，不覆盖高德自定义样式或图钉标签规则。
 
-仅装饰动效偏好保存在 localStorage 的 encore-theme-motion，存储不可用时仍可在当前页面切换；prefers-reduced-motion 优先关闭装饰动画。地点筛选与选择仍不持久化。弹层由 Radix 处理焦点、Escape 关闭和移动端位置；装饰图片使用空 alt、aria-hidden 和 pointer-events: none。
+用户要求动效默认开启并移除开关，故已删除 MotionContext、偏好读取与设置行，不再使用 localStorage 的 encore-theme-motion。CSS prefers-reduced-motion 仍关闭花瓣、刻度动画和环的旋转；倒计时文本持续更新。地点筛选与选择不持久化。弹层由 Radix 处理焦点、Escape 关闭和移动端位置；装饰图片使用空 alt、aria-hidden 和 pointer-events: none。
+
+地点 memoryDate 统一存年/月，spotDateLabel 输出中文年月，spotDateValue 提供 HTML time 的 YYYY-MM。列表使用排序后的副本，不改变底层地点 ID、类型与既有链接。新增东湖标记 locationPending，避免把宽泛景区误当成已核实的入口；古田桥保留精确名称搜索，二者均无预填坐标或假照片。
 
 初次时光主题未修改地图逻辑和地点内容；后续图片优化为 SpotDetail 和地点图片补充了响应式加载及宽高信息。完整构建、独立类型检查、桌面与手机浏览器交互检查通过；浏览器检查覆盖跨时区报时、弹层焦点、动效保存、减少动态效果、地点搜索/选择及长图比例，不包含缺少凭据的真实高德地图。
 

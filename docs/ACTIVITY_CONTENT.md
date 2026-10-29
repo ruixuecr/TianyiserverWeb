@@ -39,7 +39,7 @@
 - serviceStation.collection：领取方式与数量说明。
 - haidilaoActivity.participation：参与方式与现场安排。
 
-这些活动位置独立于 lib/data.ts 的 7 个城市打卡点；不把尚未确认的服务站或门店写成地图坐标。
+这些活动位置独立于 lib/data.ts 的 9 个城市打卡点；不把尚未确认的服务站或门店写成地图坐标。
 
 ## 美食商场
 
