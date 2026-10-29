@@ -6,6 +6,8 @@
 
 当前已验证版本为 Next.js 16.3.8、React 19；TypeScript、Tailwind CSS 4、lucide-react。依赖声明允许版本范围，实际版本以锁文件为准。数据集中在 TypeScript 文件中，没有数据库。Next.js 服务端承载高德代理，因此完整功能不能仅作为静态 HTML 托管。
 
+用户指定的 Sites 预览采用独立静态导出：scripts/export-sites-preview.mjs 在临时目录生成 Next.js output: export 配置与响应式 WebP，自定义 image loader 直接读取静态图片，保留客户端交互。静态版本不包含高德代理并清空地图凭据；原服务器配置与地图逻辑继续保留。站点身份由 .openai/hosting.json 持久化，构建与发布记录见 SITES_PREVIEW.md。
+
 | 文件/目录 | 职责 |
 | --- | --- |
 | app/page.tsx | 简约首页 |

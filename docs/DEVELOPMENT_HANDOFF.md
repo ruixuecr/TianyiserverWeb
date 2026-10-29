@@ -60,11 +60,17 @@
 
 本次初始化的是当前会话开发工作区，未保存可复用的平台环境配置，也未部署常驻网站。初始化阶段未修改应用源码与锁文件；后续主题变更位于独立工作分支，临时预览状态见下文。后续真实地图测试需通过云端安全配置入口提供凭据，并在实际浏览器检查高德网络与交互。不得用页面 HTTP 200 代替地图鉴权与交互验证。
 
-## 云端临时预览
+## 当前 Sites 预览
+
+2026-10-29 用户指定使用 Sites 重新部署。已发布私有静态预览：https://tianyi-encore-preview-ruixue.ratsnaiwazcr.chatgpt.site ，原生部署状态 succeeded，仅所有者可访问。项目 ID 已保存在 .openai/hosting.json；复用既有站点，勿重新创建。导出脚本、版本/部署 ID 和更新步骤见 SITES_PREVIEW.md。
+
+此次环境恢复时旧 Next.js 服务和临时隧道均未运行，不再返回旧 Tunnelmole 地址。Sites 托管的 HTML/JS/CSS 与响应式 WebP 可独立访问；高德服务端代理未迁移，地图仍为待接入。浏览器验证覆盖静态导出页面和交互，原服务器版 build/typecheck 同样通过。用于验证的本地静态服务器在发布后停止。
+
+## 云端临时预览历史
 
 用户确认类似 trycloudflare.com 的临时链接即可，无需为本次预览连接 Vercel 或部署永久托管。
 
-- 已在云端启动生产预览：npm run start -- --port 3100；当前已更新为 codex/encore-theme-elements 的生产构建。
+- 曾在云端启动生产预览：npm run start -- --port 3100；当时已更新为 codex/encore-theme-elements 的生产构建。以下为历史记录，进程现已停止，当前入口以 Sites 为准。
 - Cloudflare Quick Tunnel 创建失败：客户端直连被拒绝；通过当前 HTTP 代理访问实际创建接口 https://api.trycloudflare.com/tunnel 返回 403，响应为 Your request was blocked。未生成可用 Cloudflare 地址。
 - 已改用 Tunnelmole 2.4.0，WebSocket 连接显式使用继承的 HTTP/HTTPS 代理并保持 TLS 验证。辅助程序与依赖均位于 Git 忽略的 .preview/；启动命令为 node .preview/start-tunnel.mjs，当前临时链接记录在 .preview/url.txt，不在文档固化地址。
 - 外网已核对首页、/map、武汉博物馆详情、活动及通知页面的 HTTP 200 和对应内容；地点图片、CSS 与 JS 资源均返回 200。高德样式代理返回预期的缺少安全密钥 503，真实地图仍未验证。

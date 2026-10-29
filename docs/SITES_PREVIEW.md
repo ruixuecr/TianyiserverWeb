@@ -5,7 +5,7 @@
 ## 站点与源码
 
 - Site ID：appgprj_6ae2b571b6488191aff989a1a1654416，已写入 .openai/hosting.json；后续更新复用此 ID，不能重复创建。
-- 站点预期地址：https://tianyi-encore-preview-ruixue.ratsnaiwazcr.chatgpt.site （发布结果另行记录，预期地址本身不证明上线）。
+- 已部署地址：https://tianyi-encore-preview-ruixue.ratsnaiwazcr.chatgpt.site 。
 - 新站默认仅所有者访问，不自动改为公开站点。
 - GitHub 保留完整 Next.js 源码、原图、构建脚本及项目文档；Sites 源码仓库存放本次导出的 HTML、JS、CSS 和图片，README 记录对应 GitHub 提交。
 
@@ -36,4 +36,15 @@ node scripts/export-sites-preview.mjs /workspace/sites/tianyi-encore-preview/dis
 
 2026-10-29：官方静态导出成功；原服务器版 npm run build 与 npm run typecheck 通过。Chromium 检查 5 种宽度（1440、1024、820、390、320px）下的 6 个页面，覆盖花篮弹窗居中、焦点限制、关闭方式、推荐搜索分类、旧活动链接及钟盘层级，无运行或水合错误。这些检查不包括真实高德地图。
 
-发布状态：站点已创建，等待首次源码上传和部署结果。
+额外检查首页、地图、天宝详情、通知列表及正文的可见图片均成功加载预生成 WebP；全站五个导航入口可正常客户端跳转，无 HTTP 资源或页面运行错误。浏览器跳页时主动取消的预取请求不作为资源故障。
+
+## 首次发布结果
+
+- 状态：succeeded；Sites 原生部署接口于 2026-10-29 02:57:59 UTC 返回成功和上述 URL。
+- GitHub 应用与导出脚本提交：d46b2a5540478290b22e10d109b7439eac7ba23b；后续交接文档提交不改变该已部署页面。
+- Sites 源码提交：02794dbf9fdd08fe0ff67dff28fce8a36941bc71，已与远端 main 分支核对一致。这里的 main 是独立 Sites 仓库分支，与用户要求保护的 GitHub main 无关。
+- 版本 ID：appgprj_6ae2b571b6488191aff989a1a1654416~appgver_6f97ff221efc8191a4191d0c837155b8。
+- 部署 ID：appgdep_6ae2b624f2a48191b6672dadda4a79e3。
+- 归档从上述 Sites 提交直接生成，包含 .openai/hosting.json 与 dist/；原生部署成功作为托管发布证据，交互验证在同一静态产物的本地预览完成。
+
+Sites 预览不依赖旧 Tunnelmole 隧道进程；旧 .preview/url.txt 中的地址不再作为当前入口。此次发布为私有静态预览，不等于含高德服务端代理的完整站点已上线。
