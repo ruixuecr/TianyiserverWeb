@@ -6,7 +6,7 @@
 
 当前已验证版本为 Next.js 16.3.8、React 19；TypeScript、Tailwind CSS 4、lucide-react。依赖声明允许版本范围，实际版本以锁文件为准。数据集中在 TypeScript 文件中，没有数据库。Next.js 服务端承载高德代理，因此完整功能不能仅作为静态 HTML 托管。
 
-用户指定的 Sites 预览采用独立静态导出：scripts/export-sites-preview.mjs 在临时目录生成 Next.js output: export 配置与响应式 WebP，自定义 image loader 直接读取静态图片，保留客户端交互。静态版本不包含高德代理并清空地图凭据；原服务器配置与地图逻辑继续保留。站点身份由 .openai/hosting.json 持久化，构建与发布记录见 SITES_PREVIEW.md。
+用户指定的 Sites 预览先通过 scripts/export-sites-preview.mjs 导出页面与响应式 WebP，再由 scripts/build-sites-worker.mjs 嵌入 Worker ESM。sites/worker.mjs 提供静态资源、公开地图配置与服务端代理，lib/amap-service.ts 与 Next.js Route Handler 共用逻辑。凭据仅运行时从 Sites 环境读取，静态构建清空地图变量。站点身份由 .openai/hosting.json 持久化，构建与发布记录见 SITES_PREVIEW.md。
 
 | 文件/目录 | 职责 |
 | --- | --- |
@@ -65,7 +65,7 @@ Marker 内容用 DOM 创建，名称写入 textContent；外观沿用原有图�
 
 | 变量 | 说明 |
 | --- | --- |
-| NEXT_PUBLIC_AMAP_KEY | 高德 Web JS API Key，客户端构建时使用；更换后需重新构建/启动。 |
+| NEXT_PUBLIC_AMAP_KEY | 高德 Web JS API Key，由 /api/map-config 提供给浏览器；Sites 从运行时环境读取，更换后重新部署并刷新页面。Next.js 本地版本仍需重建/重启。 |
 | AMAP_SECURITY_CODE | 服务端安全密钥，由代理注入 jscode；不得加 NEXT_PUBLIC_ 前缀。 |
 
 代理仅接收 v3/v4/v5 开头且符合字符规则的路径；样式 v4/map/styles 指向 webapi.amap.com，其他路径指向 restapi.amap.com。覆盖调用方的 jscode，不跟随重定向，超时 10 秒。上游请求与响应均禁用缓存。当前是主机和路径格式约束，不是逐接口白名单，尚无业务级鉴权或限流。

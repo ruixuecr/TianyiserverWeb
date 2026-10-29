@@ -57,32 +57,41 @@ declare global {
     _AMapSecurityConfig?: { serviceHost: string };
   }
 }
-let sdkPromise: Promise<AmapSDK> | null = null;
+let sdkPromise: Promise<AmapSDK | null> | null = null;
 function loadMap() {
   if (window.AMap?.PlaceSearch && window.AMap?.DistrictSearch)
     return Promise.resolve(window.AMap);
   if (sdkPromise) return sdkPromise;
-  sdkPromise = new Promise<AmapSDK>((resolve, reject) => {
-    window._AMapSecurityConfig = {
-      serviceHost: window.location.origin + "/_AMapService",
-    };
-    const script = document.createElement("script");
-    script.src = `https://webapi.amap.com/maps?v=2.0&key=${encodeURIComponent(process.env.NEXT_PUBLIC_AMAP_KEY || "")}&plugin=AMap.Scale,AMap.PlaceSearch,AMap.DistrictSearch`;
-    const fail = () => {
-      clearTimeout(timer);
-      script.remove();
-      reject(new Error("高德地图加载失败，请检查网络和 Key 配置"));
-    };
-    const timer = setTimeout(fail, 15000);
-    script.onload = () => {
-      clearTimeout(timer);
-      window.AMap?.PlaceSearch && window.AMap?.DistrictSearch
-        ? resolve(window.AMap)
-        : fail();
-    };
-    script.onerror = fail;
-    document.head.appendChild(script);
-  }).catch((error) => {
+  sdkPromise = (async () => {
+    const response = await fetch("/api/map-config", {
+      cache: "no-store",
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!response.ok) throw new Error("地图配置暂不可用");
+    const { key } = (await response.json()) as { key?: unknown };
+    if (typeof key !== "string" || !key) return null;
+    return new Promise<AmapSDK>((resolve, reject) => {
+      window._AMapSecurityConfig = {
+        serviceHost: window.location.origin + "/_AMapService",
+      };
+      const script = document.createElement("script");
+      script.src = `https://webapi.amap.com/maps?v=2.0&key=${encodeURIComponent(key)}&plugin=AMap.Scale,AMap.PlaceSearch,AMap.DistrictSearch`;
+      const fail = () => {
+        clearTimeout(timer);
+        script.remove();
+        reject(new Error("高德地图加载失败，请检查网络和 Key 配置"));
+      };
+      const timer = setTimeout(fail, 15000);
+      script.onload = () => {
+        clearTimeout(timer);
+        window.AMap?.PlaceSearch && window.AMap?.DistrictSearch
+          ? resolve(window.AMap)
+          : fail();
+      };
+      script.onerror = fail;
+      document.head.appendChild(script);
+    });
+  })().catch((error) => {
     sdkPromise = null;
     throw error;
   });
@@ -153,7 +162,9 @@ function resolveSpot(sdk: AmapSDK, spot: Spot): Promise<Spot | null> {
                     poi.name.replace(/（/g, "(").startsWith(query + "("))) &&
                 (!spot.matchAddress ||
                   (typeof poi.address === "string" &&
-                    normalize(poi.address).includes(normalize(spot.matchAddress)))) &&
+                    normalize(poi.address).includes(
+                      normalize(spot.matchAddress),
+                    ))) &&
                 poi.location &&
                 Number.isFinite(poi.location.lng) &&
                 Number.isFinite(poi.location.lat),
@@ -207,7 +218,7 @@ export function CityMap({
   const camera = useRef<{ center: number[]; zoom: number } | null>(null);
   const [status, setStatus] = useState<
     "loading" | "live" | "error" | "unconfigured"
-  >(process.env.NEXT_PUBLIC_AMAP_KEY ? "loading" : "unconfigured");
+  >("loading");
   const [missing, setMissing] = useState<string[]>([]);
   const [revision, setRevision] = useState(0);
   const [error, setError] = useState("");
@@ -232,7 +243,7 @@ export function CityMap({
     return button;
   }
   useEffect(() => {
-    if (!process.env.NEXT_PUBLIC_AMAP_KEY || !el.current) return;
+    if (!el.current) return;
     let cancelled = false;
     let renderTimer: ReturnType<typeof setTimeout> | undefined;
     let map: MapInstance | null = null;
@@ -241,6 +252,10 @@ export function CityMap({
     loadMap()
       .then(async (sdk) => {
         if (cancelled || !el.current) return;
+        if (!sdk) {
+          setStatus("unconfigured");
+          return;
+        }
         const boundaries = await loadWuhanBoundary(sdk);
         if (cancelled || !el.current) return;
         map = new sdk.Map(el.current, {
