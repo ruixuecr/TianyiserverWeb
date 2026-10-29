@@ -10,6 +10,8 @@
 
 本次主题工作分支为 codex/encore-theme-elements，基于 mapapi 的 0d4bc49。已按用户提供的素材添加时光主题与 Radix UI 组件；用户进一步确认天依的设定是「时间魔女」，角色与时间意象都是主体，后续设计沿用这一统一主题。未移动 main 或 mapapi 的分支指针。主题需求和实现说明分别见 PROJECT_REQUIREMENTS.md 与 TECHNICAL_ARCHITECTURE.md。
 
+用户要求代码、项目文档和项目记忆持续同步到 GitHub。完成修改后提交并推送当前工作分支，核对本地 HEAD 与远端提交一致，不只停留在本地工作区。关键决策记录在 CONVERSATION_HANDOFF.md 并同步相关需求/架构文档；密钥、依赖、构建缓存和临时预览运行文件继续按忽略规则排除。
+
 ## 新环境启动
 
 1. 克隆指定分支：git clone --branch mapapi https://github.com/ruixuecr/TianyiserverWeb.git

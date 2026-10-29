@@ -15,3 +15,4 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Preserve the confirmed 3D map, label design, natural image proportions, and simplified page layouts.
 - Never commit real map credentials. Do not mistake HTTP success or a build pass for verified live map behavior.
 - Keep handoff documents aligned with implemented behavior and newly confirmed decisions; mark unresolved location and cloud setup work explicitly.
+- The user requires completed code, documentation, and repository memory updates to be committed and pushed to GitHub on the current authorized work branch. Verify local and remote commits match before reporting synchronization complete; keep credentials and ignored runtime/build artifacts out of Git.
