@@ -5,7 +5,7 @@
 ## 开发版本
 
 - mapapi：当前开发版本，已接入高德真实地图。
-- codex/encore-theme-elements：当前云端工作分支；包含蓝白时光主题、响应式图片、三类活动与美食商场推荐。
+- codex/encore-theme-elements：当前云端工作分支；包含天依「时间魔女」蓝白主题、响应式图片、三类活动与美食商场推荐。角色与时间意象同为主题核心。
 - main：用户指定保留的原始 demo，不要用最新版覆盖。
 - codex/crisp-map-labels、codex/svg-tilted-labels：保留的实验分支。
 

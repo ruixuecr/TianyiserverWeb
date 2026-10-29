@@ -8,7 +8,7 @@
 
 最初的两个实验分支 codex/crisp-map-labels 与 codex/svg-tilted-labels 已保留。后续以 Git 的实际提交记录为准。
 
-本次主题工作分支为 codex/encore-theme-elements，基于 mapapi 的 0d4bc49。已按用户提供的素材添加时光主题与 Radix UI 组件；未移动 main 或 mapapi 的分支指针。主题需求和实现说明分别见 PROJECT_REQUIREMENTS.md 与 TECHNICAL_ARCHITECTURE.md。
+本次主题工作分支为 codex/encore-theme-elements，基于 mapapi 的 0d4bc49。已按用户提供的素材添加时光主题与 Radix UI 组件；用户进一步确认天依的设定是「时间魔女」，角色与时间意象都是主体，后续设计沿用这一统一主题。未移动 main 或 mapapi 的分支指针。主题需求和实现说明分别见 PROJECT_REQUIREMENTS.md 与 TECHNICAL_ARCHITECTURE.md。
 
 ## 新环境启动
 
