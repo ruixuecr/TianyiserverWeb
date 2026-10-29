@@ -13,7 +13,7 @@ export default {
       url.pathname.startsWith(prefix),
     );
     if (prefix)
-      return proxyMapRequest(request, url.pathname.slice(prefix.length), env);
+      return proxyMapRequest(request, url.pathname.slice(prefix.length), env, {});
     if (request.method !== "GET" && request.method !== "HEAD") {
       return new Response("Method not allowed", {
         status: 405,

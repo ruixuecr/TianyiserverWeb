@@ -15,6 +15,7 @@ export async function proxyMapRequest(
   request: Request,
   joined: string,
   env: MapEnvironment,
+  fetchOptions: Pick<RequestInit, "cache"> = { cache: "no-store" },
 ) {
   if (request.method !== "GET" && request.method !== "HEAD")
     return new Response("Method not allowed", {
@@ -36,10 +37,13 @@ export async function proxyMapRequest(
   target.searchParams.set("jscode", env.AMAP_SECURITY_CODE);
   try {
     const response = await fetch(target, {
-      cache: "no-store",
+      ...fetchOptions,
+      headers: { "Cache-Control": "no-cache" },
       signal: AbortSignal.timeout(10000),
-      redirect: "error",
+      redirect: "manual",
     });
+    if (response.status >= 300 && response.status < 400)
+      return new Response("Map upstream redirect rejected", { status: 502 });
     return new Response(
       request.method === "HEAD" ? null : await response.arrayBuffer(),
       {
@@ -51,7 +55,15 @@ export async function proxyMapRequest(
         },
       },
     );
-  } catch {
+  } catch (error) {
+    // Diagnostics must never include the private code or the upstream URL.
+    const message = error instanceof Error ? error.message : "Unknown failure";
+    console.warn(
+      "Map upstream fetch failed:",
+      message
+        .replaceAll(env.AMAP_SECURITY_CODE, "[redacted]")
+        .replace(/https?:\/\/[^\s]+/g, "[upstream]"),
+    );
     return new Response("Map service unavailable", { status: 502 });
   }
 }

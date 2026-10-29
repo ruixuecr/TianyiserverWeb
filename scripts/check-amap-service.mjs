@@ -37,14 +37,29 @@ test("style and REST requests use fixed upstreams, overwrite jscode, preserve by
   for (const { target, options } of requests) {
     assert.equal(target.searchParams.get("jscode"), "private-test-code");
     assert.equal(target.searchParams.get("callback"), "amapCallback");
-    assert.equal(options.redirect, "error");
+    assert.equal(options.redirect, "manual");
     assert.equal(options.cache, "no-store");
   }
 });
 
 test("upstream errors do not expose credentials or request details", async (t) => {
+  const logs = [];
+  t.mock.method(console, "warn", (...messages) => logs.push(messages.join(" ")));
   t.mock.method(globalThis, "fetch", async () => { throw new Error("private-test-code in upstream failure"); });
   const response = await proxyMapRequest(new Request("https://preview.example/"), "v3/place/text", { AMAP_SECURITY_CODE: "private-test-code" });
   assert.equal(response.status, 502);
   assert.equal(await response.text(), "Map service unavailable");
+  assert(!logs.join(" ").includes("private-test-code"));
+});
+
+test("Worker mode omits unsupported cache options and never follows upstream redirects", async (t) => {
+  t.mock.method(globalThis, "fetch", async (_target, options) => {
+    assert.equal(options.cache, undefined);
+    assert.equal(options.redirect, "manual");
+    assert.equal(options.headers["Cache-Control"], "no-cache");
+    return new Response(null, { status: 302, headers: { Location: "https://elsewhere.example/" } });
+  });
+  const response = await proxyMapRequest(new Request("https://preview.example/"), "v3/place/text", { AMAP_SECURITY_CODE: "private-test-code" }, {});
+  assert.equal(response.status, 502);
+  assert.equal(response.headers.get("Location"), null);
 });
