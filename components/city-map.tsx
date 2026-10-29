@@ -28,6 +28,7 @@ type Poi = {
   location?: { lng: number; lat: number };
 };
 type AmapSDK = {
+  Browser?: { isWebGL?: boolean };
   Map: new (el: HTMLElement, options: Record<string, unknown>) => MapInstance;
   Marker: new (options: Record<string, unknown>) => Marker;
   Scale: new () => unknown;
@@ -254,6 +255,11 @@ export function CityMap({
         if (cancelled || !el.current) return;
         if (!sdk) {
           setStatus("unconfigured");
+          return;
+        }
+        if (sdk.Browser?.isWebGL === false) {
+          setError("此浏览器未启用 3D 图形支持，请开启硬件加速，或使用支持 WebGL 的浏览器重新打开。");
+          setStatus("error");
           return;
         }
         const boundaries = await loadWuhanBoundary(sdk);
