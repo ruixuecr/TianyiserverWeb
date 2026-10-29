@@ -72,12 +72,12 @@ function ClockFace({
         {layers.length > 0 && (
           <circle cx="100" cy="-13" r="2" className="clock-pivot" />
         )}
-        <text className="countdown-orbit-text">
-          <textPath href={`#${orbitId}`} startOffset="50%" textAnchor="middle">
-            {started ? "演唱会已开始" : "距演唱会开始"} · {countdown}
-          </textPath>
-        </text>
       </g>
+      <text className="countdown-orbit-text">
+        <textPath href={`#${orbitId}`} startOffset="50%" textAnchor="middle">
+          {started ? "演唱会已开始" : "距演唱会开始"} · {countdown}
+        </textPath>
+      </text>
       <circle cx="100" cy="100" r="96" className="clock-outline" />
       <circle cx="100" cy="100" r="70" className="clock-inner" />
       {Array.from({ length: 60 }, (_, index) => (

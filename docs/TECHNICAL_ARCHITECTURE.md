@@ -90,7 +90,7 @@ codex/encore-theme-elements 在 mapapi 基线上新增以下模块：
 | app/theme.css | 以 encore-theme 为范围的全站色板、主题样式、钟面、动效和手机布局 |
 | public/images/theme/ | 用户本次参考图原文件及编号映射 |
 
-初次主题引入 @radix-ui/react-popover 1.3.1、@radix-ui/react-switch 1.4.1；当前倒计时继续使用 Popover，不再渲染 Switch。lib/concert.ts 固定开场时间 2026-10-31T19:12:00+08:00，根据绝对毫秒差向上取整为剩余秒数，累计小时不取模，到点钳制为零。服务端和客户端首次渲染使用占位符，挂载后每秒重新计算；visibilitychange 与 focus 也更新，卸载清理计时器和监听器。指针与下方数字以 Asia/Shanghai 格式化，数字显示正常时刻和当日日期。外缘 SVG 文本环和时针使用相同的含秒角度；concertColorLayers 根据绝对剩余毫秒计算每 12 小时一层颜色，内层完整，最外层用 pathLength/strokeDasharray 显示剩余比例，弧起点与时针同步前进。每跨过一个 12 小时边界移除最外层，到点移除全部彩色层和圆点，保留中性轨道；无本地持久状态，刷新不会重置。
+初次主题引入 @radix-ui/react-popover 1.3.1、@radix-ui/react-switch 1.4.1；当前倒计时继续使用 Popover，不再渲染 Switch。lib/concert.ts 固定开场时间 2026-10-31T19:12:00+08:00，根据绝对毫秒差向上取整为剩余秒数，累计小时不取模，到点钳制为零。服务端和客户端首次渲染使用占位符，挂载后每秒重新计算；visibilitychange 与 focus 也更新，卸载清理计时器和监听器。指针与下方数字以 Asia/Shanghai 格式化，数字显示正常时刻和当日日期。外缘 SVG 倒计时文字放在旋转 g 元素之外，通过固定上半圆路径居中于 12 点方向；数字持续更新但文字不随时针移动。彩色环使用与时针相同的含秒角度；concertColorLayers 根据绝对剩余毫秒计算每 12 小时一层颜色，内层完整，最外层用 pathLength/strokeDasharray 显示剩余比例，弧起点与时针同步前进。每跨过一个 12 小时边界移除最外层，到点移除全部彩色层和圆点，保留中性轨道；无本地持久状态，刷新不会重置。
 
 各页面在 encore-theme 容器内共享首页色板；原 paper/ink/muted/green/line/mint/orange 变量映射到蓝白、淡金主题，旧变量名 green/orange 仅为兼容现有样式。地图侧栏、加载状态、卡片、按钮与通知图标的历史硬编码配色也在主题层覆盖。components/art.tsx 的 SVG 填色使用 art-* CSS 变量并保留原色回退，由主题容器提供蓝金色板；不对照片使用滤镜，不覆盖高德自定义样式或图钉标签规则。
 
