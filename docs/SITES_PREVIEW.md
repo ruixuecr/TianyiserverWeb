@@ -110,3 +110,10 @@ Sites 预览不依赖旧 Tunnelmole 隧道进程；旧 .preview/url.txt 中的�
 ## 倒计时文字固定在上方
 
 2026-10-29 按用户要求将外缘文字移出旋转分组，固定于钟面正上方；文字数字持续更新，彩色环继续与时针同步消退，下方正常报时。npm run build、npm run typecheck 通过；实际 Worker 包在 1440/390/320px 下验证文字居中与固定方向，模拟前进一小时后位置不变，数字、时针和彩色环正常更新，无溢出或浏览器运行错误。
+
+发布结果：2026-10-29 21:19:14 UTC，Sites 返回 succeeded；地址、私有权限和高德环境 revision 1 沿用。
+
+- 应用提交：a846689f2240f770b9be59fe03ff8167737c345c，已与 GitHub 核对。
+- Sites 源码提交：f4fe7accd3993907bf459e9b487750b6e2deb7fe，已与远端核对。
+- 版本 ID：appgprj_6ae2b571b6488191aff989a1a1654416~appgver_f80082f1c1548191abcd8b587e7d5ed2。
+- 部署 ID：appgdep_6ae3b84448508191aefa58e82ae38ab4。
