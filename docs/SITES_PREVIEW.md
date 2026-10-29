@@ -62,6 +62,20 @@ Sites 预览不依赖旧 Tunnelmole 隧道进程；旧 .preview/url.txt 中的�
 
 ## Worker 迁移验证
 
-已通过 npm run build、npm run typecheck；node --test scripts/check-amap-service.mjs 的 4 项检查覆盖公开配置不泄露私密值、路径/方法限制、jscode 覆盖、上游与缓存策略及错误信息脱敏。构建的 Worker 通过路由、gzip 解压、WebP、404、跳转检查，并在 Chromium 重跑 30 组页面/视口组合与花篮、推荐交互。
+已通过 npm run build、npm run typecheck；node --test scripts/check-amap-service.mjs 的 5 项检查覆盖公开配置不泄露私密值、路径/方法限制、jscode 覆盖、上游与缓存策略、错误信息脱敏和拒绝上游重定向。构建的 Worker 通过路由、gzip 解压、WebP、404、跳转检查，并在 Chromium 重跑 30 组页面/视口组合与花篮、推荐交互。
 
-Worker 部署与真实高德结果待发布后记录，不能以构建通过代替真实地图验证。
+首次 Worker 实测代理立即返回 502，已用兼容的 fetch 选项修正：Worker 不传 cache 枚举，以请求 Cache-Control: no-cache 和响应 no-store 禁用缓存；redirect: manual 后显式拒绝 3xx，仍不跟随重定向。Next.js 继续使用 cache: no-store。错误日志移除安全密钥和上游 URL。
+
+## 当前部署与实测边界
+
+- 2026-10-29 03:44:33 UTC，Sites 返回 succeeded，环境 revision 1 已生效。
+- 应用提交：224a9a6f8eb7d15f0c00a62736828713bbd51ff4；Sites 源码提交：aefa39fdf6ef25bd6dd67a418e75e8057bb72729，已推送并核对远端。
+- 版本 ID：appgprj_6ae2b571b6488191aff989a1a1654416~appgver_ef35fda37018819199eca86a3df88850。
+- 部署 ID：appgdep_6ae2c1134e608191b229a7c0e10c61d0。
+- 线上 /api/map-config 返回 200，仅包含非空公开 Key；高德 SDK 2.0 已加载，武汉行政区查询返回 4 个边界环，PlaceSearch 返回真实结果，代理请求为 200。凭据未写入 GitHub、Sites 源码仓库或浏览器安全配置。
+- 云端 Chromium 被 SDK 判定 AMap.Browser.isWebGL=false，基础地图实验实际回退为 pitch 0、rotation 0 的 2D，不能作为真实 3D 成功证据。原初始化遮罩在该降级路径触发 renderFrame 错误；暂时调整遮罩顺序的试验未部署，已保留原 3D/遮罩实现。现在先检查 SDK 的 WebGL 能力，在不支持的浏览器显示明确提示，不静默改用 2D。
+- 原配置保持 pitch 52、rotation -18、zoom 11、中心 [114.305,30.56]、完整武汉边界、自定义样式与原标签样式。仍需在高德认可的 WebGL 浏览器核对最终 3D、样式和遮罩效果。
+- 原地点精确匹配仍有缺失：两次在线查询出现不同的 3 个匹配标签，并非 7 个标签全部稳定成功。此次配置不固化未经核实的 POI 坐标。
+- 最终部署复核：兼容提示正常显示且无浏览器运行错误；通过同页 SDK 独立发起武汉边界查询与中百罗森搜索，均返回 complete，分别为 4 个边界环与 1 条 POI 结果。
+
+此次仅配置了 Sites 托管运行环境；云端本地 .env.local 未保存用户凭据。后续本地调试若需要真实地图，使用安全环境配置，不从文档获取值。

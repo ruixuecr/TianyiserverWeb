@@ -62,9 +62,11 @@
 
 ## 当前 Sites 预览
 
-2026-10-29 用户指定使用 Sites 重新部署。已发布私有静态预览：https://tianyi-encore-preview-ruixue.ratsnaiwazcr.chatgpt.site ，原生部署状态 succeeded，仅所有者可访问。项目 ID 已保存在 .openai/hosting.json；复用既有站点，勿重新创建。导出脚本、版本/部署 ID 和更新步骤见 SITES_PREVIEW.md。
+2026-10-29 用户指定使用 Sites 重新部署，随后提供高德凭据并要求配置。当前为带服务端代理的 Worker 预览：https://tianyi-encore-preview-ruixue.ratsnaiwazcr.chatgpt.site ，原生部署状态 succeeded，仅所有者可访问。项目 ID 已保存在 .openai/hosting.json；复用既有站点，勿重新创建。导出脚本、版本/部署 ID 和更新步骤见 SITES_PREVIEW.md。
 
-此次环境恢复时旧 Next.js 服务和临时隧道均未运行，不再返回旧 Tunnelmole 地址。Sites 托管的 HTML/JS/CSS 与响应式 WebP 可独立访问；高德服务端代理未迁移，地图仍为待接入。浏览器验证覆盖静态导出页面和交互，原服务器版 build/typecheck 同样通过。用于验证的本地静态服务器在发布后停止。
+两项高德凭据已存入 Sites 的加密环境变量，revision 1 随部署生效。Worker 提供公开 Key 配置端点和仅服务端使用安全密钥的高德代理，完整应用源码与代理共用实现仍在 GitHub。线上 SDK、行政区边界与地点搜索已验证；云端 Chromium 的 SDK WebGL 判定为 false，无法验证真实 3D，现网会显示浏览器兼容提示。原俯视相机、样式、武汉遮罩及标签样式保留，所有 POI 坐标和标签仍未验证齐全。
+
+旧 Next.js 服务与隧道均已停止，不再返回旧 Tunnelmole 地址。Sites 页面和代理不依赖云端开发进程；本地 QA 服务器在完成验证后停止。此次没有把用户凭据写入云端 .env.local 或仓库，独立的本地开发环境仍需另行安全注入。build/typecheck、代理专项检查、页面与交互检查均有记录，详见 SITES_PREVIEW.md。
 
 ## 云端临时预览历史
 

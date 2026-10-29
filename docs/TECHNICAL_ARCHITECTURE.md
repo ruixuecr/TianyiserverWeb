@@ -72,6 +72,8 @@ Marker 内容用 DOM 创建，名称写入 textContent；外观沿用原有图�
 
 缺少安全密钥返回 503；上游异常返回 502。Web JS Key 不能直接当成 Web 服务 Key 使用，先前直接 REST 查询得到 USERKEY_PLAT_NOMATCH，不可据此断言浏览器 SDK 也不可用。
 
+配置现已保存在 Sites 加密运行时环境，公开 Key 由 /api/map-config 返回，不包含安全密钥。Worker 适配使用请求 Cache-Control: no-cache；Next.js 使用 fetch cache: no-store。共享代理使用兼容的 redirect: manual 并显式拒绝 3xx。启动地图前检查 SDK 的 Browser.isWebGL，明确为 false 时显示兼容提示并停止创建地图，不静默回退为 2D。云端 Chromium 出现过此判定，因此线上 REST/SDK 成功不等于最终 3D 视觉已验证。
+
 高德编辑器“保存成功”、样式接口成功和浏览器渲染最新版是不同证据，样式更新必须在实际客户端验证。
 
 ## 时光主题分支的增量结构

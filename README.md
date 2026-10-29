@@ -38,4 +38,4 @@
 
 当前地图固定为 3D 俯瞰，已通过行政区遮罩限制武汉范围。无 Key 时显示待配置提示，加载失败时显示错误状态，不会回退为旧 SVG 地图。7 个地点条目不代表每次一定显示 7 个标签：当前仍依赖浏览器端 POI 精确搜索，失败或歧义结果会暂不标注。
 
-活动入口为服务站、应援花篮、海底捞。花篮保留 10 个展示位，只有首条为明确标注的示例；真实活动地址、时间、物资、花篮图片及群二维码尚待提供。已发布 [Sites 私有预览](https://tianyi-encore-preview-ruixue.ratsnaiwazcr.chatgpt.site)，仅所有者可访问；地图仍待接入。发布记录与静态托管边界见 [Sites 预览说明](docs/SITES_PREVIEW.md)。
+活动入口为服务站、应援花篮、海底捞。花篮保留 10 个展示位，只有首条为明确标注的示例；真实活动地址、时间、物资、花篮图片及群二维码尚待提供。已发布 [Sites 私有预览](https://tianyi-encore-preview-ruixue.ratsnaiwazcr.chatgpt.site)，仅所有者可访问。高德凭据已配置到 Sites，Worker 执行安全代理，SDK、行政区和地点查询已实测；3D 显示需要高德支持的 WebGL 浏览器，所有地点标签与入口坐标尚未验证齐全。发布记录见 [Sites 预览说明](docs/SITES_PREVIEW.md)。
