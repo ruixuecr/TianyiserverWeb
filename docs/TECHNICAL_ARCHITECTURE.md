@@ -18,7 +18,7 @@
 | components/spot-image-card.tsx | 独立图片卡片和图片失败回退 |
 | components/art.tsx | 项目内 SVG 插画 |
 | lib/data.ts | 9 个地点、memoryDate 年月、chronologicalSpots 时间排序、年份选项、通知和高德搜索链接 |
-| lib/concert.ts | 固定 UTC+8 开场时间与累计小时倒计时计算 |
+| lib/concert.ts | 固定 UTC+8 开场时间、累计小时倒计时与逐圈颜色层计算 |
 | app/globals.css | 界面、标签及响应式样式 |
 | public/images/spots/ | 已入库的地点图片 |
 | app/api/amap/[...path]/route.ts | 高德请求代理 |
@@ -90,7 +90,7 @@ codex/encore-theme-elements 在 mapapi 基线上新增以下模块：
 | app/theme.css | 以 encore-theme 为范围的全站色板、主题样式、钟面、动效和手机布局 |
 | public/images/theme/ | 用户本次参考图原文件及编号映射 |
 
-初次主题引入 @radix-ui/react-popover 1.3.1、@radix-ui/react-switch 1.4.1；当前倒计时继续使用 Popover，不再渲染 Switch。lib/concert.ts 固定开场时间 2026-10-31T19:12:00+08:00，根据绝对毫秒差向上取整为剩余秒数，累计小时不取模，到点钳制为零。服务端和客户端首次渲染使用占位符，挂载后每秒重新计算；visibilitychange 与 focus 也更新，卸载清理计时器和监听器。指针以 Asia/Shanghai 格式化，外缘 SVG 文本环和时针使用相同的含秒角度。
+初次主题引入 @radix-ui/react-popover 1.3.1、@radix-ui/react-switch 1.4.1；当前倒计时继续使用 Popover，不再渲染 Switch。lib/concert.ts 固定开场时间 2026-10-31T19:12:00+08:00，根据绝对毫秒差向上取整为剩余秒数，累计小时不取模，到点钳制为零。服务端和客户端首次渲染使用占位符，挂载后每秒重新计算；visibilitychange 与 focus 也更新，卸载清理计时器和监听器。指针与下方数字以 Asia/Shanghai 格式化，数字显示正常时刻和当日日期。外缘 SVG 文本环和时针使用相同的含秒角度；concertColorLayers 根据绝对剩余毫秒计算每 12 小时一层颜色，内层完整，最外层用 pathLength/strokeDasharray 显示剩余比例，弧起点与时针同步前进。每跨过一个 12 小时边界移除最外层，到点移除全部彩色层和圆点，保留中性轨道；无本地持久状态，刷新不会重置。
 
 各页面在 encore-theme 容器内共享首页色板；原 paper/ink/muted/green/line/mint/orange 变量映射到蓝白、淡金主题，旧变量名 green/orange 仅为兼容现有样式。地图侧栏、加载状态、卡片、按钮与通知图标的历史硬编码配色也在主题层覆盖。components/art.tsx 的 SVG 填色使用 art-* CSS 变量并保留原色回退，由主题容器提供蓝金色板；不对照片使用滤镜，不覆盖高德自定义样式或图钉标签规则。
 
@@ -106,7 +106,7 @@ codex/encore-theme-elements 在 mapapi 基线上新增以下模块：
 | --- | --- |
 | lib/activities.ts | 三类活动元数据、花篮列表及 10 个展示位、服务站/海底捞信息、高德选点链接 |
 | components/activity-cover.tsx | 三类活动的轻量图标封面，复用主题素材 |
-| components/basket-gallery.tsx | 花篮列表和弹窗中的多图、无料、二维码 |
+| components/basket-gallery.tsx | 花篮列表、两处摆放地点和弹窗中的详细图、单张无料图、二维码 |
 | components/ui/dialog.tsx | Radix Dialog Portal、居中弹窗、遮罩、关闭按钮 |
 | components/activity-image.tsx | 活动图片响应式加载、错误回退与重试；二维码保留原图 |
 | components/activity-details.tsx | 服务站与海底捞位置、时间、发放资料和待公布状态 |
@@ -116,6 +116,6 @@ codex/encore-theme-elements 在 mapapi 基线上新增以下模块：
 
 /events/[id] 仍使用 Promise params，预生成 service-station、flower-baskets、haidilao；旧 weekend/sunset/walk 地址通过 redirect 返回 /events，未知 ID 继续 notFound。/recommendations 是静态页，筛选与搜索由客户端组件完成。
 
-新增 @radix-ui/react-dialog 1.3.1，其他已有依赖版本不变。每个已填花篮使用独立 Dialog Root/Trigger；Portal 仅在打开时挂载详情内容，弹窗内滚动，Radix 处理遮罩、Escape、焦点圈定、背景滚动锁定和焦点恢复。Portal 不继承 Shell 的 CSS 变量，因此在 encore-dialog 中显式定义同一蓝白色板。群二维码不提供伪造值；有真实图片时才渲染，使用 unoptimized 避免有损转码影响扫描。
+新增 @radix-ui/react-dialog 1.3.1，其他已有依赖版本不变。每个已填花篮使用独立 Dialog Root/Trigger；Portal 仅在打开时挂载详情内容，弹窗内滚动，Radix 处理遮罩、Escape、焦点圈定、背景滚动锁定和焦点恢复。Portal 不继承 Shell 的 CSS 变量，因此在 encore-dialog 中显式定义同一蓝白色板。FlowerBasket.location 是 basketLocations 的键，只接受 popup / stadium；首条指向 popup。花篮移除 organizer、time、sample 与示例 giveaways，改为可选 giveawayImage 单张图；服务站仍使用 Giveaway 数组与自己的日期/时间。最新用户图 3 / 图 4 原文件分别存为 public/images/activities/basket-01-giveaway.jpg 与 basket-01-details.jpg，按原比例响应式加载，不改动图片内容。摆放位置放在弹窗滚动区首部，避免被长图挤到末尾。群二维码不提供伪造值；有真实图片时才渲染，使用 unoptimized 避免有损转码影响扫描。
 
 首页 time-orbit 的 z-index 为 0，piano-duet 为 2，图像自身关闭 multiply 混合；整体外层仍与浅色底融合。主图 clip-path 仅用于当前素材的外围白色留白，更换主视觉时应重新核对边界。普通地点照片不使用此裁切规则。

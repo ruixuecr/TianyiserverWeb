@@ -30,9 +30,9 @@ node scripts/build-sites-worker.mjs
 
 输出目录是可替换的生成目录，请勿指向手写源码。脚本在被忽略的 .preview/sites-build 中复制应用，以 Next.js 官方 output: export 模式构建，不改动根目录 next.config.ts。依赖沿用已安装版本；使用 Next.js 带入的 sharp 提前生成质量 75 的响应式 WebP，保留 next/image 的尺寸、优先加载、延迟加载和原比例展示。
 
-第一步输出 .preview/sites-export，仍不复制 .env 文件、不携带任何地图凭据。第二步将页面资源、sites/worker.mjs 和 lib/amap-service.ts 合为 dist/server/index.js，并写入 dist/.openai/hosting.json。Worker 请求时读取 Sites 注入的环境变量。当前 300 项资源、压缩脚本约 7.88 MiB；构建会拒绝超过 10 MiB 的压缩包，后续素材明显增加时需调整资源托管方式，不可静默删减图片。完整 Next.js 服务器版仍可通过 npm run build / npm start 运行。
+第一步输出 .preview/sites-export，仍不复制 .env 文件、不携带任何地图凭据。第二步将页面资源、sites/worker.mjs 和 lib/amap-service.ts 合为 dist/server/index.js，并写入 dist/.openai/hosting.json。Worker 请求时读取 Sites 注入的环境变量。当前 324 项资源、压缩脚本约 8.45 MiB；构建会拒绝超过 10 MiB 的压缩包，后续素材明显增加时需调整资源托管方式，不可静默删减图片。完整 Next.js 服务器版仍可通过 npm run build / npm start 运行。
 
-导出保留活动、10 位花篮和居中弹窗、美食商场筛选、实时钟及主题设置。旧 /events/weekend、/events/sunset、/events/walk 使用静态 HTML 跳转至 /events/；这三条仅为兼容入口。
+导出保留活动、10 位花篮和居中弹窗、美食商场筛选、实时时钟、倒计时和彩色进度环。旧 /events/weekend、/events/sunset、/events/walk 使用静态 HTML 跳转至 /events/；这三条仅为兼容入口。
 
 ## 发布流程
 
@@ -80,7 +80,7 @@ Sites 预览不依赖旧 Tunnelmole 隧道进程；旧 .preview/url.txt 中的�
 
 此次仅配置了 Sites 托管运行环境；云端本地 .env.local 未保存用户凭据。后续本地调试若需要真实地图，使用安全环境配置，不从文档获取值。
 
-## 最新发布：倒计时与地点年份
+## 倒计时与地点年份发布
 
 2026-10-29 04:06:58 UTC 原生部署返回 succeeded，沿用原地址、私有权限和高德环境 revision 1。
 
@@ -92,3 +92,9 @@ Sites 预览不依赖旧 Tunnelmole 隧道进程；旧 .preview/url.txt 中的�
 本次包含 2026-10-31 19:12 UTC+8 倒计时、随时针转动的边缘倒计时环、默认开启动效且移除开关，以及 9 个地点的年份筛选和年月标签。新增东湖/古田桥详情，奥体归入 2026-10。
 
 验证：npm run build、npm run typecheck、3 项倒计时边界测试通过。Chromium 在美国时区验证北京时间目标、累计小时、每秒递减、环与时针同角度、开场归零，以及旧动效关闭偏好失效和系统减少动画仍生效。1440/1100/1024/820/390/320px 下检查年份计数（2/1/3/3）、9 条年月、搜索/空结果恢复、选择取消、弹层和导航宽度；新地点详情链接通过。实际 Worker 包另测路由、筛选和倒计时弹层，无浏览器运行错误。地图 3D/POI 验证限制沿用上节，新地点照片与具体入口待补充。
+
+## 彩色时环与首篮资料更新
+
+时钟下方已恢复北京时间与当前日期；顶部/外环继续显示开场倒计时。彩色环按 12 小时一圈消退一层，到点全部移除；首篮使用最新图 3 为单张无料、图 4 为详细长图，摆放在快闪店 武汉伟星星悦广场 LG大中庭。花篮摆放位置限制为快闪店或湖北奥林匹克体育中心体育馆，不再显示活动时间和发起人，二维码仍待补。
+
+2026-10-29 验证：npm run build、npm run typecheck 通过，5 项时间边界测试通过。实际 Worker 发布包在 Chromium 的 1440/820/390/320px 下检查：美国时区中正确显示北京时间、每圈少一色、刷新保留进度、最后一秒与归零后持续报时、系统减少动画、10 个花篮位与两处地点、删除字段、单张无料和长图 WebP 原比例、弹窗内部滚动及 Escape/焦点恢复；无横向溢出或页面运行错误。浏览器 QA 和截图位于忽略的 .preview/，两张原图及来源说明随应用仓库同步。高德实现与验证边界沿用前文。

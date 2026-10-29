@@ -1,15 +1,7 @@
 "use client";
 
-import {
-  ArrowUpRight,
-  Clock3,
-  Flower2,
-  Gift,
-  MapPin,
-  QrCode,
-  Ticket,
-} from "lucide-react";
-import { basketSlots, type FlowerBasket } from "@/lib/activities";
+import { ArrowUpRight, Flower2, Gift, MapPin, QrCode } from "lucide-react";
+import { basketLocations, basketSlots, type FlowerBasket } from "@/lib/activities";
 import { ActivityImage } from "./activity-image";
 import { ActivityCover } from "./activity-cover";
 import {
@@ -24,13 +16,20 @@ function BasketDetails({ basket }: { basket: FlowerBasket }) {
   return (
     <>
       <header className="basket-dialog-heading">
-        <span className="community-eyebrow">
-          FLOWERS FOR YOU {basket.sample && " / 展示示例"}
-        </span>
+        <span className="community-eyebrow">FLOWERS FOR YOU</span>
         <DialogTitle>{basket.name}</DialogTitle>
         <DialogDescription>{basket.description}</DialogDescription>
       </header>
       <div className="basket-dialog-scroll">
+        <dl className="basket-facts">
+          <div>
+            <dt>
+              <MapPin size={15} />
+              摆放位置
+            </dt>
+            <dd>{basketLocations[basket.location]}</dd>
+          </div>
+        </dl>
         <div className="basket-dialog-grid">
           <section className="basket-detail-photos" aria-label="花篮详细图">
             <h3>
@@ -44,7 +43,7 @@ function BasketDetails({ basket }: { basket: FlowerBasket }) {
                     image={image}
                     sizes="(max-width: 700px) calc(100vw - 72px), 520px"
                   />
-                  <figcaption>{image.caption || basket.name}</figcaption>
+                  {image.caption && <figcaption>{image.caption}</figcaption>}
                 </figure>
               ))
             ) : (
@@ -53,26 +52,6 @@ function BasketDetails({ basket }: { basket: FlowerBasket }) {
                 <span>花篮详细图待补充</span>
               </div>
             )}
-            <dl className="basket-facts">
-              <div>
-                <dt>
-                  <MapPin size={15} />
-                  摆放位置
-                </dt>
-                <dd>{basket.location}</dd>
-              </div>
-              <div>
-                <dt>
-                  <Clock3 size={15} />
-                  活动时间
-                </dt>
-                <dd>{basket.time}</dd>
-              </div>
-              <div>
-                <dt>花篮发起人</dt>
-                <dd>{basket.organizer}</dd>
-              </div>
-            </dl>
           </section>
           <div className="basket-detail-aside">
             <section className="basket-giveaways">
@@ -80,24 +59,13 @@ function BasketDetails({ basket }: { basket: FlowerBasket }) {
                 <Gift size={17} />
                 花篮无料
               </h3>
-              <p className="community-muted">{basket.giveawayNote}</p>
-              <ul>
-                {basket.giveaways.map((item) => (
-                  <li key={item.name}>
-                    {item.image ? (
-                      <ActivityImage image={item.image} sizes="240px" />
-                    ) : (
-                      <Ticket size={25} strokeWidth={1.2} />
-                    )}
-                    <div>
-                      <h4>{item.name}</h4>
-                      <p>{item.description}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              {!basket.giveaways.length && (
-                <p className="community-muted">无料清单待公布</p>
+              {basket.giveawayImage ? (
+                <ActivityImage
+                  image={basket.giveawayImage}
+                  sizes="(max-width: 700px) calc(100vw - 72px), 390px"
+                />
+              ) : (
+                <p className="community-muted">无料展示图待补充</p>
               )}
             </section>
             <section className="basket-group">
@@ -137,6 +105,14 @@ export function BasketGallery() {
           {String(filled).padStart(2, "0")} / {basketSlots.length} 个展示位
         </span>
       </div>
+      <div className="basket-locations" aria-label="花篮摆放地点">
+        {Object.values(basketLocations).map((location) => (
+          <span key={location}>
+            <MapPin size={14} aria-hidden="true" />
+            {location}
+          </span>
+        ))}
+      </div>
       <div className="basket-grid">
         {basketSlots.map(({ number, basket }) =>
           basket ? (
@@ -149,14 +125,13 @@ export function BasketGallery() {
                   <ActivityCover kind="flower-baskets" />
                   <div className="basket-card-copy">
                     <span className="community-eyebrow">
-                      NO. {String(number).padStart(2, "0")}{" "}
-                      {basket.sample ? "· 展示示例" : "· 应援花篮"}
+                      NO. {String(number).padStart(2, "0")} · 应援花篮
                     </span>
                     <h3>
                       {basket.name}
                       <ArrowUpRight size={20} />
                     </h3>
-                    <p>{basket.location}</p>
+                    <p>{basketLocations[basket.location]}</p>
                     <span className="basket-open">详细图 · 无料 · 交流群</span>
                   </div>
                 </button>

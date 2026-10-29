@@ -21,7 +21,7 @@ export const activities: {
     title: "应援花篮活动",
     english: "LET OUR LOVE BLOOM",
     description: "把热爱写进花里。查看每一份花篮心意、随篮无料与同好交流群。",
-    status: "首个花篮展示示例",
+    status: "首个花篮信息已更新",
   },
   {
     id: "haidilao",
@@ -38,46 +38,43 @@ export type Giveaway = {
   description: string;
   image?: ActivityMedia;
 };
+export const basketLocations = {
+  popup: "快闪店 武汉伟星星悦广场 LG大中庭",
+  stadium: "湖北奥林匹克体育中心体育馆",
+} as const;
 export type FlowerBasket = {
   id: string;
   name: string;
-  organizer: string;
   description: string;
-  location: string;
-  time: string;
-  sample?: boolean;
+  location: keyof typeof basketLocations;
   images: ActivityMedia[];
-  giveaways: Giveaway[];
-  giveawayNote: string;
+  giveawayImage?: ActivityMedia;
   groupQr?: ActivityMedia;
   groupNote: string;
 };
 export type BasketSlot = { number: number; basket?: FlowerBasket };
 
-// Only the first slot contains a clearly labelled preview. Replace it with confirmed content.
+// The user supplied images and the first basket's venue. Other slots stay empty.
 const firstBasket: FlowerBasket = {
-  id: "blue-white-preview",
-  name: "蓝白花语",
-  organizer: "发起人待公布",
+  id: "basket-01",
+  name: "1号应援花篮",
   description:
-    "以蓝白花簇与音乐为灵感，把一份温柔的心意留在现场。此条为展示示例，实际花篮设计与活动信息待确认。",
-  location: "花篮摆放位置待公布",
-  time: "展示与领取时间待公布",
-  sample: true,
+    "在快闪店相遇，把热爱写进花里。这里收录花篮详细图与无料展示。",
+  location: "popup",
   images: [
     {
-      src: "/images/theme/blue-blossoms.jpg",
-      width: 1280,
-      height: 663,
-      alt: "蓝白花簇主题参考图，非实际花篮照片",
-      caption: "主题参考图 · 非花篮实拍",
+      src: "/images/activities/basket-01-details.jpg",
+      width: 428,
+      height: 1280,
+      alt: "1号应援花篮详细图：时间魔女主题众筹感谢长图",
     },
   ],
-  giveaways: [
-    { name: "主题明信片", description: "示例品类，实际款式与数量待公布。" },
-    { name: "纪念小卡", description: "示例品类，领取方式待公布。" },
-  ],
-  giveawayNote: "以上为无料展示示例，尚未确认发放安排。",
+  giveawayImage: {
+    src: "/images/activities/basket-01-giveaway.jpg",
+    width: 1280,
+    height: 663,
+    alt: "1号应援花篮无料展示：时间魔女角色与钢琴主题图",
+  },
   groupNote: "花篮群二维码待补充，公布后可在这里查看。",
 };
 export const flowerBaskets: FlowerBasket[] = [firstBasket];

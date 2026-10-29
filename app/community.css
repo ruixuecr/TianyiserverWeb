@@ -176,6 +176,24 @@
   font-size: 11px;
   white-space: nowrap;
 }
+.basket-locations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  margin: -8px 0 24px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.8;
+}
+.basket-locations span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.basket-locations svg {
+  flex-shrink: 0;
+  color: var(--theme-blue);
+}
 .basket-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -339,7 +357,7 @@
   font-size: 10px;
 }
 .basket-facts {
-  margin: 0;
+  margin: 0 0 24px;
 }
 .basket-facts > div {
   padding: 11px 0;
@@ -361,35 +379,13 @@
   flex-direction: column;
   gap: 24px;
 }
-.basket-giveaways ul {
-  margin: 12px 0 0;
-  padding: 0;
-  list-style: none;
-}
-.basket-giveaways li {
-  display: flex;
-  gap: 13px;
-  align-items: center;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--line);
-}
-.basket-giveaways li > img {
-  width: 76px;
+.basket-giveaways > img {
+  display: block;
+  width: 100%;
   height: auto;
-  border-radius: 4px;
-}
-.basket-giveaways li > svg {
-  color: #ad976d;
-}
-.basket-giveaways h4 {
-  margin: 0 0 5px;
-  font-size: 13px;
-  font-weight: 500;
-}
-.basket-giveaways li p {
-  font-size: 11px;
-  line-height: 1.8;
-  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
 }
 .basket-group {
   border: 1px solid var(--line);

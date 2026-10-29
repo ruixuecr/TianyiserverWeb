@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useState, type ReactNode } from "react";
 import { ChevronDown, Clock3, X } from "lucide-react";
-import { CONCERT_START, concertCountdown } from "@/lib/concert";
+import { concertColorLayers, concertCountdown } from "@/lib/concert";
 import {
   Popover,
   PopoverClose,
@@ -16,6 +16,13 @@ const timeFormatter = new Intl.DateTimeFormat("en-GB", {
   second: "2-digit",
   hourCycle: "h23",
 });
+const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
+  timeZone: "Asia/Shanghai",
+  month: "long",
+  day: "numeric",
+  weekday: "long",
+});
+const orbitColors = ["#568ca5", "#80b7bb", "#ceb57f", "#a5afd1", "#8ebdd9", "#b7cbd4"];
 export function TimeTheme({ children }: { children: ReactNode }) {
   return (
     <div className="encore-theme" data-motion="on">
@@ -28,16 +35,19 @@ function ClockFace({
   time,
   countdown,
   started,
+  now,
 }: {
   time: string | null;
   countdown: string;
   started: boolean;
+  now: number | null;
 }) {
   const orbitId = useId();
   const [hours, minutes, seconds] = time
     ? time.split(":").map(Number)
     : [0, 0, 0];
   const hourAngle = (hours % 12) * 30 + minutes / 2 + seconds / 120;
+  const layers = now === null ? [] : concertColorLayers(now);
   return (
     <svg className="moment-clock" viewBox="-32 -32 264 264" aria-hidden="true">
       <defs>
@@ -45,8 +55,23 @@ function ClockFace({
       </defs>
       <circle cx="100" cy="100" r="111" className="countdown-orbit-track" />
       <g className="countdown-orbit" transform={`rotate(${hourAngle} 100 100)`}>
-        <circle cx="100" cy="100" r="111" className="countdown-orbit-arc" />
-        <circle cx="100" cy="-11" r="2.8" className="clock-pivot" />
+        {layers.map(({ index, progress }) => (
+          <circle
+            key={index}
+            cx="100"
+            cy="100"
+            r={101 + index * (12 / Math.max(4, layers.length - 1))}
+            pathLength="1"
+            stroke={orbitColors[index % orbitColors.length]}
+            strokeWidth={Math.min(2.2, 12 / Math.max(1, layers.length))}
+            strokeDasharray={`${progress} 1`}
+            transform="rotate(-90 100 100)"
+            className="countdown-color-layer"
+          />
+        ))}
+        {layers.length > 0 && (
+          <circle cx="100" cy="-13" r="2" className="clock-pivot" />
+        )}
         <text className="countdown-orbit-text">
           <textPath href={`#${orbitId}`} startOffset="50%" textAnchor="middle">
             {started ? "演唱会已开始" : "距演唱会开始"} · {countdown}
@@ -139,7 +164,7 @@ export function WuhanMoment() {
       <PopoverContent className="moment-popover" aria-labelledby={headingId}>
         <div className="moment-heading">
           <div>
-            <span className="moment-kicker">COUNTING DOWN TO ENCORE</span>
+            <span className="moment-kicker">A MOMENT IN WUHAN</span>
             <h2 id={headingId}>把这一刻，留给热爱。</h2>
           </div>
           <PopoverClose className="moment-close" aria-label="关闭时钟">
@@ -150,12 +175,15 @@ export function WuhanMoment() {
           time={time}
           countdown={countdown.text}
           started={countdown.started}
+          now={now?.getTime() ?? null}
         />
         <div className="moment-readout">
-          <p className="moment-countdown-label">{label}</p>
-          <span className="moment-countdown-value">{countdown.text}</span>
+          <p className="moment-time-label">武汉此刻</p>
+          <time className="moment-time-value" dateTime={now?.toISOString()}>
+            {time ?? "--:--:--"}
+          </time>
           <p>
-            <time dateTime={CONCERT_START}>10月31日 19:12</time> · 北京时间
+            {now ? dateFormatter.format(now) : "北京时间"} · UTC+8
           </p>
         </div>
       </PopoverContent>

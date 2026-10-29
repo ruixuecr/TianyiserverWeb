@@ -286,13 +286,8 @@
   stroke: #dae5e5;
   stroke-width: 0.8;
 }
-.countdown-orbit-arc {
+.countdown-color-layer {
   fill: none;
-  stroke: #baa374;
-  stroke-width: 1.2;
-  stroke-dasharray: 92 605.44;
-  transform: rotate(-114deg);
-  transform-origin: 100px 100px;
 }
 .countdown-orbit-text {
   fill: #668a97;
@@ -347,7 +342,7 @@
 .moment-readout {
   text-align: center;
 }
-.moment-countdown-value {
+.moment-time-value {
   display: block;
   font-size: 27px;
   font-variant-numeric: tabular-nums;
@@ -359,7 +354,7 @@
   margin-top: 8px;
   color: #7c9299;
 }
-.moment-readout .moment-countdown-label {
+.moment-readout .moment-time-label {
   margin: 0 0 8px;
   letter-spacing: 2px;
   color: #668a97;
