@@ -406,3 +406,11 @@ Sites 预览不依赖旧 Tunnelmole 隧道进程；旧 .preview/url.txt 中的�
 2026-10-30 将用户完整原文“2025年巡演海报打卡点 是武汉最早的高端公寓楼，也是中俄万里茶道的重要遗存、武汉城市建设历史的重要见证，具有深厚的历史文化底蕴。”加入 description，保留空格、标点和单段结构；原演唱会海报、年月、地址和导航保持。
 
 验证：npm run build、npm run typecheck 与 Sites 导出构建通过。解析实际导出的巴公房子详情 HTML，介绍区逐字匹配完整原文，并保留原海报。此次为文案更新，未重做真实地图验证。Worker 含 351 项资源，压缩约 9.81 MiB，体积保护通过。
+
+发布结果：2026-10-30 18:47:05 UTC，Sites 返回 succeeded；现有网址、私有权限与高德环境 revision 1 沿用。
+
+- 应用提交：8531634bfe55fe1404e0b7df1a195c218efaa96b，已推送并核对 GitHub。
+- Sites 源码提交：89b1ece1e79986fff61e435748fa6bb4d7174ba7，已推送并核对远端。
+- 版本 ID：appgprj_6ae2b571b6488191aff989a1a1654416~appgver_94a97d2d82908191b17f6180fd069ea0。
+- 部署 ID：appgdep_6ae4e61aa2648191a0c983153f9629f1。
+- 发布归档从上述 Sites 提交生成，线上预览独立运行。
