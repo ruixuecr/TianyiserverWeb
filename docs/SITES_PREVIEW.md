@@ -364,3 +364,11 @@ Sites 预览不依赖旧 Tunnelmole 隧道进程；旧 .preview/url.txt 中的�
 2026-10-30 按用户截图从所有地图选中信息卡片移除名称上方的分类标签（如“湖畔漫步”）和专用 CSS。卡片图片、名称、区域、详情链接与关闭按钮保持；category 字段继续用于侧栏与地图图钉判断。
 
 验证：npm run build、npm run typecheck 与 Sites 导出构建通过。实际 Worker 在 1440/390px 分别选中全部 9 个地点，信息卡片分类标签均为零，名称、区域和详情链接存在，关闭正常；东湖卡片可进入详情。手机截图布局正常，无横向溢出或浏览器运行错误。Worker 含 351 项资源，压缩约 9.81 MiB；本次不增加真实高德地图验证结论。
+
+发布结果：2026-10-30 18:24:03 UTC，Sites 返回 succeeded；现有网址、私有权限与高德环境 revision 1 沿用。
+
+- 应用提交：4661fa5edf560a14d6866de40bc844b72926b2ef，已推送并核对 GitHub。
+- Sites 源码提交：c2cdc794023124948b869147eebe442d7c68edf7，已推送并核对远端。
+- 版本 ID：appgprj_6ae2b571b6488191aff989a1a1654416~appgver_d5ccc0e5c3388191a2f844f66989a05b。
+- 部署 ID：appgdep_6ae4e0b5e06081918d1e65dcefc9207d。
+- 发布归档从上述 Sites 提交生成，线上预览独立运行。
