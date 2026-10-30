@@ -216,7 +216,8 @@ export const spots: Spot[] = [
   {
     id: "aoti",
     memoryDate: { year: 2026, month: 10 },
-    searchName: "湖北省奥林匹克体育中心体育馆西门",
+    searchName: "湖北省奥林匹克体育中心西1门",
+    matchAddress: "光谷三路特1号",
     name: "奥体中心",
     featuredImage: {
       src: "/images/spots/aoti-center-poster.jpg",
@@ -230,9 +231,9 @@ export const spots: Spot[] = [
     x: 83,
     y: 78,
     description: "2026年洛天依「无限共鸣·纯蓝幻乐」收官场 敬请期待",
-    tip: "目的地为湖北省奥林匹克体育中心体育馆西门，位于佛祖岭一路2号。活动当天请以主办方公布的入场安排为准。",
+    tip: "目的地为湖北省奥林匹克体育中心西1门，位于光谷三路特1号。活动当天请以主办方公布的入场安排为准。",
     address:
-      "武汉市江夏区东湖新技术开发区佛祖岭一路2号湖北省奥林匹克体育中心体育馆西门",
+      "江夏区东湖新技术开发区光谷三路特1号湖北省奥林匹克体育中心西1门",
     theme: "stage",
   },
   {
