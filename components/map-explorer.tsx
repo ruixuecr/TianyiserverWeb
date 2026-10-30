@@ -148,7 +148,6 @@ export function MapExplorer() {
                 sizes="(max-width: 700px) 78px, 100px"
               />
               <div>
-                <span className="eyebrow">{selected.category}</span>
                 <h2>{selected.name}</h2>
                 <p>
                   <MapPin size={13} />
