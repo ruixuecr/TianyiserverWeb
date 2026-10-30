@@ -100,7 +100,7 @@ codex/encore-theme-elements 在 mapapi 基线上新增以下模块：
 
 用户要求动效默认开启并移除开关，故已删除 MotionContext、偏好读取与设置行，不再使用 localStorage 的 encore-theme-motion。CSS prefers-reduced-motion 仍关闭花瓣、刻度动画和环的旋转；倒计时文本持续更新。地点筛选与选择不持久化。弹层由 Radix 处理焦点、Escape 关闭和移动端位置；装饰图片使用空 alt、aria-hidden 和 pointer-events: none。
 
-地点 memoryDate 统一存年/月，spotDateLabel 输出中文年月，spotDateValue 提供 HTML time 的 YYYY-MM。列表使用排序后的副本，不改变底层地点 ID、类型与既有链接。新增东湖标记 locationPending，避免把宽泛景区误当成已核实的入口；古田桥保留精确名称搜索，二者均无预填坐标；东湖已使用用户随后提供的城市巡礼原图，古田桥照片仍待补充。
+地点 memoryDate 统一存年/月，spotDateLabel 输出中文年月，spotDateValue 提供 HTML time 的 YYYY-MM。列表使用排序后的副本，不改变底层地点 ID、类型与既有链接。新增东湖标记 locationPending，避免把宽泛景区误当成已核实的入口；古田桥保留精确名称搜索，二者均无预填坐标；东湖和古田桥均已使用用户随后提供的原图。
 
 初次时光主题未修改地图逻辑和地点内容；后续图片优化为 SpotDetail 和地点图片补充了响应式加载及宽高信息。完整构建、独立类型检查、桌面与手机浏览器交互检查通过；浏览器检查覆盖跨时区报时、弹层焦点、动效保存、减少动态效果、地点搜索/选择及长图比例，不包含缺少凭据的真实高德地图。
 
@@ -141,3 +141,5 @@ activities 移除 english / description，FlowerBasket 移除 description / grou
 标题更新（2026-10-30）：Shell 品牌改为“活动指南”，图标由 Music2 换为 Compass，移除旧英文品牌 span 及 brand-en 专用样式；/map 导航和 MapExplorer h1 使用“打卡推荐”。RootLayout、地点详情和推荐页元数据品牌及公告引用名称同步更新，路由和地图实现不变。
 
 通知清空（2026-10-30）：lib/data.ts 用显式 Notice 类型保留空 notices 数组，通知列表组件不渲染任何条目。当前没有有效详情，因此移除 app/notices/[id]/page.tsx，避免 Next.js 静态导出对零条动态路径的限制；旧详情返回 404。没有生成虚拟通知或占位详情路径，未来添加正式通知时恢复详情路由。
+
+古田桥图片更新（2026-10-30）：featuredImage 指向 public/images/spots/gutian-bridge.jpg（640×853），复用 SpotDetail 与 SpotImageCard 的原比例响应式图片展示；原始 JPEG 字节不变，不补写介绍或推定导航坐标。

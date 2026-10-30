@@ -201,6 +201,12 @@ export const spots: Spot[] = [
   {
     id: "gutian-bridge",
     name: "古田桥",
+    featuredImage: {
+      src: "/images/spots/gutian-bridge.jpg",
+      width: 640,
+      height: 853,
+      alt: "洛天依与古田桥合影",
+    },
     en: "GUTIAN BRIDGE",
     memoryDate: { year: 2026, month: 10 },
     category: "江岸漫步",
