@@ -2,6 +2,8 @@
 
 用户于 2026-10-29 明确要求使用 Sites 重新部署预览。沿用 codex/encore-theme-elements 分支，不覆盖 main 或 mapapi。
 
+2026-10-30 长期发布约定：后续每次完成网站修改，先更新本预览并同步 GitHub；腾讯云正式站改动累计到用户明确要求统一打包“热更新”时再发布。预览更新继续复用现有 Site ID、URL 与访问权限。仅文档/记忆变化不重发相同预览。
+
 ## 站点与源码
 
 - Site ID：appgprj_6ae2b571b6488191aff989a1a1654416，已写入 .openai/hosting.json；后续更新复用此 ID，不能重复创建。
