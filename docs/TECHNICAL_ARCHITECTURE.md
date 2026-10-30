@@ -19,7 +19,7 @@
 | components/spot-detail.tsx | 左地图、右介绍、下方图片的详情布局 |
 | components/spot-image-card.tsx | 独立图片卡片和图片失败回退 |
 | components/art.tsx | 项目内 SVG 插画 |
-| lib/data.ts | 9 个地点、memoryDate 年月、chronologicalSpots 时间排序、年份选项、通知和高德搜索链接 |
+| lib/data.ts | 10 个地点、memoryDate 年月、chronologicalSpots 时间排序、年份选项、通知和高德搜索链接 |
 | lib/concert.ts | 固定 UTC+8 开场时间、累计小时倒计时与逐圈颜色层计算 |
 | app/globals.css | 界面、标签及响应式样式 |
 | public/images/spots/ | 已入库的地点图片 |
@@ -65,6 +65,10 @@ MapExplorer 的 selected-card 不再渲染 selected.category 对应的 eyebrow �
 地图年份筛选与选中状态位于客户端组件内；已移除搜索框、query 状态和文本过滤，仅按年份筛选。没有跨设备保存机制。当前不实现站内完整路线规划或主动用户定位。
 
 ## 地点介绍
+
+黄鹤楼新增为 huanghe-tower，memoryDate 为用户确认的 2020-03，searchName 使用黄鹤楼，未固化未经核实的 POI 坐标。generateStaticParams 自动加入详情路由；首页地图与年份列表共用 spots，2020 年现有 3 处、全部共 10 处。featuredImage 指向原始 1280×853 的 huanghe-tower.jpg，介绍按用户原文两段保存；不增加额外宣传文字。
+
+Sites 新增原图后首次打包触发既有 10 MiB 限制；export-sites-preview.mjs 将 1200px 缓存尺寸改为 1280px，使常见 1260/1280px 素材与其全尺寸 WebP 复用。省去 750/1080px 的策略继续保留，当前对应使用 828/1280px；不降低原图、最高分辨率或 WebP 质量，不改变完整 Next.js 部署的图片配置，也不放宽 Worker 限制。
 
 lib/data.ts 的 Spot.description 为可选字符串，双换行分隔自然段。SpotDetail 将各段作为独立 p 渲染，连续段落间隔 16px；单段介绍行为不变，未提供时不渲染空段落或生成替代内容。鹦鹉洲大桥、东湖、中百罗森、古田桥、天宝饭庄、奥体中心和巴公房子使用用户提供的正式文案，东湖全文保留历史叙述；古田桥和天宝饭庄介绍均为巡演打卡点说明及原文引语两段，巴公房子介绍按用户原文单段展示，保留空格和标点。地图相机、导航、地点日期与图片配置没有改动。
 

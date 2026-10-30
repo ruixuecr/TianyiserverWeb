@@ -72,6 +72,29 @@ export const spots: Spot[] = [
     searchName: "鹦鹉洲长江大桥",
   },
   {
+    id: "huanghe-tower",
+    name: "黄鹤楼",
+    en: "YELLOW CRANE TOWER",
+    memoryDate: { year: 2020, month: 3 },
+    category: "城市地标",
+    area: "武昌区",
+    searchName: "黄鹤楼",
+    x: 55,
+    y: 56,
+    description: `洛天依跨次元芭莎登封取景
+
+“每一张被定格的美丽画面背后，都有一段美好的故事，这是天依与武汉的美好邂逅，也是天依与时尚芭莎的神奇相遇。”`,
+    tip: "",
+    address: "武汉市武昌区黄鹤楼",
+    theme: "tower",
+    featuredImage: {
+      src: "/images/spots/huanghe-tower.jpg",
+      width: 1280,
+      height: 853,
+      alt: "洛天依在黄鹤楼的芭莎取景图片",
+    },
+  },
+  {
     id: "tianbao",
     memoryDate: { year: 2025, month: 12 },
     searchName: "天宝饭庄",
