@@ -14,7 +14,7 @@
 
 ## 新环境启动
 
-最新改动：按用户要求恢复所有地图的 2D/3D 按钮，默认 3D，切换保留中心、缩放、年份、已选地点和导航链接。主组件为 components/map-mode-switch.tsx 与 CityMap 的 mode 属性，具体约定见 PROJECT_REQUIREMENTS.md / TECHNICAL_ARCHITECTURE.md。生产构建与类型检查通过；使用模拟 SDK 在 1440/390/320px 验证三类页面的按钮、键盘、相机、筛选、导航与清理行为，无溢出或页面错误。云端真实 SDK 仍不能渲染现有武汉遮罩，完整视觉需用户设备验收。该更新尚未在腾讯云执行发布，旧运行版本不因 GitHub 推送自动改变；当前发布目标为腾讯云，Sites 预览未重新发布。
+最新改动：按用户要求恢复所有地图的 2D/3D 按钮，默认 3D，切换保留中心、缩放、年份、已选地点和导航链接。主组件为 components/map-mode-switch.tsx 与 CityMap 的 mode 属性，具体约定见 PROJECT_REQUIREMENTS.md / TECHNICAL_ARCHITECTURE.md。生产构建与类型检查通过；使用模拟 SDK 在 1440/390/320px 验证三类页面的按钮、键盘、相机、筛选、导航与清理行为，无溢出或页面错误。云端真实 SDK 仍不能渲染现有武汉遮罩，完整视觉需用户设备验收。用户随后要求先更新 Sites，已于 2026-10-30 20:40:13 UTC 发布成功，权限与环境 revision 1 保持，记录见 SITES_PREVIEW.md。腾讯云版本仍待用户执行更新，不能把预览发布当作服务器已更新。
 
 腾讯云部署：scripts/deploy-ubuntu.sh、deploy/tianyi.service 和 deploy/tianyi.nginx.conf 按固定提交安装，非 root 构建/运行，配置 Nginx 和开机自启。仅设置 TIANYI_STANDALONE=1 时生成独立运行包；普通开发和 Sites 导出流程保持。用户已执行部署，返回版本 65457b6022e107b7641b887ae4bba0b9a4c65264；公网页面与图片缓存已独立核验。安全密钥随后补配，服务 active，高德 SDK 的武汉行政区与地点搜索均成功；云端浏览器不支持 WebGL，真实 3D 视觉仍待用户设备确认。助手未通过 SSH 登录，后续服务器操作继续由用户终端执行。详情见 TENCENT_DEPLOYMENT.md。
 
