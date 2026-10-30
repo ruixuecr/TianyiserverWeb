@@ -2,6 +2,8 @@
 
 更新日期：2026-10-30。mapapi 为地图基线，当前云端实现位于 codex/encore-theme-elements。
 
+仓库可见性：用户已要求将 GitHub 仓库 ruixuecr/TianyiserverWeb 改为 public。2026-10-30 修改请求被 GitHub 以 403 Resource not accessible by integration 拒绝，复查仍为 private；需要拥有仓库设置权限的连接或由所有者在 GitHub 设置页完成。该请求不涉及 Sites 预览访问权限。
+
 ## 定位与范围
 
 项目名称 TianyiserverWeb，页面顶部标题为“活动指南”，前置指南针图标。面向赴武汉看演唱会并顺路游玩的访客，提供少量精选打卡点、地点图片、活动宣传和通知。当前收录 9 个地点，包含本次新增的东湖与古田桥。当前不包含后台管理、数据库、注册登录、购票或支付。

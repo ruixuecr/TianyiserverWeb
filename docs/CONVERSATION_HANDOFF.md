@@ -86,6 +86,8 @@
 
 53. 用户明确要求“把高德apikey写入github，我授权了”。已将当前站点浏览器使用的高德 Web JS API Key 写入跟踪文件 .env.example 的 NEXT_PUBLIC_AMAP_KEY，覆盖此前关于该公开 Key 不入库的约定，并在 AGENTS.md 记录限定授权。AMAP_SECURITY_CODE 仍为空且仅服务端配置，认证令牌和真实 .env.local 不入库；不修改 Sites 环境变量、权限或线上版本。后续部署需复制模板或设置运行时变量，不能误认为 .env.example 会自动生效。
 
+54. 用户要求“把项目改成public”，上下文明确为 GitHub 仓库 ruixuecr/TianyiserverWeb，已授权公开。已尝试通过 GitHub API 将 private 设为 false，但当前集成返回 403 Resource not accessible by integration；随后复查 private=true、visibility=private，尚未完成公开。不要把用户授权误记为操作成功。需由拥有设置权限的连接执行，或由用户进入 https://github.com/ruixuecr/TianyiserverWeb/settings 的 Danger Zone → Change repository visibility → Make public 完成。现有分支、默认 main 和 Sites 私有预览权限未改变。
+
 ## 已有验证证据及边界
 
 - 最新应用代码在 2026-10-29 通过 npm run build，包含 TypeScript 检查。
