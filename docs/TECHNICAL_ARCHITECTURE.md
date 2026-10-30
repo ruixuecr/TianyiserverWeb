@@ -66,6 +66,12 @@ MapExplorer 的 selected-card 不再渲染 selected.category 对应的 eyebrow �
 
 ## 地点介绍
 
+东湖 memoryDate 采用 month:3、additionalMonths:[7]；spotDateLabel 输出“2020年3月 & 7月”，排序仍取基础 month，即最早月份，年份过滤和地点计数保持。MapExplorer 多月日期用 location-date div，避免将多个离散月份写入一个 time datetime；单月继续使用原 time 语义。
+
+Spot.detailImages 为可选附加图片数组；SpotDetail 按 featuredImage、detailImages 的顺序渲染，每张图片由独立 DetailImage 状态处理加载失败，并以 src 为 key。已有单图和无图占位保持，东湖原图、描述与地图主图不变，新 1280×852 照片仅追加详情页。各图仍采用 next/image 与原尺寸、原比例、默认延迟加载。
+
+本批 Sites imageSizes 合并 96/128/256 到 384，保留 32/48/64/384；deviceSizes 仍为 1280/3840。原图、最高分辨率、质量和 10 MiB 上限保持，部分缩略图会使用较大的文件，完整 Next.js 配置不变。
+
 平湖珞樱观湖平台新增为 pinghu-luoying，日期由用户确认 2026-10；全部 13 处、2026 年 4 处。真实高德查询精确名称返回唯一同名平台，地址为武汉大学爱平音乐厅正对面，searchName 保持该名称，使用现有唯一匹配与选点导航。没有预填取景坐标或修改解析器。原始 960×1280 图片与用户单段原文复用既有组件，保留竖版比例及完整引号、标点。
 
 本批 Sites 将 2048px 缓存并入 3840px 请求（实际输出上限为原图宽度），当前 deviceSizes 仅 1280/3840；七档小缩略图保持。保留所有原图、最高分辨率与 WebP 质量，避免新增图片使旧尺寸配置超过 10 MiB；完整 Next.js 图片配置保持。

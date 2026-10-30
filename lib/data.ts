@@ -10,7 +10,11 @@ export type Spot = {
   name: string;
   en: string;
   category: string;
-  memoryDate: { year: (typeof spotYears)[number]; month: number };
+  memoryDate: {
+    year: (typeof spotYears)[number];
+    month: number;
+    additionalMonths?: number[];
+  };
   area: string;
   // Only populate after confirming the actual GCJ-02 POI; schematic x/y are independent.
   position?: [number, number];
@@ -25,6 +29,7 @@ export type Spot = {
   matchAddress?: string;
   thumbnail?: SpotImage;
   featuredImage?: SpotImage;
+  detailImages?: SpotImage[];
 };
 export const spots: Spot[] = [
   {
@@ -258,8 +263,16 @@ export const spots: Spot[] = [
       height: 1280,
       alt: "东湖：天依城市巡礼系列最后一站",
     },
+    detailImages: [
+      {
+        src: "/images/spots/donghu-bazaar.jpg",
+        width: 1280,
+        height: 852,
+        alt: "洛天依在东湖竹筏上的芭莎取景图片",
+      },
+    ],
     en: "EAST LAKE",
-    memoryDate: { year: 2020, month: 7 },
+    memoryDate: { year: 2020, month: 3, additionalMonths: [7] },
     category: "湖畔漫步",
     area: "武汉 · 东湖",
     searchName: "东湖生态旅游风景区",
@@ -333,7 +346,8 @@ export const chronologicalSpots = [...spots].sort(
     a.memoryDate.month - b.memoryDate.month,
 );
 export function spotDateLabel(spot: Spot) {
-  return `${spot.memoryDate.year}年${spot.memoryDate.month}月`;
+  const { year, month, additionalMonths = [] } = spot.memoryDate;
+  return `${year}年${[month, ...additionalMonths].map((value) => `${value}月`).join(" & ")}`;
 }
 export function spotDateValue(spot: Spot) {
   return `${spot.memoryDate.year}-${String(spot.memoryDate.month).padStart(2, "0")}`;

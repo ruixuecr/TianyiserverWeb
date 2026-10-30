@@ -31,12 +31,16 @@ await mkdir(optimized, { recursive: true });
 // Merge display sizes in the embedded Sites build: 640/750/828/1080/1200
 // -> 1280, and 1920/2048 -> 3840 (capped at the original width).
 // Common 1260/1280px originals share
-// their full-size WebP with larger requests. Small thumbnails remain available;
+// their full-size WebP with larger requests. Small 32/48/64px thumbnails remain;
 // original files, highest resolutions and quality stay unchanged.
 const deviceSizes = imageConfigDefault.deviceSizes
   .filter((width) => ![640, 750, 828, 1080, 1920, 2048].includes(width))
   .map((width) => (width === 1200 ? 1280 : width));
-const widths = [...deviceSizes, ...imageConfigDefault.imageSizes];
+// Use the existing 384px rendition for intermediate thumbnail requests.
+const imageSizes = imageConfigDefault.imageSizes.filter(
+  (width) => ![96, 128, 256].includes(width),
+);
+const widths = [...deviceSizes, ...imageSizes];
 async function optimizeDirectory(directory) {
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     const file = path.join(directory, entry.name);
@@ -71,7 +75,7 @@ const config: NextConfig = {
   output: "export",
   trailingSlash: true,
   devIndicators: false,
-  images: { loader: "custom", loaderFile: "./sites-image-loader.ts", deviceSizes: ${JSON.stringify(deviceSizes)} },
+  images: { loader: "custom", loaderFile: "./sites-image-loader.ts", deviceSizes: ${JSON.stringify(deviceSizes)}, imageSizes: ${JSON.stringify(imageSizes)} },
 };
 export default config;
 `);

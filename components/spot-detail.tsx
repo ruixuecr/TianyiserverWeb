@@ -3,14 +3,17 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, ImageIcon } from "lucide-react";
-import { Spot, spotSearchUrl } from "@/lib/data";
+import { Spot, SpotImage, spotSearchUrl } from "@/lib/data";
 import { CityMap } from "./city-map";
 import { MapModeSwitch, type MapMode } from "./map-mode-switch";
 
 export function SpotDetail({ spot }: { spot: Spot }) {
-  const [failedImage, setFailedImage] = useState<string>();
   const [mode, setMode] = useState<MapMode>("3D");
   const visible = useMemo(() => [spot], [spot]);
+  const images = [
+    ...(spot.featuredImage ? [spot.featuredImage] : []),
+    ...(spot.detailImages ?? []),
+  ];
   const uri = spot.position
     ? `https://uri.amap.com/navigation?to=${spot.position.join(",")},${encodeURIComponent(spot.name)}&mode=walk&coordinate=gaode&callnative=1`
     : spotSearchUrl(spot);
@@ -56,23 +59,36 @@ export function SpotDetail({ spot }: { spot: Spot }) {
           ))}
         </section>
       </div>
-      <section className="spot-photo-area" aria-label={`${spot.name}图片展示`}>
-        {spot.featuredImage && failedImage !== spot.featuredImage.src ? (
-          <Image
-            src={spot.featuredImage.src}
-            alt={spot.featuredImage.alt}
-            width={spot.featuredImage.width}
-            height={spot.featuredImage.height}
-            sizes="(max-width: 700px) calc(100vw - 44px), (max-width: 1312px) calc(100vw - 80px), 1232px"
-            onError={() => setFailedImage(spot.featuredImage?.src)}
-          />
-        ) : (
-          <div className="spot-photo-placeholder">
-            <ImageIcon size={32} strokeWidth={1} />
-            <span>地点图片 · 敬请期待</span>
-          </div>
-        )}
-      </section>
+      {images.length ? (
+        images.map((image) => (
+          <DetailImage key={image.src} image={image} name={spot.name} />
+        ))
+      ) : (
+        <DetailImage name={spot.name} />
+      )}
     </main>
+  );
+}
+
+function DetailImage({ image, name }: { image?: SpotImage; name: string }) {
+  const [failed, setFailed] = useState(false);
+  return (
+    <section className="spot-photo-area" aria-label={image?.alt ?? `${name}图片展示`}>
+      {image && !failed ? (
+        <Image
+          src={image.src}
+          alt={image.alt}
+          width={image.width}
+          height={image.height}
+          sizes="(max-width: 700px) calc(100vw - 44px), (max-width: 1312px) calc(100vw - 80px), 1232px"
+          onError={() => setFailed(true)}
+        />
+      ) : (
+        <div className="spot-photo-placeholder">
+          <ImageIcon size={32} strokeWidth={1} />
+          <span>地点图片 · 敬请期待</span>
+        </div>
+      )}
+    </section>
   );
 }

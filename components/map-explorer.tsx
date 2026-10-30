@@ -77,9 +77,13 @@ export function MapExplorer() {
                   {s.area} · {s.category}
                 </p>
               </div>
-              <time className="location-date" dateTime={spotDateValue(s)}>
-                {spotDateLabel(s)}
-              </time>
+              {s.memoryDate.additionalMonths?.length ? (
+                <div className="location-date">{spotDateLabel(s)}</div>
+              ) : (
+                <time className="location-date" dateTime={spotDateValue(s)}>
+                  {spotDateLabel(s)}
+                </time>
+              )}
             </button>
           ))}
           {visible.length === 0 && (
