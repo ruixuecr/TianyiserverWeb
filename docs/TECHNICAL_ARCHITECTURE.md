@@ -19,7 +19,7 @@
 | components/spot-detail.tsx | 左地图、右介绍、下方图片的详情布局 |
 | components/spot-image-card.tsx | 独立图片卡片和图片失败回退 |
 | components/art.tsx | 项目内 SVG 插画 |
-| lib/data.ts | 12 个地点、memoryDate 年月、chronologicalSpots 时间排序、年份选项、通知和高德搜索链接 |
+| lib/data.ts | 13 个地点、memoryDate 年月、chronologicalSpots 时间排序、年份选项、通知和高德搜索链接 |
 | lib/concert.ts | 固定 UTC+8 开场时间、累计小时倒计时与逐圈颜色层计算 |
 | app/globals.css | 界面、标签及响应式样式 |
 | public/images/spots/ | 已入库的地点图片 |
@@ -65,6 +65,10 @@ MapExplorer 的 selected-card 不再渲染 selected.category 对应的 eyebrow �
 地图年份筛选与选中状态位于客户端组件内；已移除搜索框、query 状态和文本过滤，仅按年份筛选。没有跨设备保存机制。当前不实现站内完整路线规划或主动用户定位。
 
 ## 地点介绍
+
+平湖珞樱观湖平台新增为 pinghu-luoying，日期由用户确认 2026-10；全部 13 处、2026 年 4 处。真实高德查询精确名称返回唯一同名平台，地址为武汉大学爱平音乐厅正对面，searchName 保持该名称，使用现有唯一匹配与选点导航。没有预填取景坐标或修改解析器。原始 960×1280 图片与用户单段原文复用既有组件，保留竖版比例及完整引号、标点。
+
+本批 Sites 将 2048px 缓存并入 3840px 请求（实际输出上限为原图宽度），当前 deviceSizes 仅 1280/3840；七档小缩略图保持。保留所有原图、最高分辨率与 WebP 质量，避免新增图片使旧尺寸配置超过 10 MiB；完整 Next.js 图片配置保持。
 
 武汉汉口里竹林新增为 hankouli-bamboo，沿用同组芭莎的 2020-03；全部 12 处、2020 年 5 处，原图 1280×853、介绍两段。真实高德搜索“汉口里竹林”仅返回中山公园-竹林，已排除；搜索“汉口里”返回明确的武汉园博园-汉口里。用户选择“导航先到汉口里”，searchName 因此设为该区域精确名称，继续使用唯一匹配逻辑，不预填坐标；地图位置和选点导航代表汉口里区域，竹林实际拍摄位置仍未核实。
 

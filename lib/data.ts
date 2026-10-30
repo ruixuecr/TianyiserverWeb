@@ -304,6 +304,28 @@ export const spots: Spot[] = [
     address: "武汉市汉江古田桥（具体到访岸侧与入口待确认）",
     theme: "river",
   },
+  {
+    id: "pinghu-luoying",
+    name: "平湖珞樱观湖平台",
+    en: "PINGHU LUOYING LAKE VIEWING PLATFORM",
+    memoryDate: { year: 2026, month: 10 },
+    category: "湖畔漫步",
+    area: "武汉 · 东湖",
+    searchName: "平湖珞樱观湖平台",
+    x: 73,
+    y: 49,
+    description:
+      "“去哪里捕捉蓝色呢？对了，蓝天就是最好的蓝色幕布！秋水共长天一色，一起呼吸来自大自然的新鲜空气，放松放松心情吧~期待和大家见面的那天啦！”",
+    tip: "",
+    address: "武汉大学爱平音乐厅正对面",
+    theme: "park",
+    featuredImage: {
+      src: "/images/spots/pinghu-luoying.jpg",
+      width: 960,
+      height: 1280,
+      alt: "洛天依在平湖珞樱观湖平台的打卡图片",
+    },
+  },
 ];
 export const chronologicalSpots = [...spots].sort(
   (a, b) =>
