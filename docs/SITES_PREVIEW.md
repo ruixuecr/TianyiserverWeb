@@ -292,3 +292,11 @@ Sites 预览不依赖旧 Tunnelmole 隧道进程；旧 .preview/url.txt 中的�
 2026-10-30 按用户要求清空全部三条现有公告，保留通知导航入口和页面标题，列表留空，不新增占位文案。移除已无有效内容的通知详情路由，原 welcome、travel、map 地址均返回 404。
 
 验证：清除引用已删除详情文件的旧开发类型缓存后，npm run build、npm run typecheck 与 Sites 导出构建通过，共生成 18 个页面。实际 Worker 在 1440/390px 下通知页返回 200，正文仅有“通知公告”标题、列表条目为零，无横向溢出或浏览器运行错误；手机截图排版正常。三个旧详情地址带或不带尾斜杠均返回 404。资源为 346 项、压缩 Worker 约 9.50 MiB。
+
+发布结果：2026-10-30 17:36:05 UTC，Sites 返回 succeeded；现有网址、私有权限与高德环境 revision 1 沿用。
+
+- 应用提交：1a5e0565e2f4a5a27bce00ece3729e4065575a83，已推送并核对 GitHub。
+- Sites 源码提交：49a8f7bd4caade3fa9e22876f1567954a2ebde8f，已推送并核对远端。
+- 版本 ID：appgprj_6ae2b571b6488191aff989a1a1654416~appgver_4b475500fef48191a8193038396f369f。
+- 部署 ID：appgdep_6ae4d575dd5481919a64b5f892a03289。
+- 发布归档从上述 Sites 提交生成，线上预览独立运行。
