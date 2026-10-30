@@ -278,3 +278,11 @@ Sites 预览不依赖旧 Tunnelmole 隧道进程；旧 .preview/url.txt 中的�
 2026-10-30 按用户要求删除海底捞活动入口、详情分支、数据和专用组件/样式，公告同步移除该活动引用。活动列表仅保留服务站、应援花篮，桌面两列，窄屏沿用单列，并同步封面响应式 sizes；原 /events/haidilao 地址返回 404。
 
 验证：npm run build、npm run typecheck 与 Sites 导出构建通过。实际 Worker 在 1440/820/390px 下仅显示两个活动，封面加载并保持原比例，无横向溢出或浏览器运行错误；手机端两个入口均可进入对应详情并返回列表。旧海底捞地址带或不带尾斜杠均返回 404，响应不含活动内容。桌面和手机截图排版正常。资源为 363 项、压缩 Worker 约 9.52 MiB。
+
+发布结果：2026-10-30 16:31:28 UTC，Sites 返回 succeeded；现有网址、私有权限与高德环境 revision 1 沿用。
+
+- 应用提交：b3ca755c223a00065a33bc4d6db99763ff4de370，已推送并核对 GitHub。
+- Sites 源码提交：4170dc220ec1fee76ed59a58d91c2ae3f2fcc711，已推送并核对远端。
+- 版本 ID：appgprj_6ae2b571b6488191aff989a1a1654416~appgver_8304072e120c8191a9078b4d247e2647。
+- 部署 ID：appgdep_6ae4c651af008191997a50ff32e1e1e5。
+- 发布归档从上述 Sites 提交生成，线上预览独立运行。
