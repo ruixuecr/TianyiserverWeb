@@ -18,6 +18,7 @@ import {
   Spot,
 } from "@/lib/data";
 import { CityMap } from "./city-map";
+import { MapModeSwitch, type MapMode } from "./map-mode-switch";
 import { Art } from "./art";
 import { SpotImageCard, SpotVisual } from "./spot-image-card";
 import { ThemeMotif } from "./theme-artwork";
@@ -26,6 +27,7 @@ export function MapExplorer() {
   const [selected, setSelected] = useState<Spot>();
   const [zoom, setZoom] = useState(0);
   const [reset, setReset] = useState(0);
+  const [mode, setMode] = useState<MapMode>("3D");
   const visible = useMemo(
     () =>
       chronologicalSpots.filter(
@@ -95,6 +97,7 @@ export function MapExplorer() {
       </aside>
       <section className="map-canvas">
         <CityMap
+          mode={mode}
           visible={visible}
           selected={selected}
           onSelect={setSelected}
@@ -106,7 +109,7 @@ export function MapExplorer() {
           <span>
             <span className="status-dot" /> 武汉城市漫游
           </span>
-          <span>3D 俯瞰</span>
+          <MapModeSwitch mode={mode} onChange={setMode} />
         </div>
         <div className="map-compass">
           N<Compass size={32} />

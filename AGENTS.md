@@ -12,7 +12,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 - Read docs/PROJECT_REQUIREMENTS.md, docs/TECHNICAL_ARCHITECTURE.md, docs/CONVERSATION_HANDOFF.md, and docs/DEVELOPMENT_HANDOFF.md before continuing this project.
 - mapapi is the current development line. Keep main as the original demo unless the user explicitly changes that decision.
-- Preserve the confirmed 3D map, label design, natural image proportions, and simplified page layouts.
+- Preserve the confirmed map style, Wuhan boundary, label design, natural image proportions, and simplified page layouts. The user has restored 2D/3D switching on all map pages; keep 3D as the default and preserve selection, filters, center and zoom when switching.
 - The user explicitly authorized committing the public AMap Web JS API Key (NEXT_PUBLIC_AMAP_KEY) in .env.example on 2026-10-30. This exception does not cover AMAP_SECURITY_CODE, authentication tokens, or .env.local; keep those out of Git. Do not mistake HTTP success or a build pass for verified live map behavior.
 - Keep handoff documents aligned with implemented behavior and newly confirmed decisions; mark unresolved location and cloud setup work explicitly.
 - Do not add promotional copy, decorative slogans, or narrative descriptions unless supplied or explicitly confirmed by the user. Preserve supplied wording; omit missing descriptions instead of inventing filler. Necessary functional labels and factual status messages may remain.

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { Spot, spots } from "@/lib/data";
+import type { MapMode } from "./map-mode-switch";
 
 type Marker = { setContent: (content: HTMLElement) => void };
 type Boundary = { lng: number; lat: number }[][];
@@ -197,6 +198,7 @@ export function CityMap({
   selected,
   onSelect,
   onDeselect,
+  mode = "3D",
   zoomAction = 0,
   resetAction = 0,
   nearby = false,
@@ -205,6 +207,7 @@ export function CityMap({
   selected?: Spot;
   onSelect: (spot: Spot) => void;
   onDeselect?: () => void;
+  mode?: MapMode;
   zoomAction?: number;
   resetAction?: number;
   nearby?: boolean;
@@ -217,6 +220,7 @@ export function CityMap({
   const resolved = useRef(new Map<string, Spot>());
   const markers = useRef<{ marker: Marker; spot: Spot }[]>([]);
   const camera = useRef<{ center: number[]; zoom: number } | null>(null);
+  const focusedSelection = useRef<string | null>(null);
   const [status, setStatus] = useState<
     "loading" | "live" | "error" | "unconfigured"
   >("loading");
@@ -258,18 +262,18 @@ export function CityMap({
           return;
         }
         if (sdk.Browser?.isWebGL === false) {
-          setError("此浏览器未启用 3D 图形支持，请开启硬件加速，或使用支持 WebGL 的浏览器重新打开。");
+          setError("此浏览器未启用地图所需的 WebGL 图形支持，请开启硬件加速，或使用支持 WebGL 的浏览器重新打开。");
           setStatus("error");
           return;
         }
         const boundaries = await loadWuhanBoundary(sdk);
         if (cancelled || !el.current) return;
         map = new sdk.Map(el.current, {
-          viewMode: "3D",
+          viewMode: mode,
           mask: boundaries.map((ring) => [ring]),
-          pitch: 52,
+          pitch: mode === "3D" ? 52 : 0,
           pitchEnable: false,
-          rotation: -18,
+          rotation: mode === "3D" ? -18 : 0,
           zoom: camera.current?.zoom || 11,
           center: camera.current?.center || [114.305, 30.56],
           mapStyle: "amap://styles/7444edd6e8d1980b3cb81eb2e28dc88a",
@@ -354,14 +358,27 @@ export function CityMap({
       }
       instance.current = null;
       markers.current = [];
+      outlines.current = [];
     };
-  }, [visible, nearby, retry]);
+  }, [mode, visible, nearby, retry]);
   useEffect(() => {
     const position =
       selected?.position ||
       (selected && resolved.current.get(selected.id)?.position);
-    if (position)
-      instance.current?.setZoomAndCenter(nearby ? 16 : 13, position);
+    const selectionKey = selected
+      ? `${nearby ? "nearby" : "city"}:${selected.id}`
+      : null;
+    if (!selectionKey) focusedSelection.current = null;
+    // Recreating the renderer for a mode/filter change must preserve the camera.
+    // Focus only a new selection, once its position and map are ready.
+    if (
+      position &&
+      instance.current &&
+      focusedSelection.current !== selectionKey
+    ) {
+      instance.current.setZoomAndCenter(nearby ? 16 : 13, position);
+      focusedSelection.current = selectionKey;
+    }
     markers.current.forEach(({ marker, spot }) =>
       marker.setContent(markerContent(spot)),
     );
@@ -383,7 +400,7 @@ export function CityMap({
     }
   }, [resetAction]);
   return (
-    <div className="city-map is-3d wuhan-only-map">
+    <div className={`city-map ${mode === "3D" ? "is-3d" : "is-2d"} wuhan-only-map`}>
       <div ref={el} className="live-map" />
       {status !== "live" && (
         <div className="real-map-status" role="status">
@@ -410,7 +427,7 @@ export function CityMap({
       )}
       {status === "live" && (
         <span className="live-badge">
-          高德地图 · 武汉 · 3D 俯瞰
+          高德地图 · 武汉 · {mode === "3D" ? "3D 俯瞰" : "2D 平面"}
           {missing.length > 0 && (
             <small>以下地点位置待确认，暂未标注：{missing.join("、")}</small>
           )}

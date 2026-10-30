@@ -30,7 +30,11 @@
 
 浏览器动态加载高德 JS API 2.0，插件为 AMap.Scale、AMap.PlaceSearch、AMap.DistrictSearch。SDK 和行政区查询 Promise 在模块内缓存；失败后允许重试。SDK 加载超时 15 秒，行政区和 POI 查询超时各 12 秒。
 
-DistrictSearch 查询武汉行政区编码 420100，校验返回编码与轮廓有效性。使用 mask 遮挡武汉以外区域，并以无填充 Polygon 描边。实例固定 viewMode: 3D、pitch: 52、pitchEnable: false、rotation: -18。
+DistrictSearch 查询武汉行政区编码 420100，校验返回编码与轮廓有效性。使用 mask 遮挡武汉以外区域，并以无填充 Polygon 描边。CityMap 接收 mode（默认 3D），实例 viewMode 跟随模式；3D 为 pitch:52、rotation:-18，2D 为 pitch:0、rotation:0，均关闭 pitchEnable。
+
+components/map-mode-switch.tsx 提供共享切换按钮、MapMode 类型、aria-pressed 状态与键盘焦点样式。HomeCityMap、MapExplorer、SpotDetail 各自持有页面内模式状态；首页复用 home-map-modes 定位，打卡推荐复用 map-top，地点详情复用 spot-map-toolbar，避开 inert 的地图导航预览与覆盖链接。不新增本地持久化。
+
+mode 变化时销毁并重建高德实例，清理计时器和轮廓引用，保留已有相机缓存、地点解析缓存和父组件选择/年份状态。focusedSelection 只在新选择获得有效位置和实例后定位一次，避免重建后的 revision 把用户缩放重置为 13/16；取消选择后清空定位记忆。地图角标同步显示当前模式。
 
 - 初始 zoom 为 11，中心为 [114.305, 30.56]。
 - 地点选中后缩放至 13；详情附近地图缩放至 16。
@@ -83,7 +87,7 @@ lib/data.ts 的 Spot.description 为可选字符串，双换行分隔自然段�
 
 缺少安全密钥返回 503；上游异常返回 502。Web JS Key 不能直接当成 Web 服务 Key 使用，先前直接 REST 查询得到 USERKEY_PLAT_NOMATCH，不可据此断言浏览器 SDK 也不可用。
 
-配置现已保存在 Sites 加密运行时环境，公开 Key 由 /api/map-config 返回，不包含安全密钥。Worker 适配使用请求 Cache-Control: no-cache；Next.js 使用 fetch cache: no-store。共享代理使用兼容的 redirect: manual 并显式拒绝 3xx。启动地图前检查 SDK 的 Browser.isWebGL，明确为 false 时显示兼容提示并停止创建地图，不静默回退为 2D。云端 Chromium 出现过此判定，因此线上 REST/SDK 成功不等于最终 3D 视觉已验证。
+配置现已保存在 Sites 加密运行时环境及腾讯云服务器运行时文件，公开 Key 由 /api/map-config 返回，不包含安全密钥。Worker 适配使用请求 Cache-Control: no-cache；Next.js 使用 fetch cache: no-store。共享代理使用兼容的 redirect: manual 并显式拒绝 3xx。恢复切换后仍保留 SDK Browser.isWebGL 明确为 false 时的兼容拦截，提示文本适用于当前地图功能；不自动更改用户选定模式。当前云端 SDK 在无武汉遮罩时能使用平面回退，但启用现有 mask 会报错，不能把它当作完整 2D 模式已验证，也不以移除遮罩规避测试限制。真实 2D/3D 视觉需在受支持的用户浏览器核验。
 
 高德编辑器“保存成功”、样式接口成功和浏览器渲染最新版是不同证据，样式更新必须在实际客户端验证。
 

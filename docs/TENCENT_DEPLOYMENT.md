@@ -4,6 +4,8 @@
 
 目标为用户新购的 Ubuntu Server 24.04、2 核 8GB、80GB SSD 轻量服务器。截图已确认入站 TCP 22 和 80 允许。当前工作环境 TCP 允许列表为空，配置中的 TCP 代理连接被拒绝，因此无法发起 SSH 或验证登录密码。腾讯云入站防火墙与本工作环境出站网络属于不同环节；未提供界面入口时，不反复让用户寻找不存在的设置，也不尝试绕过出站策略。
 
+待发布更新：源码已恢复首页、打卡推荐和地点详情的 2D/3D 切换，并完成构建、类型及模拟 SDK 的桌面/手机交互检查。该更新需要用户在腾讯云终端再次运行部署脚本；当前已确认的服务器源码仍为下文的 65457b6，不能把推送 GitHub 等同于公网已更新。真实两种模式下的武汉遮罩、样式和完整标签仍需受支持的浏览器验收。
+
 ## 安装入口
 
 在腾讯云实例页面选择“登录”进入终端，以 ubuntu 用户运行提供的固定版本命令。先用 curl 将 scripts/deploy-ubuntu.sh 下载到 /tmp，再以 sudo bash 执行，并传入相同的完整 Git 提交 SHA。脚本从该 SHA 下载源码，不会部署默认 main 的旧 demo。命令中的服务器登录密码不需要填写，也不允许以参数传入。
@@ -48,6 +50,17 @@ sudo nginx -t
 补填高德安全密钥：运行 sudo nano /etc/tianyi.env，修改 AMAP_SECURITY_CODE，然后执行 sudo systemctl restart tianyi。不要把该文件内容粘贴到 GitHub 或日志。公开浏览器 Key 已在构建时注入，若更换此 Key，应更新模板并重新构建部署。
 
 重复运行部署脚本会保留已有安全密钥，创建新的运行目录。若版本切换后的启动/本机检查失败且存在旧版本，脚本恢复旧应用符号链接并重启；系统软件安装、配置文件和环境文件不属于完整系统回滚。旧运行目录和 Node 版本暂不自动删除。
+
+更新现有服务器到当前工作分支最新版（GitHub 推送不会自动发布，需在腾讯云终端执行；最终切换会重启服务，可能短暂中断）：
+
+```bash
+bash <<'SH'
+set -euo pipefail
+TIANYI_COMMIT=$(curl -fsSL --retry 3 'https://api.github.com/repos/ruixuecr/TianyiserverWeb/commits/codex%2Fencore-theme-elements' | python3 -c 'import json,sys; print(json.load(sys.stdin)["sha"])')
+curl -fL --retry 3 "https://raw.githubusercontent.com/ruixuecr/TianyiserverWeb/$TIANYI_COMMIT/scripts/deploy-ubuntu.sh" -o /tmp/tianyi-deploy.sh
+sudo bash /tmp/tianyi-deploy.sh "$TIANYI_COMMIT"
+SH
+```
 
 ## 网络与验收边界
 

@@ -87,6 +87,7 @@
   :is(
     .search,
     .map-controls,
+    .mode-switch,
     .selected-card,
     .spot-image-card,
     .live-badge,
@@ -156,6 +157,13 @@
 }
 .encore-theme .map-controls {
   box-shadow: 0 3px 12px #304d5910;
+}
+.encore-theme .mode-switch button {
+  color: var(--muted);
+}
+.encore-theme .mode-switch button.active {
+  color: var(--theme-surface);
+  background: var(--theme-blue);
 }
 .encore-theme .spot-image-card {
   box-shadow: 0 8px 24px #304d5918;

@@ -5,9 +5,11 @@ import Image from "next/image";
 import { ArrowUpRight, ImageIcon } from "lucide-react";
 import { Spot, spotSearchUrl } from "@/lib/data";
 import { CityMap } from "./city-map";
+import { MapModeSwitch, type MapMode } from "./map-mode-switch";
 
 export function SpotDetail({ spot }: { spot: Spot }) {
   const [failedImage, setFailedImage] = useState<string>();
+  const [mode, setMode] = useState<MapMode>("3D");
   const visible = useMemo(() => [spot], [spot]);
   const uri = spot.position
     ? `https://uri.amap.com/navigation?to=${spot.position.join(",")},${encodeURIComponent(spot.name)}&mode=walk&coordinate=gaode&callnative=1`
@@ -21,11 +23,12 @@ export function SpotDetail({ spot }: { spot: Spot }) {
         <section className="spot-map-section" aria-label="地点地图">
           <div className="spot-map-toolbar">
             <span>地点地图</span>
-            <span>3D 俯瞰</span>
+            <MapModeSwitch mode={mode} onChange={setMode} />
           </div>
           <div className="nearby-map spot-navigation-map">
             <div className="spot-map-preview" aria-hidden="true" inert>
               <CityMap
+                mode={mode}
                 visible={visible}
                 selected={spot}
                 onSelect={() => {}}
