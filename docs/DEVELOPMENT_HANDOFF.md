@@ -106,7 +106,7 @@
 
 ## 当前 Sites 预览
 
-最新已发布黄鹤楼打卡点，对应 GitHub 应用提交 5af65a9603d3448171fe073e34693b59d19f64b7；原生部署于 2026-10-30 20:59:58 UTC 返回 succeeded。原 URL、权限与环境 revision 1 保持，完整发布和验证记录见 SITES_PREVIEW.md。腾讯云版本仍为 65457b6022e107b7641b887ae4bba0b9a4c65264，新增黄鹤楼和 2D/3D 切换均累计待发布。
+最新已发布武汉大学樱花路，对应 GitHub 应用提交 d4a7ae125d6d2b15ae1205c39e239eaa1e7f5720；原生部署于 2026-10-30 21:07:36 UTC 返回 succeeded。原 URL、权限与环境 revision 1 保持，完整发布和验证记录见 SITES_PREVIEW.md。腾讯云版本仍为 65457b6022e107b7641b887ae4bba0b9a4c65264，新增武汉大学樱花路、黄鹤楼及 2D/3D 切换均累计待发布。
 
 2026-10-29 用户指定使用 Sites 重新部署，随后提供高德凭据并要求配置。当前为带服务端代理的 Worker 预览：https://tianyi-encore-preview-ruixue.ratsnaiwazcr.chatgpt.site ，原生部署状态 succeeded，仅所有者可访问。项目 ID 已保存在 .openai/hosting.json；复用既有站点，勿重新创建。导出脚本、版本/部署 ID 和更新步骤见 SITES_PREVIEW.md。
 
