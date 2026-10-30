@@ -137,3 +137,11 @@ Sites 预览不依赖旧 Tunnelmole 隧道进程；旧 .preview/url.txt 中的�
 2026-10-30 移除地图搜索框、query 状态与文本过滤，保留年份筛选和地点选择。1 号花篮的横版钢琴角色图改为详细图，竖版长图改为单张无料展示；原图按内容重命名为 basket-01-piano.jpg 与 basket-01-poster.jpg，图片字节不变。
 
 验证：npm run build、npm run typecheck 通过。实际 Worker 包在 1440/820/390/320px 下确认搜索框已移除、年份条目数仍为 2/1/3/3、年月标签和选择/取消正常；花篮两张图片用途与比例正确，响应式 WebP、弹窗边界和关闭正常；美食商场推荐搜索仍可使用。无横向溢出或浏览器运行错误。资源数仍为 364，压缩 Worker 约 9.84 MiB。高德 POI 解析未改动，此次不增加真实 3D 或入口坐标验证结论。
+
+发布结果：2026-10-30 03:58:30 UTC，Sites 返回 succeeded；地址、私有权限与高德环境 revision 1 沿用。
+
+- 应用提交：348357cfef016751668c93dd38d564d26ed1eabb，已与 GitHub 核对。
+- Sites 源码提交：a6ec3d2e375829e0b6058cfb197fb62809c980c3，已与远端核对。
+- 版本 ID：appgprj_6ae2b571b6488191aff989a1a1654416~appgver_635ddaf556008191a718963ebc354c48。
+- 部署 ID：appgdep_6ae415d8c2208191b92c9a734cda8a71。
+- 本地 QA 服务已停止。
