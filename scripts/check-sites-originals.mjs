@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { execFileSync } from "node:child_process";
 import worker from "../dist/server/index.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -17,29 +18,16 @@ async function collect(directory) {
   }
 }
 await collect(path.join(root, "public/images"));
-let calls = 0;
-const pins = new Set();
 const request = (route, options) =>
   new Request("https://preview.example" + route, options);
-const read = (route) => fs.readFile(path.join(root, "public", route));
+const pins = new Set();
+let outboundRequests = 0;
 try {
-  globalThis.fetch = async (source, options) => {
-    calls++;
-    const url = new URL(source);
-    assert.equal(url.origin, "https://raw.githubusercontent.com");
-    const match = url.pathname.match(
-      /^\/ruixuecr\/TianyiserverWeb\/([a-f0-9]{40})\/public(\/images\/.+)$/,
-    );
-    assert(match);
-    pins.add(match[1]);
-    assert.equal(url.search, "");
-    assert.equal(options.redirect, "error");
-    assert.equal(options.headers, undefined);
-    assert(options.signal instanceof AbortSignal);
-    return new Response(await read(decodeURIComponent(match[2])));
+  globalThis.fetch = async () => {
+    outboundRequests++;
+    throw new Error("Static assets must not require a Worker subrequest");
   };
   for (const route of originals) {
-    const expected = await read(route);
     const response = await worker.fetch(
       request(route + "?url=https://invalid.example", {
         headers: {
@@ -49,28 +37,35 @@ try {
       }),
       {},
     );
-    assert.equal(response.status, 200);
-    assert.equal(
-      response.headers.get("Content-Length"),
-      String(expected.length),
+    assert.equal(response.status, 302);
+    assert.equal(response.headers.get("Cache-Control"), "no-cache");
+    assert.equal(response.headers.get("Referrer-Policy"), "no-referrer");
+    const location = new URL(response.headers.get("Location"));
+    assert.equal(location.origin, "https://raw.githubusercontent.com");
+    const match = location.pathname.match(
+      /^\/ruixuecr\/TianyiserverWeb\/([a-f0-9]{40})\/public(\/images\/.+)$/,
     );
-    assert.deepEqual(Buffer.from(await response.arrayBuffer()), expected);
-    const etag = response.headers.get("ETag");
-    assert.match(etag, /^"[a-f0-9]{64}"$/);
-    const before = calls;
+    assert(match);
+    pins.add(match[1]);
+    assert.equal(decodeURIComponent(match[2]), route);
+    assert.equal(location.search, "");
+    assert.equal(location.username, "");
+    assert.equal(location.password, "");
+    const committed = execFileSync(
+      "git",
+      ["show", `${match[1]}:public${route}`],
+      { cwd: root, maxBuffer: 32 * 1024 * 1024 },
+    );
+    assert.deepEqual(
+      committed,
+      await fs.readFile(path.join(root, "public", route)),
+    );
     const head = await worker.fetch(request(route, { method: "HEAD" }), {});
-    assert.equal(head.status, 200);
-    assert.equal(head.headers.get("ETag"), etag);
+    assert.equal(head.status, 302);
+    assert.equal(head.headers.get("Location"), location.href);
     assert.equal((await head.arrayBuffer()).byteLength, 0);
-    const cached = await worker.fetch(
-      request(route, { headers: { "If-None-Match": etag } }),
-      {},
-    );
-    assert.equal(cached.status, 304);
-    assert.equal(calls, before);
   }
   assert.equal(pins.size, 1);
-  const before = calls;
   assert.equal(
     (await worker.fetch(request("/images/missing.jpg"), {})).status,
     404,
@@ -96,36 +91,14 @@ try {
       ),
     );
   }
-  assert.equal(
-    calls,
-    before,
-    "Pages and optimized images must not fetch originals",
-  );
-  const original = await read(originals[0]);
-  for (const mode of ["unavailable", "wrong-size", "corrupt", "timeout"]) {
-    globalThis.fetch = async () => {
-      if (mode === "timeout") throw new Error("Timeout");
-      if (mode === "unavailable") return new Response(null, { status: 404 });
-      if (mode === "wrong-size") return new Response("wrong");
-      const corrupt = Buffer.from(original);
-      corrupt[0] ^= 1;
-      return new Response(corrupt);
-    };
-    const response = await worker.fetch(request(originals[0]), {});
-    assert.equal(response.status, 502, mode);
-    assert.equal(response.headers.get("Cache-Control"), "no-store");
-    assert.equal(
-      await response.text(),
-      "Original image temporarily unavailable",
-    );
-  }
+  assert.equal(outboundRequests, 0);
   console.log(
     JSON.stringify({
       originals: originals.length,
       embeddedVariants: variants.length,
       pinnedCommit: [...pins][0],
-      integrityAndErrors: "passed",
-      credentialsNeverForwarded: true,
+      redirectsAndCommittedBytes: "passed",
+      outboundRequests,
     }),
   );
 } finally {

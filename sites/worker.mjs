@@ -2,47 +2,6 @@
 import assets from "./generated-assets.mjs";
 import { mapConfiguration, proxyMapRequest } from "../lib/amap-service.ts";
 
-async function originalImage(request, asset, headers) {
-  const etag = `"${asset.sha256}"`;
-  headers.set("ETag", etag);
-  if (request.headers.get("If-None-Match") === etag)
-    return new Response(null, { status: 304, headers });
-  headers.set("Content-Length", String(asset.size));
-  if (request.method === "HEAD") return new Response(null, { headers });
-  try {
-    // Only build-generated, commit-pinned URLs are fetched. Never forward
-    // visitor headers, credentials, request paths or query parameters.
-    const response = await fetch(asset.source, {
-      redirect: "error",
-      signal: AbortSignal.timeout(15000),
-      cf: { cacheEverything: true, cacheTtl: 31536000 },
-    });
-    if (!response.ok) throw new Error("Original unavailable");
-    const body = await response.arrayBuffer();
-    if (body.byteLength !== asset.size)
-      throw new Error("Original size mismatch");
-    const hash = Array.from(
-      new Uint8Array(await crypto.subtle.digest("SHA-256", body)),
-    )
-      .map((byte) => byte.toString(16).padStart(2, "0"))
-      .join("");
-    if (hash !== asset.sha256) throw new Error("Original integrity mismatch");
-    return new Response(body, { headers });
-  } catch (error) {
-    console.error(
-      "Original image delivery failed:",
-      error instanceof Error ? error.message : "Unknown failure",
-    );
-    return new Response("Original image temporarily unavailable", {
-      status: 502,
-      headers: {
-        "Content-Type": "text/plain; charset=utf-8",
-        "Cache-Control": "no-store",
-      },
-    });
-  }
-}
-
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -89,7 +48,16 @@ export default {
       Vary: "Accept-Encoding",
       "X-Content-Type-Options": "nosniff",
     });
-    if (asset.source) return originalImage(request, asset, headers);
+    if (asset.source)
+      return new Response(null, {
+        status: 302,
+        headers: {
+          Location: asset.source,
+          "Cache-Control": "no-cache",
+          "Referrer-Policy": "no-referrer",
+          "X-Content-Type-Options": "nosniff",
+        },
+      });
     if (request.method === "HEAD")
       return new Response(null, { status, headers });
     const compressed = Uint8Array.from(atob(asset.body), (character) =>

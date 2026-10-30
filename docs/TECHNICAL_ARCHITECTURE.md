@@ -4,7 +4,7 @@
 
 ## 技术栈与目录
 
-Sites 原图交付：静态导出仍保存全部原图，Worker 继续嵌入所有响应式图片和页面。原始 PNG/JPEG/WebP 路由改为映射到公开 GitHub 仓库的固定 HEAD 提交，构建逐字节核对 git show 中的原图，记录大小和 SHA-256；因此先提交原图，再构建 Worker，并在部署前推送该提交。Worker 只请求构建时映射的地址，不传访客头、查询参数或环境密钥，不跟随重定向；15 秒超时、长度或哈希不符返回 no-store 502。HEAD 和 ETag 条件请求可直接响应；原图成功响应保持 no-cache，固定上游可缓存。scripts/check-sites-originals.mjs 验证交付和隔离；普通页面加载的 WebP 不依赖该上游。图片质量、最高分辨率、完整 Next.js 配置与 10 MiB 上限保持。
+Sites 原图交付：静态导出仍保存全部原图，Worker 继续嵌入所有响应式图片和页面。原始 PNG/JPEG/WebP 路由以 302 跳转至公开 GitHub 仓库的固定 HEAD 提交，构建逐字节核对 git show 中的原图，记录大小和 SHA-256；因此先提交原图，再构建 Worker，并在部署前推送该提交。只允许构建生成的已知原图路径，忽略访客查询参数；跳转不缓存并设置 no-referrer，不发起服务端原图请求。最初服务端校验交付在本地成功、托管环境返回 502，故改为浏览器打开固定版本原图。scripts/check-sites-originals.mjs 验证跳转与 Git 原图字节；普通页面 WebP 仍内嵌。原图打开依赖 raw.githubusercontent.com 可达，腾讯云完整部署继续从本地提供原图，不受此预览调整影响。图片质量、最高分辨率与 10 MiB 上限保持。
 
 腾讯云独立部署使用 next.config.ts 的 TIANYI_STANDALONE=1 开关，生成 .next/standalone；复制 public 与 .next/static 后通过 server.js 运行。systemd 以 tianyi 用户监听 127.0.0.1:3000，Nginx 在 80 端口反向代理；哈希静态资源直接交付，图片优化响应按 URL 和 Accept 缓存，HTML/RSC 与地图 API 不加代理缓存。环境配置存于服务器 /etc/tianyi.env（root 0600），安全密钥只在运行时载入，不参与构建。用户已在服务器完成安装及安全密钥补配，公网页面、图片缓存、高德 SDK 行政区和地点查询核验通过；完整 3D 视觉仍需支持 WebGL 的用户设备确认，详情见 TENCENT_DEPLOYMENT.md。
 
