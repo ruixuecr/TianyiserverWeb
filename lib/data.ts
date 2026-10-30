@@ -236,26 +236,11 @@ export function spotSearchUrl(spot: Spot) {
   });
   return `https://uri.amap.com/search?${query.toString()}`;
 }
-export const notices = [
-  {
-    id: "welcome",
-    title: "欢迎来到活动指南",
-    tag: "站点公告",
-    date: "演示内容",
-    text: `当前收录 ${spots.length} 个指定打卡点，按 2020、2023、2025、2026 年的记忆分类，并提供服务站和应援花篮活动入口。地点入口与未确认分店请在高德中核实后再导航。`,
-  },
-  {
-    id: "travel",
-    title: "出发前，先收好这份出行清单",
-    tag: "出行提示",
-    date: "演示内容",
-    text: "提前查看主办方的入场须知，确认票证、安检要求及场馆入口。国博应核对具体展馆，奥体应核对具体场馆，餐厅应核对分店。为散场预留交通时间。",
-  },
-  {
-    id: "map",
-    title: "地图使用小贴士",
-    tag: "使用指南",
-    date: "演示内容",
-    text: "打卡推荐页固定为 3D 俯瞰，支持地点筛选；首页和地点详情也采用武汉范围的 3D 地图。未确认地点暂不标注，详情页可打开高德搜索并选择实际门店、场馆或入口，再开始导航。",
-  },
-];
+export type Notice = {
+  id: string;
+  title: string;
+  tag: string;
+  date: string;
+  text: string;
+};
+export const notices: Notice[] = [];

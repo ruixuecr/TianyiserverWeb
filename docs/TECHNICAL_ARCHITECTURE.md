@@ -139,3 +139,5 @@ activities 移除 english / description，FlowerBasket 移除 description / grou
 组件删除（2026-10-30）：ServiceStationDetails 不再包含 collection-note 节点，serviceStation 类型与对象不再有 collection；Shell 删除完整 footer 及仅供页脚使用的 ThemeMotif 导入，页脚和领取说明的专用 CSS 一并清理。顶部导航品牌和其他 ThemeMotif 用途保持。
 
 标题更新（2026-10-30）：Shell 品牌改为“活动指南”，图标由 Music2 换为 Compass，移除旧英文品牌 span 及 brand-en 专用样式；/map 导航和 MapExplorer h1 使用“打卡推荐”。RootLayout、地点详情和推荐页元数据品牌及公告引用名称同步更新，路由和地图实现不变。
+
+通知清空（2026-10-30）：lib/data.ts 用显式 Notice 类型保留空 notices 数组，通知列表组件不渲染任何条目。当前没有有效详情，因此移除 app/notices/[id]/page.tsx，避免 Next.js 静态导出对零条动态路径的限制；旧详情返回 404。没有生成虚拟通知或占位详情路径，未来添加正式通知时恢复详情路由。
