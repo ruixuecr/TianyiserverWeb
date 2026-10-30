@@ -236,3 +236,11 @@ Sites 预览不依赖旧 Tunnelmole 隧道进程；旧 .preview/url.txt 中的�
 ## 服务站卡片改名为免费服务
 
 2026-10-30 按用户要求将“现场物资”标题替换为“免费服务”。npm run build、npm run typecheck 与 Sites 导出构建通过；390px 实际 Worker 页面显示新标题及原有照片打印、充电站、免费水三项，旧标题不再出现，无横向溢出或浏览器运行错误，截图排版正常。资源为 367 项、压缩 Worker 约 9.53 MiB。
+
+发布结果：2026-10-30 10:44:14 UTC，Sites 返回 succeeded；现有网址、私有权限与高德环境 revision 1 沿用。
+
+- 应用提交：126833c2bb7697fa69e389d7469e5a7cd7ce759e，已推送并核对 GitHub。
+- Sites 源码提交：defda8c5180146ee1b1ff119e4524ff7f1ee9353，已推送并核对远端。
+- 版本 ID：appgprj_6ae2b571b6488191aff989a1a1654416~appgver_14a67ce201ac8191badb5a565d746141。
+- 部署 ID：appgdep_6ae474eeb1d4819180873b7671b22a95。
+- 发布归档从上述 Sites 提交生成，线上预览独立运行。
