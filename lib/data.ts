@@ -340,6 +340,45 @@ export const spots: Spot[] = [
       alt: "洛天依在平湖珞樱观湖平台的打卡图片",
     },
   },
+  {
+    id: "tianyi-popup",
+    name: "洛天依快闪店",
+    en: "LUO TIANYI POP-UP · WUHAN",
+    memoryDate: { year: 2026, month: 10 },
+    category: "主题快闪",
+    area: "江夏区",
+    searchName: "伟星光谷星悦广场",
+    matchAddress: "流芳路84号",
+    x: 81,
+    y: 78,
+    description: `✨声越江城，次元无界✨
+
+从盛夏的无限共鸣，到深秋的纯蓝之约。
+熟悉的旋律再次响起，属于武汉的纯蓝惊喜来啦！💙
+
+洛天依《无限共鸣·纯蓝幻乐》官方授权主题快闪·武汉站正式官宣！
+
+武汉首次开闪！🎉
+演唱会系列周边、武汉城市限定新品、主题打卡空间，还有集章互动与满额赠礼等丰富活动，等待各位锦依卫前来解锁！🎁
+
+📍 快闪情报
+📅 活动日期：2026.10.23—11.23
+⏰ 营业时间：10:00—22:00
+🏬 活动地点：武汉伟星星悦广场 LG大中庭
+
+
+从盛夏的舞台，到深秋的相聚。
+10月23日，让我们在武汉再次共鸣！💙`,
+    tip: "",
+    address: "江夏区流芳路84号",
+    theme: "shop",
+    featuredImage: {
+      src: "/images/spots/tianyi-popup.jpg",
+      width: 860,
+      height: 1228,
+      alt: "洛天依官方授权主题快闪武汉站海报",
+    },
+  },
 ];
 export const chronologicalSpots = [...spots].sort(
   (a, b) =>

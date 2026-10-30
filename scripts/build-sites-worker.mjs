@@ -3,6 +3,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { gzipSync } from "node:zlib";
 import ts from "typescript";
+import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const input = path.resolve(
@@ -37,6 +39,15 @@ const types = {
   ".ico": "image/x-icon",
 };
 const assets = {};
+// Originals stay in the public application repository and static export. Pin
+// their delivery to verified Git bytes; keep responsive images in the Worker.
+const imageCommit = execFileSync("git", ["rev-parse", "HEAD"], {
+  cwd: root,
+  encoding: "utf8",
+}).trim();
+if (!/^[a-f0-9]{40}$/.test(imageCommit))
+  throw new Error("Invalid image commit.");
+let originalCount = 0;
 async function collect(directory) {
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     const filename = path.join(directory, entry.name);
@@ -45,8 +56,36 @@ async function collect(directory) {
       const route =
         "/" + path.relative(input, filename).split(path.sep).join("/");
       const content = await readFile(filename);
+      const type = types[path.extname(filename)] || "application/octet-stream";
+      if (
+        route.startsWith("/images/") &&
+        !route.startsWith("/images/optimized/") &&
+        /\.(png|jpe?g|webp)$/i.test(route)
+      ) {
+        const gitPath = `public${route}`;
+        const committed = execFileSync(
+          "git",
+          ["show", `${imageCommit}:${gitPath}`],
+          {
+            cwd: root,
+            maxBuffer: 32 * 1024 * 1024,
+          },
+        );
+        if (!content.equals(committed))
+          throw new Error(
+            `Commit original image changes before building: ${gitPath}`,
+          );
+        assets[route] = {
+          type,
+          source: `https://raw.githubusercontent.com/ruixuecr/TianyiserverWeb/${imageCommit}/${gitPath.split("/").map(encodeURIComponent).join("/")}`,
+          sha256: createHash("sha256").update(content).digest("hex"),
+          size: content.length,
+        };
+        originalCount++;
+        continue;
+      }
       assets[route] = {
-        type: types[path.extname(filename)] || "application/octet-stream",
+        type,
         body: gzipSync(content, { level: 9 }).toString("base64"),
       };
     }
@@ -88,5 +127,5 @@ await writeFile(
   JSON.stringify(manifest, null, 2) + "\n",
 );
 console.log(
-  `Worker contains ${Object.keys(assets).length} assets; ${(compressedSize / 1024 / 1024).toFixed(2)} MiB compressed. Runtime credentials are not included.`,
+  `Worker contains ${Object.keys(assets).length} asset routes (${originalCount} pinned originals); ${(compressedSize / 1024 / 1024).toFixed(2)} MiB compressed. Runtime credentials are not included.`,
 );

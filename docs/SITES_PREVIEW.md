@@ -125,13 +125,18 @@ Sites 导出进一步合并 2048px 缓存至最高请求档，当前 deviceSizes
 
 当前适配将原静态页面及压缩资源嵌入 Worker ESM，保持现有 Site ID、地址与私有访问范围。源码 .openai/hosting.json 已移除 static 字段。后续修改环境变量后需重新部署保存版本使 revision 生效；仅更新环境配置不表示现网已经应用。
 
+## 当前原图交付
+
+为容纳新增图片，Worker 不再重复内嵌原始 PNG/JPEG/WebP；原图仍原样保留于 GitHub 与静态导出。构建以 Git HEAD 固定公开原图地址，逐字节核对已提交内容并记录长度/SHA-256。响应式 WebP、HTML/CSS/JS 继续内嵌，正常页面展示不依赖原图上游。访客访问原图时由 Worker 同源交付，校验长度和哈希，15 秒超时或上游错误返回 no-store 502；不转发访问凭据、请求查询参数或环境密钥，不跟随上游重定向。支持 HEAD、ETag 304；已知原图大小可无上游直接答复 HEAD。图片质量与 10 MiB 上限保持。
+
 ## 可重复构建
 
-安装锁定依赖 `npm ci`，在本仓库根目录执行：
+安装锁定依赖 `npm ci`。先提交全部原图修改，构建会核对 Git HEAD 中的原图字节；该提交必须在部署前推送 GitHub。在本仓库根目录执行：
 
 ```sh
 node scripts/export-sites-preview.mjs
 node scripts/build-sites-worker.mjs
+node scripts/check-sites-originals.mjs
 ```
 
 输出目录是可替换的生成目录，请勿指向手写源码。脚本在被忽略的 .preview/sites-build 中复制应用，以 Next.js 官方 output: export 模式构建，不改动根目录 next.config.ts。依赖沿用已安装版本；使用 Next.js 带入的 sharp 提前生成质量 75 的响应式 WebP，保留 next/image 的尺寸、优先加载、延迟加载和原比例展示。

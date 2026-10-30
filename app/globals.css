@@ -1833,6 +1833,7 @@ button {
   color: #818a78;
   max-width: 460px;
   margin: 0;
+  white-space: pre-line;
 }
 .spot-introduction p + p {
   margin-top: 16px;

@@ -4,6 +4,8 @@
 
 ## 技术栈与目录
 
+Sites 原图交付：静态导出仍保存全部原图，Worker 继续嵌入所有响应式图片和页面。原始 PNG/JPEG/WebP 路由改为映射到公开 GitHub 仓库的固定 HEAD 提交，构建逐字节核对 git show 中的原图，记录大小和 SHA-256；因此先提交原图，再构建 Worker，并在部署前推送该提交。Worker 只请求构建时映射的地址，不传访客头、查询参数或环境密钥，不跟随重定向；15 秒超时、长度或哈希不符返回 no-store 502。HEAD 和 ETag 条件请求可直接响应；原图成功响应保持 no-cache，固定上游可缓存。scripts/check-sites-originals.mjs 验证交付和隔离；普通页面加载的 WebP 不依赖该上游。图片质量、最高分辨率、完整 Next.js 配置与 10 MiB 上限保持。
+
 腾讯云独立部署使用 next.config.ts 的 TIANYI_STANDALONE=1 开关，生成 .next/standalone；复制 public 与 .next/static 后通过 server.js 运行。systemd 以 tianyi 用户监听 127.0.0.1:3000，Nginx 在 80 端口反向代理；哈希静态资源直接交付，图片优化响应按 URL 和 Accept 缓存，HTML/RSC 与地图 API 不加代理缓存。环境配置存于服务器 /etc/tianyi.env（root 0600），安全密钥只在运行时载入，不参与构建。用户已在服务器完成安装及安全密钥补配，公网页面、图片缓存、高德 SDK 行政区和地点查询核验通过；完整 3D 视觉仍需支持 WebGL 的用户设备确认，详情见 TENCENT_DEPLOYMENT.md。
 
 当前已验证版本为 Next.js 16.3.8、React 19；TypeScript、Tailwind CSS 4、lucide-react。依赖声明允许版本范围，实际版本以锁文件为准。数据集中在 TypeScript 文件中，没有数据库。Next.js 服务端承载高德代理，因此完整功能不能仅作为静态 HTML 托管。
@@ -19,7 +21,7 @@
 | components/spot-detail.tsx | 左地图、右介绍、下方图片的详情布局 |
 | components/spot-image-card.tsx | 独立图片卡片和图片失败回退 |
 | components/art.tsx | 项目内 SVG 插画 |
-| lib/data.ts | 13 个地点、memoryDate 年月、chronologicalSpots 时间排序、年份选项、通知和高德搜索链接 |
+| lib/data.ts | 14 个地点、memoryDate 年月、chronologicalSpots 时间排序、年份选项、通知和高德搜索链接 |
 | lib/concert.ts | 固定 UTC+8 开场时间、累计小时倒计时与逐圈颜色层计算 |
 | app/globals.css | 界面、标签及响应式样式 |
 | public/images/spots/ | 已入库的地点图片 |
@@ -67,6 +69,8 @@ MapExplorer 的 selected-card 不再渲染 selected.category 对应的 eyebrow �
 地图年份筛选与选中状态位于客户端组件内；已移除搜索框、query 状态和文本过滤，仅按年份筛选。没有跨设备保存机制。当前不实现站内完整路线规划或主动用户定位。
 
 ## 地点介绍
+
+新增 tianyi-popup：显示名称洛天依快闪店，导航地址江夏区流芳路84号，searchName 为真实高德返回的伟星光谷星悦广场，matchAddress 为流芳路84号。按开始日期归入 2026-10；14 个地点、2026 年 5 个。用户完整多段介绍保存在 description，详情段落增加 white-space: pre-line 保留活动日期、时间、地址等行内换行；海报 860×1228 自然比例显示。
 
 东湖 memoryDate 采用 month:3、additionalMonths:[7]；spotDateLabel 输出“2020年3月 & 7月”，排序仍取基础 month，即最早月份，年份过滤和地点计数保持。MapExplorer 多月日期用 location-date div，避免将多个离散月份写入一个 time datetime；单月继续使用原 time 语义。
 
