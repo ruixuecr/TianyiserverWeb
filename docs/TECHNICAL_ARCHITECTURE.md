@@ -13,7 +13,7 @@
 | app/page.tsx | 简约首页 |
 | components/home-city-map.tsx | 首页地图与地点跳转 |
 | components/city-map.tsx | 高德 SDK 加载、边界、相机、POI 搜索和标签 |
-| components/map-explorer.tsx | 地点年份/文本筛选、年月标签、选中状态、上下卡片和缩放按钮 |
+| components/map-explorer.tsx | 地点年份筛选、年月标签、选中状态、上下卡片和缩放按钮 |
 | components/spot-detail.tsx | 左地图、右介绍、下方图片的详情布局 |
 | components/spot-image-card.tsx | 独立图片卡片和图片失败回退 |
 | components/art.tsx | 项目内 SVG 插画 |
@@ -54,7 +54,7 @@ Marker 内容用 DOM 创建，名称写入 textContent；外观沿用原有图�
 
 详情组件根据原始 spot.position 决定导航链接：有坐标时打开高德步行导航，否则打开关键词搜索；天宝搜索链接包含地址约束。浏览器内部 POI 查询结果目前没有回传给详情组件以更新该外链，所以地图已定位不代表详情链接自动变成坐标导航。
 
-类别、搜索和选中状态位于客户端组件内；没有跨设备保存机制。当前不实现站内完整路线规划或主动用户定位。
+地图年份筛选与选中状态位于客户端组件内；已移除搜索框、query 状态和文本过滤，仅按年份筛选。没有跨设备保存机制。当前不实现站内完整路线规划或主动用户定位。
 
 ## 图片交付
 
@@ -116,8 +116,10 @@ codex/encore-theme-elements 在 mapapi 基线上新增以下模块：
 
 /events/[id] 仍使用 Promise params，预生成 service-station、flower-baskets、haidilao；旧 weekend/sunset/walk 地址通过 redirect 返回 /events，未知 ID 继续 notFound。/recommendations 是静态页，筛选与搜索由客户端组件完成。
 
-新增 @radix-ui/react-dialog 1.3.1，其他已有依赖版本不变。每个已填花篮使用独立 Dialog Root/Trigger；Portal 仅在打开时挂载详情内容，弹窗内滚动，Radix 处理遮罩、Escape、焦点圈定、背景滚动锁定和焦点恢复。Portal 不继承 Shell 的 CSS 变量，因此在 encore-dialog 中显式定义同一蓝白色板。FlowerBasket.location 是 basketLocations 的键，只接受 popup / stadium；首条指向 popup。花篮移除 organizer、time、sample 与示例 giveaways，改为可选 giveawayImage 单张图；服务站仍使用 Giveaway 数组与自己的日期/时间。最新用户图 3 / 图 4 原文件分别存为 public/images/activities/basket-01-giveaway.jpg 与 basket-01-details.jpg，按原比例响应式加载，不改动图片内容。摆放位置放在弹窗滚动区首部，避免被长图挤到末尾。群二维码不提供伪造值；有真实图片时才渲染，使用 unoptimized 避免有损转码影响扫描。
+新增 @radix-ui/react-dialog 1.3.1，其他已有依赖版本不变。每个已填花篮使用独立 Dialog Root/Trigger；Portal 仅在打开时挂载详情内容，弹窗内滚动，Radix 处理遮罩、Escape、焦点圈定、背景滚动锁定和焦点恢复。Portal 不继承 Shell 的 CSS 变量，因此在 encore-dialog 中显式定义同一蓝白色板。FlowerBasket.location 是 basketLocations 的键，只接受 popup / stadium；首条指向 popup。花篮移除 organizer、time、sample 与示例 giveaways，改为可选 giveawayImage 单张图；服务站仍使用 Giveaway 数组与自己的日期/时间。按最新纠正，原图 3 用于 images 详细图，文件重命名为 public/images/activities/basket-01-piano.jpg（1280×663）；原图 4 用于 giveawayImage 无料图，重命名为 basket-01-poster.jpg（428×1280）。仅改用途、文件名与相应尺寸/alt，保留图片内容和原比例响应式加载。摆放位置放在弹窗滚动区首部，避免被长图挤到末尾。群二维码不提供伪造值；有真实图片时才渲染，使用 unoptimized 避免有损转码影响扫描。
 
 首页 time-orbit 的 z-index 为 0，piano-duet 为 2，图像自身关闭 multiply 混合；整体外层仍与浅色底融合。主图 clip-path 仅用于当前素材的外围白色留白，更换主视觉时应重新核对边界。普通地点照片不使用此裁切规则。
 
 服务站资料更新（2026-10-30）：serviceStation.locationImages 保存两张位置示意，cover 保存本次 p6，两处 ActivityCover 根据 service-station 复用同一照片。ServiceStationDetails 的左列完整展示路线图与现场照片，查看大图链接打开同源原图；右列展示日期/时段、三项现场服务与待补充无料，窄屏改为单列。日期显示 10月30日、时段 10:00–17:00；服务包括照片打印、充电站和免费水。站点不再使用未知文本地址 LocationCard，未从示意图推算或固化坐标；海底捞继续使用原 LocationCard。普通图片仍通过 ActivityImage/next/image 响应式 WebP 与错误重试交付，封面和位置图自然比例完整展示。
+
+地图搜索移除范围：只删除 MapExplorer 中面向访客的输入框与 query 过滤逻辑。CityMap 的高德 PlaceSearch 仍用于已收录地点的 POI 解析，年份筛选、日期标签、缩放、选择/取消选择和详情导航继续保留；美食商场推荐页的独立搜索和共享 .search 样式保持。

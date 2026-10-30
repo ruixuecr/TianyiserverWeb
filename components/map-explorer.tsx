@@ -2,7 +2,6 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
-  Search,
   ArrowUpRight,
   Plus,
   Minus,
@@ -25,20 +24,15 @@ import { SpotImageCard, SpotVisual } from "./spot-image-card";
 import { ThemeMotif } from "./theme-artwork";
 export function MapExplorer() {
   const [year, setYear] = useState("全部地点");
-  const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Spot>();
   const [zoom, setZoom] = useState(0);
   const [reset, setReset] = useState(0);
   const visible = useMemo(
     () =>
       chronologicalSpots.filter(
-        (s) =>
-          (year === "全部地点" || String(s.memoryDate.year) === year) &&
-          `${s.name}${s.area}${s.address}${s.searchName || ""}${spotDateLabel(s)}`.includes(
-            query.trim(),
-          ),
+        (s) => year === "全部地点" || String(s.memoryDate.year) === year,
       ),
-    [year, query],
+    [year],
   );
   function changeYear(value: string) {
     setYear(value);
@@ -53,23 +47,6 @@ export function MapExplorer() {
         <div className="eyebrow">WUHAN CITY EXPLORER</div>
         <h1>下一站，去哪里？</h1>
         <p>把江城的风景，装进你的行程。</p>
-        <label className="search">
-          <Search size={18} />
-          <input
-            aria-label="搜索地点"
-            placeholder="搜索地点、区域、年月…"
-            value={query}
-            onChange={(e) => {
-              setQuery(e.target.value);
-              setSelected(undefined);
-            }}
-          />
-          {query && (
-            <button aria-label="清空搜索" onClick={() => setQuery("")}>
-              <X size={16} />
-            </button>
-          )}
-        </label>
         <div className="filters" role="group" aria-label="按年份筛选地点">
           {["全部地点", ...spotYears.map(String)].map((value) => (
             <button
@@ -108,13 +85,8 @@ export function MapExplorer() {
           ))}
           {visible.length === 0 && (
             <div className="empty">
-              没有找到这个地点。
-              <button
-                onClick={() => {
-                  setQuery("");
-                  setYear("全部地点");
-                }}
-              >
+              这一年暂无地点。
+              <button onClick={() => changeYear("全部地点")}>
                 查看全部地点
               </button>
             </div>

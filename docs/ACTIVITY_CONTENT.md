@@ -8,7 +8,7 @@
 | --- | --- |
 | /events | 恰好三个入口：服务站活动、应援花篮活动、海底捞活动 |
 | /events/flower-baskets | 10 个展示位，其中 1 个已填可点击、9 个等待补充 |
-| 花篮弹窗 | 屏幕居中；详细长图、单张无料图、摆放位置、花篮交流群；内部滚动；关闭按钮、Escape、点击遮罩关闭；关闭后焦点回到卡片 |
+| 花篮弹窗 | 屏幕居中；详细图、单张无料长图、摆放位置、花篮交流群；内部滚动；关闭按钮、Escape、点击遮罩关闭；关闭后焦点回到卡片 |
 | /events/service-station | p2/p3 位置示意图、10月30日 10:00–17:00、照片打印/充电站/免费水，p6 封面；无料与领取说明待补充 |
 | /events/haidilao | 参与门店、日期、时段、活动内容与参与方式 |
 | / | 钟盘在钢琴角色图后方，桌面直径 500px；手机按视口缩放；动效默认开启并尊重系统减少动画设置 |
@@ -20,8 +20,8 @@
 
 - name、description：花篮名称与介绍，不再使用示例名称“蓝白花语”。
 - location：只能填写 basketLocations 的 popup 或 stadium。对应“快闪店 武汉伟星星悦广场 LG大中庭”与“湖北奥林匹克体育中心体育馆”；首篮为 popup。不要添加第三种地点，不填写尚未确认的具体坐标。
-- images：详细图数组；每张填写 src、width、height、alt，可附 caption。首篮采用用户本次图 4，428×1280，路径 /images/activities/basket-01-details.jpg。
-- giveawayImage：无料只放一张展示图，同样填写 src、width、height、alt。首篮采用本次图 3，1280×663，路径 /images/activities/basket-01-giveaway.jpg。不要重建明信片、小卡的示例列表或从海报推测发放清单。
+- images：详细图数组；每张填写 src、width、height、alt，可附 caption。首篮按最新纠正采用原图 3 横版钢琴角色图，1280×663，路径 /images/activities/basket-01-piano.jpg。
+- giveawayImage：无料只放一张展示图，同样填写 src、width、height、alt。首篮按最新纠正采用原图 4 竖版长图，428×1280，路径 /images/activities/basket-01-poster.jpg。不要重建明信片、小卡的示例列表或从海报推测发放清单。
 - groupQr：真实群二维码图片；未提供时保持省略。二维码按原图交付，不做有损压缩。
 - groupNote：入群说明或二维码有效期提醒。
 
