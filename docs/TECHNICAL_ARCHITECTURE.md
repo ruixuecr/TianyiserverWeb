@@ -58,7 +58,7 @@ Marker 内容用 DOM 创建，名称写入 textContent；外观沿用原有图�
 
 ## 地点介绍
 
-lib/data.ts 的 Spot.description 为可选字符串，双换行分隔自然段。SpotDetail 将各段作为独立 p 渲染，连续段落间隔 16px；单段介绍行为不变，未提供时不渲染空段落或生成替代内容。鹦鹉洲大桥、东湖、中百罗森、古田桥和天宝饭庄使用用户提供的正式文案，东湖全文保留历史叙述；古田桥和天宝饭庄介绍均为巡演打卡点说明及原文引语两段，保留用户标点。地图相机、导航、地点日期与图片配置没有改动。
+lib/data.ts 的 Spot.description 为可选字符串，双换行分隔自然段。SpotDetail 将各段作为独立 p 渲染，连续段落间隔 16px；单段介绍行为不变，未提供时不渲染空段落或生成替代内容。鹦鹉洲大桥、东湖、中百罗森、古田桥、天宝饭庄和奥体中心使用用户提供的正式文案，东湖全文保留历史叙述；古田桥和天宝饭庄介绍均为巡演打卡点说明及原文引语两段，保留用户标点。地图相机、导航、地点日期与图片配置没有改动。
 
 ## 图片交付
 
@@ -143,3 +143,5 @@ activities 移除 english / description，FlowerBasket 移除 description / grou
 通知清空（2026-10-30）：lib/data.ts 用显式 Notice 类型保留空 notices 数组，通知列表组件不渲染任何条目。当前没有有效详情，因此移除 app/notices/[id]/page.tsx，避免 Next.js 静态导出对零条动态路径的限制；旧详情返回 404。没有生成虚拟通知或占位详情路径，未来添加正式通知时恢复详情路由。
 
 古田桥图片更新（2026-10-30）：featuredImage 指向 public/images/spots/gutian-bridge.jpg（640×853），复用 SpotDetail 与 SpotImageCard 的原比例响应式图片展示；原始 JPEG 字节不变，不补写介绍或推定导航坐标。
+
+奥体中心更新（2026-10-30）：aoti.name 改为“奥体中心”，featuredImage 指向 aoti-center-poster.jpg（1260×737），description 使用用户给定收官场介绍。所有读取 spot.name 的地图列表、标签、详情和元数据同步显示新名称；内部 ID、年月、searchName 和西门地址保持。为容纳新原图，Sites 导出 deviceSizes 与生成宽度同步省去 750px，由已有 828px 覆盖（原有 1080px→1200px 继续保留）；不改原图、最高分辨率、质量 75 或完整 Next.js 配置，10 MiB 保护继续生效。

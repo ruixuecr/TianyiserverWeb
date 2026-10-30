@@ -28,10 +28,12 @@ await symlink(path.join(root, "node_modules"), path.join(build, "node_modules"),
 const imageMap = {};
 const optimized = path.join(build, "public/images/optimized");
 await mkdir(optimized, { recursive: true });
-// Omit the nearby 1080px variant in the embedded Sites build. Browsers use the
-// existing 1200px variant instead, keeping resolution while avoiding duplicate
-// raster payloads near the Worker size limit. Original images remain untouched.
-const deviceSizes = imageConfigDefault.deviceSizes.filter((width) => width !== 1080);
+// Omit nearby 750px and 1080px variants in the embedded Sites build. Browsers
+// use existing 828px and 1200px variants instead, keeping resolution while
+// avoiding duplicate raster payloads. Original images remain untouched.
+const deviceSizes = imageConfigDefault.deviceSizes.filter(
+  (width) => width !== 750 && width !== 1080,
+);
 const widths = [...deviceSizes, ...imageConfigDefault.imageSizes];
 async function optimizeDirectory(directory) {
   for (const entry of await readdir(directory, { withFileTypes: true })) {
