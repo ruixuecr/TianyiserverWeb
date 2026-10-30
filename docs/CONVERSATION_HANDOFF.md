@@ -88,6 +88,8 @@
 
 54. 用户要求“把项目改成public”，上下文明确为 GitHub 仓库 ruixuecr/TianyiserverWeb，已授权公开。已尝试通过 GitHub API 将 private 设为 false，但当前集成返回 403 Resource not accessible by integration；随后复查 private=true、visibility=private，尚未完成公开。不要把用户授权误记为操作成功。需由拥有设置权限的连接执行，或由用户进入 https://github.com/ruixuecr/TianyiserverWeb/settings 的 Danger Zone → Change repository visibility → Make public 完成。现有分支、默认 main 和 Sites 私有预览权限未改变。
 
+55. 用户购买腾讯云轻量服务器（Ubuntu 24.04、2 核 8GB、80GB SSD、200Mbps 峰值），授权部署，并确认尚无域名，先按公网 IP 部署。GitHub 本次复查已 public，默认 main 未改。工作环境 TCP 允许列表为空，指定的 TCP 代理拒绝连接，尚未到服务器认证阶段，未使用登录密码或修改服务器。用户界面没有 TCP 出站配置入口，改为准备腾讯云“一键登录”终端可执行的部署脚本；截图已确认服务器入站 TCP 22、80 允许，但这不解除工作环境的出站限制。高德安全密钥在 Sites 只返回掩码，无法导出迁移，需在服务器终端隐藏输入；允许暂留空先部署页面，不得宣称地图已正常。脚本、systemd、Nginx 与独立运行包通过本地构建、类型、静态和 HTTP/图片缓存验证；腾讯云实际安装及外网验证仍待完成。操作记录见 TENCENT_DEPLOYMENT.md，登录密码、订单、账户资料不写入仓库。
+
 ## 已有验证证据及边界
 
 - 最新应用代码在 2026-10-29 通过 npm run build，包含 TypeScript 检查。

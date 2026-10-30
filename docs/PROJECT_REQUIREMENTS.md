@@ -2,7 +2,9 @@
 
 更新日期：2026-10-30。mapapi 为地图基线，当前云端实现位于 codex/encore-theme-elements。
 
-仓库可见性：用户已要求将 GitHub 仓库 ruixuecr/TianyiserverWeb 改为 public。2026-10-30 修改请求被 GitHub 以 403 Resource not accessible by integration 拒绝，复查仍为 private；需要拥有仓库设置权限的连接或由所有者在 GitHub 设置页完成。该请求不涉及 Sites 预览访问权限。
+仓库可见性：用户已要求将 GitHub 仓库 ruixuecr/TianyiserverWeb 改为 public。最初 API 修改被 GitHub 以 403 拒绝；用户随后处理后，本次复查已为 public，默认分支仍为 main。Sites 预览访问权限未改变。
+
+腾讯云部署：用户已购买 Ubuntu 24.04、2 核 8GB、80GB SSD 的轻量服务器，要求先用公网 IP 访问。部署脚本已准备并在本地验证，使用 Node.js 24、独立运行包、systemd 和 Nginx；服务器实际安装尚待在腾讯云终端执行。当前工作环境无可用 SSH 出站通道，不能将服务器防火墙放行视为助手已能登录。高德安全密钥需在服务器隐藏输入，密码与服务端密钥不得写入仓库。具体状态和操作见 TENCENT_DEPLOYMENT.md。
 
 ## 定位与范围
 

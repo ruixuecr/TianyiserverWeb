@@ -4,7 +4,7 @@
 
 ## 仓库与分支
 
-仓库：https://github.com/ruixuecr/TianyiserverWeb （私有）。地图基线分支为 mapapi，当前云端功能工作分支为 codex/encore-theme-elements；默认 main 保留原始 demo。继续当前主题、活动与推荐功能时检出该工作分支，不更改远端默认分支或覆盖 main。
+仓库：https://github.com/ruixuecr/TianyiserverWeb （公开，已重新核验）。地图基线分支为 mapapi，当前云端功能工作分支为 codex/encore-theme-elements；默认 main 保留原始 demo。继续当前主题、活动与推荐功能时检出该工作分支，不更改远端默认分支或覆盖 main。
 
 最初的两个实验分支 codex/crisp-map-labels 与 codex/svg-tilted-labels 已保留。后续以 Git 的实际提交记录为准。
 
@@ -13,6 +13,8 @@
 用户要求代码、项目文档和项目记忆持续同步到 GitHub。完成修改后提交并推送当前工作分支，核对本地 HEAD 与远端提交一致，不只停留在本地工作区。关键决策记录在 CONVERSATION_HANDOFF.md 并同步相关需求/架构文档；密钥、依赖、构建缓存和临时预览运行文件继续按忽略规则排除。
 
 ## 新环境启动
+
+腾讯云部署准备：新增 scripts/deploy-ubuntu.sh、deploy/tianyi.service 和 deploy/tianyi.nginx.conf；按固定提交下载源码，非 root 构建/运行，安装 Nginx 和开机自启。仅设置 TIANYI_STANDALONE=1 时生成独立运行包；普通开发和 Sites 导出流程保持。部署说明与实际进度见 TENCENT_DEPLOYMENT.md。当前没有登录或修改用户服务器，不能报为部署成功。
 
 2026-10-30 巴公房子文案：lib/data.ts 已加入用户提供的完整介绍，从“2025年巡演海报打卡点”至“具有深厚的历史文化底蕴。”，按原文空格和标点显示；原海报、2025-12 年月、地址与导航保持。全文见 PROJECT_REQUIREMENTS.md。
 

@@ -1,0 +1,31 @@
+[Unit]
+Description=Tianyi Wuhan event guide
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=tianyi
+Group=tianyi
+WorkingDirectory=/opt/tianyi/current
+Environment=NODE_ENV=production
+Environment=HOSTNAME=127.0.0.1
+Environment=PORT=3000
+Environment=NEXT_TELEMETRY_DISABLED=1
+Environment=MALLOC_ARENA_MAX=2
+EnvironmentFile=/etc/tianyi.env
+ExecStart=/opt/tianyi/node/bin/node /opt/tianyi/current/server.js
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=30
+KillSignal=SIGTERM
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/opt/tianyi/cache
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target

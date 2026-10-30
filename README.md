@@ -9,7 +9,7 @@
 - main：用户指定保留的原始 demo，不要用最新版覆盖。
 - codex/crisp-map-labels、codex/svg-tilted-labels：保留的实验分支。
 
-仓库：[ruixuecr/TianyiserverWeb](https://github.com/ruixuecr/TianyiserverWeb)，私有。
+仓库：[ruixuecr/TianyiserverWeb](https://github.com/ruixuecr/TianyiserverWeb)，公开。
 
 ## 文档入口
 
@@ -21,6 +21,7 @@
 4. [本地与云端开发交接](docs/DEVELOPMENT_HANDOFF.md)
 5. [活动资料填写与验收入口](docs/ACTIVITY_CONTENT.md)
 6. [Sites 预览构建与发布](docs/SITES_PREVIEW.md)
+7. [腾讯云 Ubuntu 部署](docs/TENCENT_DEPLOYMENT.md)
 
 文档以 2026-10-29 的 mapapi 源码及已确认用户需求为基准。对话交接是关键事实摘要，不是完整聊天记录，也不会自动同步后续对话。
 
