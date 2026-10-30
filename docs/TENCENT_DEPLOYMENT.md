@@ -8,6 +8,13 @@
 
 在腾讯云实例页面选择“登录”进入终端，以 ubuntu 用户运行提供的固定版本命令。先用 curl 将 scripts/deploy-ubuntu.sh 下载到 /tmp，再以 sudo bash 执行，并传入相同的完整 Git 提交 SHA。脚本从该 SHA 下载源码，不会部署默认 main 的旧 demo。命令中的服务器登录密码不需要填写，也不允许以参数传入。
 
+已验证的首个部署版本为 65457b6022e107b7641b887ae4bba0b9a4c65264（该版本已推送并核对远端；这只是部署输入版本，不表示服务器已运行）：
+
+```bash
+TIANYI_COMMIT=65457b6022e107b7641b887ae4bba0b9a4c65264
+curl -fL --retry 3 "https://raw.githubusercontent.com/ruixuecr/TianyiserverWeb/$TIANYI_COMMIT/scripts/deploy-ubuntu.sh" -o /tmp/tianyi-deploy.sh && sudo bash /tmp/tianyi-deploy.sh "$TIANYI_COMMIT"
+```
+
 安装脚本依次完成：
 
 1. 检查 Ubuntu 24.04、systemd、已有端口与其他 Nginx 站点，遇冲突停止，不覆盖其他站点。
