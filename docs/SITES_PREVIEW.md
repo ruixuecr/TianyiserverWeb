@@ -320,3 +320,11 @@ Sites 预览不依赖旧 Tunnelmole 隧道进程；旧 .preview/url.txt 中的�
 2026-10-30 将用户原文“2026年巡演打卡点”与带中文引号的“说到武汉的蓝色，天依第一时间找到了这座蓝色的古田桥~”加入 description，以两个自然段展示，保留引号与半角波浪号；照片、日期和导航保持。
 
 验证：npm run build、npm run typecheck 与 Sites 导出构建通过。解析实际导出的古田桥详情 HTML，介绍区恰有两个段落，逐字匹配用户原文，并保留古田桥照片。此次为文案更新，未重做真实地图验证。Worker 含 355 项资源，压缩约 9.66 MiB，体积保护通过。
+
+发布结果：2026-10-30 18:05:14 UTC，Sites 返回 succeeded；现有网址、私有权限与高德环境 revision 1 沿用。
+
+- 应用提交：8e02c648d4183e78cb857187c594f606dbeeb9d6，已推送并核对 GitHub。
+- Sites 源码提交：3a334ac7ad7c5a1eae399b4fcfa49e45e69e4a7d，已推送并核对远端。
+- 版本 ID：appgprj_6ae2b571b6488191aff989a1a1654416~appgver_89bf9fe003008191bd2b1bbc84e4927c。
+- 部署 ID：appgdep_6ae4dc4a08ec8191bd9fdf74384130e8。
+- 发布归档从上述 Sites 提交生成，线上预览独立运行。
