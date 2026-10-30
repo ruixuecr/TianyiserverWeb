@@ -28,12 +28,12 @@ await symlink(path.join(root, "node_modules"), path.join(build, "node_modules"),
 const imageMap = {};
 const optimized = path.join(build, "public/images/optimized");
 await mkdir(optimized, { recursive: true });
-// Omit nearby 750px and 1080px variants in the embedded Sites build. Use 1280px
-// instead of 1200px so the common 1260/1280px originals share their full-size
-// WebP with larger requests. Browsers select 828px/1280px without reducing
-// resolution; original files, highest resolutions and quality stay unchanged.
+// Merge nearby display sizes in the embedded Sites build: 640/750 -> 828,
+// 1080/1200 -> 1280, and 1920 -> 2048. Common 1260/1280px originals share
+// their full-size WebP with larger requests. Small thumbnails remain available;
+// original files, highest resolutions and quality stay unchanged.
 const deviceSizes = imageConfigDefault.deviceSizes
-  .filter((width) => width !== 750 && width !== 1080)
+  .filter((width) => ![640, 750, 1080, 1920].includes(width))
   .map((width) => (width === 1200 ? 1280 : width));
 const widths = [...deviceSizes, ...imageConfigDefault.imageSizes];
 async function optimizeDirectory(directory) {

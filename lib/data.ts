@@ -95,6 +95,30 @@ export const spots: Spot[] = [
     },
   },
   {
+    id: "wuhan-university-sakura",
+    name: "武汉大学樱花路",
+    en: "WUHAN UNIVERSITY SAKURA ROAD",
+    memoryDate: { year: 2020, month: 3 },
+    category: "校园漫步",
+    area: "武昌区 · 武汉大学",
+    searchName: "武汉大学-樱花大道",
+    matchAddress: "武汉大学",
+    x: 70,
+    y: 51,
+    description: `洛天依跨次元芭莎登封取景
+
+“每一张被定格的美丽画面背后，都有一段美好的故事，这是天依与武汉的美好邂逅，也是天依与时尚芭莎的神奇相遇。”`,
+    tip: "",
+    address: "武汉市武昌区武汉大学内樱花路",
+    theme: "park",
+    featuredImage: {
+      src: "/images/spots/wuhan-university-sakura.jpg",
+      width: 1280,
+      height: 836,
+      alt: "洛天依在武汉大学樱花路的芭莎取景图片",
+    },
+  },
+  {
     id: "tianbao",
     memoryDate: { year: 2025, month: 12 },
     searchName: "天宝饭庄",

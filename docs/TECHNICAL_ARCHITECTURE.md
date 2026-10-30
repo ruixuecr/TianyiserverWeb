@@ -19,7 +19,7 @@
 | components/spot-detail.tsx | 左地图、右介绍、下方图片的详情布局 |
 | components/spot-image-card.tsx | 独立图片卡片和图片失败回退 |
 | components/art.tsx | 项目内 SVG 插画 |
-| lib/data.ts | 10 个地点、memoryDate 年月、chronologicalSpots 时间排序、年份选项、通知和高德搜索链接 |
+| lib/data.ts | 11 个地点、memoryDate 年月、chronologicalSpots 时间排序、年份选项、通知和高德搜索链接 |
 | lib/concert.ts | 固定 UTC+8 开场时间、累计小时倒计时与逐圈颜色层计算 |
 | app/globals.css | 界面、标签及响应式样式 |
 | public/images/spots/ | 已入库的地点图片 |
@@ -65,6 +65,10 @@ MapExplorer 的 selected-card 不再渲染 selected.category 对应的 eyebrow �
 地图年份筛选与选中状态位于客户端组件内；已移除搜索框、query 状态和文本过滤，仅按年份筛选。没有跨设备保存机制。当前不实现站内完整路线规划或主动用户定位。
 
 ## 地点介绍
+
+武汉大学樱花路新增为 wuhan-university-sakura，日期沿用同组芭莎的 2020-03；全部 11 处、2020 年 4 处。真实高德 SDK 查询“武汉大学樱花路”和“武汉大学樱花大道”均成功，对应名称“武汉大学-樱花大道”，地址为珞珈山街道八一路299号武汉大学。searchName 采用该明确名称，matchAddress 限定武汉大学，继续使用现有唯一匹配逻辑，不选其他同名樱花大道或整个校园。没有固化坐标、替用户确认取景入口或修改公共地图解析器。原始 1280×836 图片与用户两段原文复用既有详情和选中卡片组件。
+
+本批预览图片再次触发 Worker 体积上限，导出进一步合并相邻尺寸：640/750→828、1080/1200→1280、1920→2048。小缩略图宽度、所有原图及其最高分辨率和 WebP 质量 75 保持；低于请求宽度的原图仍仅输出原尺寸。图片会选用相邻较大尺寸，部分请求字节可能增加，完整 Next.js 部署配置不变，10 MiB 上限继续保留。
 
 黄鹤楼新增为 huanghe-tower，memoryDate 为用户确认的 2020-03，searchName 使用黄鹤楼，未固化未经核实的 POI 坐标。generateStaticParams 自动加入详情路由；首页地图与年份列表共用 spots，2020 年现有 3 处、全部共 10 处。featuredImage 指向原始 1280×853 的 huanghe-tower.jpg，介绍按用户原文两段保存；不增加额外宣传文字。
 
