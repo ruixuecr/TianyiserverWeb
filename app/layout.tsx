@@ -3,7 +3,7 @@ import "./globals.css";
 import "./theme.css";
 import "./community.css";
 export const metadata: Metadata = {
-  title: "江城 Encore",
+  title: "活动指南",
   description: "武汉演唱会与城市漫游指南。",
 };
 export default function RootLayout({

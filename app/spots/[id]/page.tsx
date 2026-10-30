@@ -12,7 +12,7 @@ export async function generateMetadata({
 }) {
   const { id } = await params;
   return {
-    title: `${spots.find((s) => s.id === id)?.name || "地点"} · 江城 Encore`,
+    title: `${spots.find((s) => s.id === id)?.name || "地点"} · 活动指南`,
   };
 }
 export default async function Page({

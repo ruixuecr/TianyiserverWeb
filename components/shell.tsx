@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, MapPin, Music2 } from "lucide-react";
+import { ArrowUpRight, Compass, MapPin } from "lucide-react";
 import { TimeTheme, WuhanMoment } from "./time-theme";
 export function Shell({ children }: { children: React.ReactNode }) {
   const path = usePathname();
@@ -9,17 +9,15 @@ export function Shell({ children }: { children: React.ReactNode }) {
     <TimeTheme>
       <header className="header">
         <Link href="/" className="brand">
-          <span className="brand-icon">
-            <Music2 size={22} />
+          <span className="brand-icon" aria-hidden="true">
+            <Compass size={22} />
           </span>
-          <span>
-            江城<span className="brand-en">encore.</span>
-          </span>
+          <span>活动指南</span>
         </Link>
         <nav>
           {[
             ["/", "首页"],
-            ["/map", "探索地图"],
+            ["/map", "打卡推荐"],
             ["/events", "活动现场"],
             ["/recommendations", "美食商场"],
             ["/notices", "通知公告"],

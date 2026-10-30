@@ -2,7 +2,7 @@ import { Shell } from "@/components/shell";
 import { ThemeMotif } from "@/components/theme-artwork";
 import { RecommendationExplorer } from "@/components/recommendation-explorer";
 
-export const metadata = { title: "美食商场推荐 · 江城 Encore" };
+export const metadata = { title: "美食商场推荐 · 活动指南" };
 export default function Page() {
   return (
     <Shell>

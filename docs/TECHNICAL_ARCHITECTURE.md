@@ -137,3 +137,5 @@ activities 移除 english / description，FlowerBasket 移除 description / grou
 服务站无料更新（2026-10-30）：serviceStation.giveaways 按用户顺序填入六个仅含 name 的对象，原有 DistributionList 直接显示清单并替换空数组的待公布状态。名称严格保留用户文字（包括「无界」后的单字“洛”），不添加 description、图片、数量或领取条件。随后按用户要求删除“领取说明”卡片及 collection 字段。
 
 组件删除（2026-10-30）：ServiceStationDetails 不再包含 collection-note 节点，serviceStation 类型与对象不再有 collection；Shell 删除完整 footer 及仅供页脚使用的 ThemeMotif 导入，页脚和领取说明的专用 CSS 一并清理。顶部导航品牌和其他 ThemeMotif 用途保持。
+
+标题更新（2026-10-30）：Shell 品牌改为“活动指南”，图标由 Music2 换为 Compass，移除旧英文品牌 span 及 brand-en 专用样式；/map 导航和 MapExplorer h1 使用“打卡推荐”。RootLayout、地点详情和推荐页元数据品牌及公告引用名称同步更新，路由和地图实现不变。

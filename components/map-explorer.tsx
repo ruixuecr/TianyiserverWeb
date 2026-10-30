@@ -43,7 +43,7 @@ export function MapExplorer() {
         <Link href="/" className="back-link">
           ← 回到首页
         </Link>
-        <h1>探索地图</h1>
+        <h1>打卡推荐</h1>
         <div className="filters" role="group" aria-label="按年份筛选地点">
           {["全部地点", ...spotYears.map(String)].map((value) => (
             <button
