@@ -1,6 +1,6 @@
 import type { SpotImage } from "./data";
 
-export type ActivityKind = "service-station" | "flower-baskets" | "haidilao";
+export type ActivityKind = "service-station" | "flower-baskets";
 export const activities: {
   id: ActivityKind;
   title: string;
@@ -15,11 +15,6 @@ export const activities: {
     id: "flower-baskets",
     title: "应援花篮活动",
     status: "首个花篮信息已更新",
-  },
-  {
-    id: "haidilao",
-    title: "海底捞活动",
-    status: "门店安排待公布",
   },
 ];
 
@@ -72,11 +67,6 @@ export const basketSlots: BasketSlot[] = Array.from(
   }),
 );
 
-export type ActivityLocation = {
-  name: string;
-  address: string;
-  mapQuery?: string;
-};
 export const serviceStation: {
   name: string;
   locationImages: ActivityMedia[];
@@ -124,15 +114,6 @@ export const serviceStation: {
     { name: "充电站" },
     { name: "免费水" },
   ],
-};
-export const haidilaoActivity = {
-  location: {
-    name: "参与门店待公布",
-    address: "活动门店与详细地址将在确认后更新。",
-  } as ActivityLocation,
-  date: "活动日期待公布",
-  hours: "活动时段待公布",
-  participation: "参与方式、现场环节与门店安排待公布。",
 };
 
 export function placeSearchUrl(keyword: string) {

@@ -18,7 +18,10 @@ export default function Page() {
               key={activity.id}
               href={`/events/${activity.id}`}
             >
-              <ActivityCover kind={activity.id} />
+              <ActivityCover
+                kind={activity.id}
+                sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 850px) 42vw, 50vw"
+              />
               <div className="activity-entry-copy">
                 <span className="community-eyebrow">
                   0{index + 1}

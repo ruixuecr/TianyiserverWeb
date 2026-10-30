@@ -19,7 +19,7 @@
 }
 .activity-index-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
   margin-top: 42px;
 }
@@ -58,8 +58,7 @@
   line-height: 2;
   color: var(--muted);
 }
-.activity-status,
-.pending-label {
+.activity-status {
   display: inline-block;
   margin-top: 20px;
   padding: 6px 10px;
@@ -82,10 +81,6 @@
 }
 .cover-flower-baskets {
   background: #f0f4f5;
-}
-.cover-haidilao {
-  background: #f1eee5;
-  color: #947d55;
 }
 .activity-cover-orbit {
   position: absolute;
@@ -451,28 +446,6 @@
   line-height: 1.9;
   color: var(--muted);
 }
-.station-location {
-  display: flex;
-  gap: 26px;
-  align-items: center;
-}
-.location-emblem {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 18px;
-  width: 130px;
-  min-height: 165px;
-  flex-shrink: 0;
-  border-radius: 70px 70px 10px 10px;
-  background: #edf4f5;
-  color: var(--theme-blue);
-}
-.location-emblem span {
-  font-size: 6px;
-  letter-spacing: 1.5px;
-}
 .station-time dl {
   margin: 20px 0 0;
 }
@@ -539,35 +512,6 @@
   font-size: 12px;
   line-height: 1.6;
 }
-.station-location .community-link {
-  margin-top: 18px;
-}
-.hotpot-arrangement {
-  margin-top: 24px;
-  display: flex;
-  gap: 25px;
-  align-items: center;
-}
-.hotpot-arrangement > svg {
-  color: #ad976d;
-}
-.community-bottom-link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 30px 0;
-}
-.community-bottom-link h3 {
-  font-size: 18px;
-  font-weight: 500;
-}
-.community-bottom-link p {
-  color: var(--muted);
-  font-size: 12px;
-  margin-top: 10px;
-  line-height: 1.8;
-}
 @media (max-width: 1100px) {
   .basket-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -577,13 +521,6 @@
   }
   .activity-entry h2 {
     font-size: 20px;
-  }
-  .station-location {
-    gap: 16px;
-  }
-  .location-emblem {
-    width: 90px;
-    min-height: 140px;
   }
 }
 @media (max-width: 850px) {
@@ -701,17 +638,6 @@
   }
   .community-panel h2 {
     font-size: 20px;
-  }
-  .location-emblem {
-    width: 75px;
-    min-height: 125px;
-  }
-  .location-emblem span {
-    display: none;
-  }
-  .community-bottom-link {
-    align-items: start;
-    flex-direction: column;
   }
 }
 .recommendation-tools {

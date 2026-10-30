@@ -1,49 +1,6 @@
-import Link from "next/link";
-import {
-  ArrowUpRight,
-  CalendarDays,
-  Clock3,
-  Gift,
-  MapPin,
-  Package,
-  Soup,
-} from "lucide-react";
-import {
-  haidilaoActivity,
-  placeSearchUrl,
-  serviceStation,
-  type ActivityLocation,
-  type Giveaway,
-} from "@/lib/activities";
+import { ArrowUpRight, CalendarDays, Clock3, Gift, Package } from "lucide-react";
+import { serviceStation, type Giveaway } from "@/lib/activities";
 import { ActivityImage } from "./activity-image";
-
-function LocationCard({ location }: { location: ActivityLocation }) {
-  return (
-    <section className="station-location community-panel">
-      <div className="location-emblem" aria-hidden="true">
-        <MapPin size={38} strokeWidth={1.2} />
-      </div>
-      <div>
-        <span className="community-eyebrow">活动位置</span>
-        <h2>{location.name}</h2>
-        <p>{location.address}</p>
-        {location.mapQuery ? (
-          <a
-            className="community-link"
-            href={placeSearchUrl(location.mapQuery)}
-            target="_blank"
-            rel="noreferrer"
-          >
-            在高德查看位置 <ArrowUpRight size={17} />
-            <span className="sr-only">（新窗口）</span>
-          </a>
-        ) : (
-          <span className="pending-label">确认点位后开放导航</span>
-        )}
-      </div>
-    </section>
-  );
-}
 
 function DistributionList({
   title,
@@ -143,47 +100,6 @@ export function ServiceStationDetails() {
           />
           <DistributionList title="发放无料" items={serviceStation.giveaways} />
         </div>
-      </div>
-    </div>
-  );
-}
-
-export function HaidilaoDetails() {
-  return (
-    <div className="activity-detail-content">
-      <div className="station-overview">
-        <LocationCard location={haidilaoActivity.location} />
-        <section className="community-panel station-time">
-          <h2>活动时间</h2>
-          <dl>
-            <div>
-              <dt>
-                <CalendarDays size={17} />
-                日期
-              </dt>
-              <dd>{haidilaoActivity.date}</dd>
-            </div>
-            <div>
-              <dt>
-                <Clock3 size={17} />
-                时段
-              </dt>
-              <dd>{haidilaoActivity.hours}</dd>
-            </div>
-          </dl>
-        </section>
-      </div>
-      <section className="community-panel hotpot-arrangement">
-        <Soup size={38} strokeWidth={1.1} />
-        <div>
-          <h2>活动内容与参与方式</h2>
-          <p>{haidilaoActivity.participation}</p>
-        </div>
-      </section>
-      <div className="community-bottom-link">
-        <Link className="community-link" href="/recommendations">
-          美食与商场推荐 <ArrowUpRight size={18} />
-        </Link>
       </div>
     </div>
   );

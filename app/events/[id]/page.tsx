@@ -3,10 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { Shell } from "@/components/shell";
 import { ActivityCover } from "@/components/activity-cover";
 import { BasketGallery } from "@/components/basket-gallery";
-import {
-  HaidilaoDetails,
-  ServiceStationDetails,
-} from "@/components/activity-details";
+import { ServiceStationDetails } from "@/components/activity-details";
 import { activities } from "@/lib/activities";
 
 export function generateStaticParams() {
@@ -36,10 +33,8 @@ export default async function Page({
         </header>
         {activity.id === "flower-baskets" ? (
           <BasketGallery />
-        ) : activity.id === "service-station" ? (
-          <ServiceStationDetails />
         ) : (
-          <HaidilaoDetails />
+          <ServiceStationDetails />
         )}
       </main>
     </Shell>

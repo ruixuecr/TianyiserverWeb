@@ -1,6 +1,6 @@
 # 活动资料填写与验收入口
 
-适用分支：codex/encore-theme-elements。页面已可预览，首篮图片与摆放位置已由用户提供；服务站位置示意、日期时段、三项现场服务和六项无料清单也已提供；群二维码、其他花篮及海底捞安排仍待补充；服务站“领取说明”卡片已按用户要求删除。
+适用分支：codex/encore-theme-elements。页面已可预览，首篮图片与摆放位置已由用户提供；服务站位置示意、日期时段、三项现场服务和六项无料清单也已提供；群二维码、其他花篮仍待补充；海底捞活动已删除；服务站“领取说明”卡片已按用户要求删除。
 
 用户要求不擅自添加内容。活动与花篮不再展示自行补充的介绍或装饰口号；内容只按用户提供或明确确认的资料填写，缺项保留简短状态或省略，不编造宣传文案。
 
@@ -8,11 +8,11 @@
 
 | 地址 | 核对内容 |
 | --- | --- |
-| /events | 恰好三个入口：服务站活动、应援花篮活动、海底捞活动 |
+| /events | 恰好两个入口：服务站活动、应援花篮活动 |
 | /events/flower-baskets | 10 个展示位，其中 1 个已填可点击、9 个等待补充；已填卡片仅展示封面、名称和地点，无顶部编号行与底部功能说明行 |
 | 花篮弹窗 | 屏幕居中；详细图、单张无料长图、摆放位置、花篮交流群；内部滚动；关闭按钮、Escape、点击遮罩关闭；关闭后焦点回到卡片 |
 | /events/service-station | p2/p3 位置示意图、10月30日 10:00–17:00、照片打印/充电站/免费水，p6 封面；六项无料已列明，无领取说明卡片 |
-| /events/haidilao | 参与门店、日期、时段、活动内容与参与方式 |
+| /events/haidilao | 已删除，返回 404 |
 | / | 钟盘在钢琴角色图后方，桌面直径 500px；手机按视口缩放；动效默认开启并尊重系统减少动画设置 |
 | /recommendations | 美食/商场筛选、名称/区域搜索、空结果重置、高德选点和天宝攻略链接 |
 
@@ -28,20 +28,17 @@
 
 用户已要求移除花篮活动时间与发起人，FlowerBasket 类型中不再保留 time / organizer。两张素材只按指定用途展示，长图中的众筹金额不扩展成站内支付功能或无料领取条件。群二维码尚未提供，不虚构可扫描值。
 
-## 服务站与海底捞
+## 服务站
 
-在 lib/activities.ts 修改 serviceStation 与 haidilaoActivity：
+在 lib/activities.ts 修改 serviceStation：
 
 - serviceStation.locationImages：位置示意图数组，本次 p2 为 /images/activities/service-station-route.jpg（1280×1059），p3 为 /images/activities/service-station-location.jpg（830×268），都可打开原图。
 - serviceStation.cover：活动列表与详情共用封面，本次 p6 为 /images/activities/service-station-cover.jpg（1280×790），保留完整比例。
-- haidilaoActivity.location.name / address：参与门店名称、地址。
-- haidilaoActivity.location.mapQuery：确认后填写精确地点搜索词，页面才会展示高德选点导航链接；没有确认地点时保持省略。
 - date / hours：日期、服务或活动时段；服务站已确认 10月30日、10:00–17:00，服务时间卡只展示这两项。
 - serviceStation.giveaways / supplies：无料与物资数组；每项填写 name，可附用户提供的 description 和 image；与花篮单图字段分开。空数组显示待公布。服务站 supplies 在“免费服务”卡片列出照片打印、充电站、免费水，giveaways 已按顺序填写：「纯蓝幻乐」武汉场鲜花卡、倡议书、主题镭射票、双魔女花篮众筹无料、五校联合花篮众筹无料、「无界」洛花篮众筹无料，仅展示原名，不补写说明、图片、数量或领取条件。
 - 服务站不再渲染“领取说明”卡片，serviceStation.collection 字段及占位文案已删除。
-- haidilaoActivity.participation：参与方式与现场安排。
 
-这些活动位置独立于 lib/data.ts 的 9 个城市打卡点；不把尚未确认的服务站或门店写成地图坐标。
+这些活动位置独立于 lib/data.ts 的 9 个城市打卡点；不把尚未确认的服务站位置写成地图坐标。
 
 ## 美食商场
 
