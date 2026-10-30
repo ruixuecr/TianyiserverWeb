@@ -264,3 +264,11 @@ Sites 预览不依赖旧 Tunnelmole 隧道进程；旧 .preview/url.txt 中的�
 2026-10-30 按用户要求将“探索地图”改为“打卡推荐”，顶部“江城 encore.”改为“活动指南”，前置音符使用指南针图标替换。页面元数据和公告中的旧名称同步替换；删除旧英文品牌专用样式，/map 路径与地图实现保持。
 
 验证：npm run build、npm run typecheck 与 Sites 导出构建通过。实际 Worker 在 1440/390/320px 下确认顶部标题、Compass 图标、导航及页面标题、激活状态、9 个地点和浏览器标题正确；导航可进入 /map/，顶部品牌可返回首页，无横向溢出或浏览器运行错误，390px 截图正常。资源为 368 项、压缩 Worker 约 9.53 MiB；本次仅核对页面与导航，不增加真实高德 3D 或 POI 验证结论。
+
+发布结果：2026-10-30 11:14:27 UTC，Sites 返回 succeeded；现有网址、私有权限与高德环境 revision 1 沿用。
+
+- 应用提交：b4c77fc21f24a3883f5f0626edfedb08d432a77e，已推送并核对 GitHub。
+- Sites 源码提交：38b9eccbc30ee98729ea7f8df108adc2267893e4，已推送并核对远端。
+- 版本 ID：appgprj_6ae2b571b6488191aff989a1a1654416~appgver_636218f583ac81918fcb328ddda86c28。
+- 部署 ID：appgdep_6ae47c04666881918452fa950fd1a26d。
+- 发布归档从上述 Sites 提交生成，线上预览独立运行。
