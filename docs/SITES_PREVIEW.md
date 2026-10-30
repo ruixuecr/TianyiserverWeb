@@ -210,3 +210,11 @@ Sites 预览不依赖旧 Tunnelmole 隧道进程；旧 .preview/url.txt 中的�
 2026-10-30 按用户截图删除已填花篮卡片顶部“NO. 01 · 应援花篮”和底部“详细图 · 无料 · 交流群”，同时移除专用样式。封面、名称、地点与点击弹窗保持，待补位置编号保持。
 
 验证：npm run build、npm run typecheck 通过；实际 Worker 包在 1440/390/320px 下确认两处文字及节点已删除，封面加载、名称地点、9 个待补位置、弹窗内容与 Escape 关闭正常，无横向溢出或浏览器运行错误。资源仍为 367 项、压缩 Worker 约 9.53 MiB。
+
+发布结果：2026-10-30 10:24:24 UTC，Sites 返回 succeeded；现有网址、私有权限与高德环境 revision 1 沿用。
+
+- 应用提交：26e0b3d69e6faaf2791ab4c645b2e41000a8f652，已推送并核对 GitHub。
+- Sites 源码提交：0d417d7e1b6232e5677da661f8f8e613f827a8c2，已推送并核对远端。
+- 版本 ID：appgprj_6ae2b571b6488191aff989a1a1654416~appgver_5bffb86b5dec81918b4eac8a5ff176ed。
+- 部署 ID：appgdep_6ae470494c248191b14b88fcd4b744b7。
+- 发布归档从上述 Sites 提交生成，线上预览独立运行。
