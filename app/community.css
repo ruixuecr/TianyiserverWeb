@@ -225,12 +225,6 @@
   color: var(--muted);
   line-height: 1.8;
 }
-.basket-open {
-  display: block;
-  color: var(--theme-blue);
-  font-size: 10px;
-  margin-top: 18px;
-}
 .basket-slot-pending {
   position: relative;
   display: flex;
@@ -690,10 +684,6 @@
   }
   .basket-card h3 svg {
     width: 15px;
-  }
-  .basket-card .community-eyebrow {
-    font-size: 8px;
-    letter-spacing: 0.5px;
   }
   .basket-slot-pending {
     min-height: 285px;

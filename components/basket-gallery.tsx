@@ -117,15 +117,11 @@ export function BasketGallery() {
                 >
                   <ActivityCover kind="flower-baskets" />
                   <div className="basket-card-copy">
-                    <span className="community-eyebrow">
-                      NO. {String(number).padStart(2, "0")} · 应援花篮
-                    </span>
                     <h3>
                       {basket.name}
                       <ArrowUpRight size={20} />
                     </h3>
                     <p>{basketLocations[basket.location]}</p>
-                    <span className="basket-open">详细图 · 无料 · 交流群</span>
                   </div>
                 </button>
               </DialogTrigger>

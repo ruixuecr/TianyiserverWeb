@@ -110,7 +110,7 @@ codex/encore-theme-elements 在 mapapi 基线上新增以下模块：
 | --- | --- |
 | lib/activities.ts | 三类活动元数据、花篮列表及 10 个展示位、服务站/海底捞信息、高德选点链接 |
 | components/activity-cover.tsx | 服务站共用用户指定照片封面；花篮共用首篮第一张详细图；海底捞保留主题图标封面 |
-| components/basket-gallery.tsx | 花篮列表、两处摆放地点和弹窗中的详细图、单张无料图、二维码 |
+| components/basket-gallery.tsx | 卡片仅保留封面/名称/地点；两处摆放地点和弹窗中的详细图、单张无料图、二维码 |
 | components/ui/dialog.tsx | Radix Dialog Portal、居中弹窗、遮罩、关闭按钮 |
 | components/activity-image.tsx | 活动图片响应式加载、错误回退与重试；二维码保留原图 |
 | components/activity-details.tsx | 服务站与海底捞位置、时间、发放资料和待公布状态 |
