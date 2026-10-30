@@ -447,13 +447,19 @@
   margin-bottom: 26px;
 }
 .encore-theme .home-simple .hero h1 {
-  font-size: clamp(32px, 3.15vw, 48px);
+  font-size: clamp(24px, 3.15vw, 48px);
   color: #304d59;
   line-height: 1.65;
   letter-spacing: -1px;
 }
 .encore-theme .hero h1 > span {
+  display: block;
+  color: inherit;
+  white-space: nowrap;
+}
+.encore-theme .hero h1 em {
   color: #578ca1;
+  font-style: normal;
 }
 .theme-moment-line {
   display: flex;
@@ -740,7 +746,7 @@
     font-size: 10px;
   }
   .encore-theme .home-simple .hero h1 {
-    font-size: clamp(30px, 7.9vw, 43px);
+    font-size: clamp(24px, 7.5vw, 43px);
   }
   .theme-moment-line {
     margin-top: 14px;

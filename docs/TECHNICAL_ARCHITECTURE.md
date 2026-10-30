@@ -85,6 +85,8 @@ lib/data.ts 的 Spot.description 为可选字符串，双换行分隔自然段�
 
 ## 时光主题分支的增量结构
 
+首页 app/page.tsx 的 h1 使用用户最新收官场祝福文案，三个块级 span 分别显示预祝行、完整演出名称、收官场祝福，textContent 拼接为完整原句；white-space: nowrap 避免拆开名称，字号使用桌面 clamp(24px, 3.15vw, 48px)、手机 clamp(24px, 7.5vw, 43px) 适配宽度，末句 em 延续蓝色强调并取消斜体。图像布局保持。
+
 codex/encore-theme-elements 在 mapapi 基线上新增以下模块：
 
 | 文件 | 职责 |

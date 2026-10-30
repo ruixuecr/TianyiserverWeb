@@ -12,9 +12,9 @@ export default function Home() {
               <ThemeMotif kind="ribbon" />
             </div>
             <h1>
-              奔赴一场热爱，
-              <br />
-              也遇见<span>一座城。</span>
+              <span>预祝 2026年洛天依</span>
+              <span>「无限共鸣·纯蓝幻乐」</span>
+              <span>收官场 <em>圆满成功！</em></span>
             </h1>
             <div className="theme-moment-line">
               <ThemeMotif kind="infinity" />
