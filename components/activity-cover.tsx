@@ -1,5 +1,6 @@
 import { Flower2, HeartHandshake, Soup } from "lucide-react";
-import type { ActivityKind } from "@/lib/activities";
+import { serviceStation, type ActivityKind } from "@/lib/activities";
+import { ActivityImage } from "./activity-image";
 import { ThemeMotif } from "./theme-artwork";
 
 const icons = {
@@ -13,6 +14,16 @@ const labels = {
   haidilao: "GATHER & GLOW",
 };
 export function ActivityCover({ kind }: { kind: ActivityKind }) {
+  if (kind === "service-station") {
+    return (
+      <div className="activity-cover cover-service-station activity-cover-photo">
+        <ActivityImage
+          image={serviceStation.cover}
+          sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 850px) 42vw, 420px"
+        />
+      </div>
+    );
+  }
   const Icon = icons[kind];
   return (
     <div className={`activity-cover cover-${kind}`} aria-hidden="true">

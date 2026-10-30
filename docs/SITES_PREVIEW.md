@@ -30,7 +30,7 @@ node scripts/build-sites-worker.mjs
 
 输出目录是可替换的生成目录，请勿指向手写源码。脚本在被忽略的 .preview/sites-build 中复制应用，以 Next.js 官方 output: export 模式构建，不改动根目录 next.config.ts。依赖沿用已安装版本；使用 Next.js 带入的 sharp 提前生成质量 75 的响应式 WebP，保留 next/image 的尺寸、优先加载、延迟加载和原比例展示。
 
-第一步输出 .preview/sites-export，仍不复制 .env 文件、不携带任何地图凭据。第二步将页面资源、sites/worker.mjs 和 lib/amap-service.ts 合为 dist/server/index.js，并写入 dist/.openai/hosting.json。Worker 请求时读取 Sites 注入的环境变量。当前 324 项资源、压缩脚本约 8.45 MiB；构建会拒绝超过 10 MiB 的压缩包，后续素材明显增加时需调整资源托管方式，不可静默删减图片。完整 Next.js 服务器版仍可通过 npm run build / npm start 运行。
+第一步输出 .preview/sites-export，仍不复制 .env 文件、不携带任何地图凭据。第二步将页面资源、sites/worker.mjs 和 lib/amap-service.ts 合为 dist/server/index.js，并写入 dist/.openai/hosting.json。Worker 请求时读取 Sites 注入的环境变量。当前 364 项资源、压缩脚本约 9.84 MiB；构建会拒绝超过 10 MiB 的压缩包，后续素材明显增加时需调整资源托管方式，不可静默删减图片。完整 Next.js 服务器版仍可通过 npm run build / npm start 运行。
 
 导出保留活动、10 位花篮和居中弹窗、美食商场筛选、实时时钟、倒计时和彩色进度环。旧 /events/weekend、/events/sunset、/events/walk 使用静态 HTML 跳转至 /events/；这三条仅为兼容入口。
 
@@ -117,3 +117,9 @@ Sites 预览不依赖旧 Tunnelmole 隧道进程；旧 .preview/url.txt 中的�
 - Sites 源码提交：f4fe7accd3993907bf459e9b487750b6e2deb7fe，已与远端核对。
 - 版本 ID：appgprj_6ae2b571b6488191aff989a1a1654416~appgver_f80082f1c1548191abcd8b587e7d5ed2。
 - 部署 ID：appgdep_6ae3b84448508191aefa58e82ae38ab4。
+
+## 服务站位置图、时段、服务与封面
+
+2026-10-30 按用户本次附件更新：p2 入场路线图与 p3 现场照片代替服务站地址占位，均保留比例并可打开原图；日期仅显示 10月30日、时段 10:00–17:00。现场物资列出照片打印、充电站和免费水。活动列表中的服务站封面与详情页封面共用 p6 蓝色角色图，其余两类活动封面保持原有内容。发放无料与领取说明仍待补充。
+
+验证：npm run build、npm run typecheck 通过。实际 Worker 包在 1440/1024/820/390/320px 下验证两处封面来自同一 p6、两张位置图的原比例与响应式 WebP、查看原图链接、仅两项日期/时段、三项服务、无料待公布及其他活动封面；无横向溢出或浏览器运行错误。三张原 JPEG、来源编号说明、需求/架构/记忆文档随应用仓库同步。当前构建资源 364 项、压缩 Worker 9.84 MiB，未触发 10 MiB 构建上限；以后增加大量图片需先核对资源体积。

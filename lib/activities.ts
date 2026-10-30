@@ -14,7 +14,7 @@ export const activities: {
     english: "A LITTLE HELP, A LOT OF LOVE",
     description:
       "找到同行的伙伴，也收下为你准备的一份心意。站点位置、无料与物资，在这里查看。",
-    status: "站点安排待公布",
+    status: "10月30日 · 10:00–17:00",
   },
   {
     id: "flower-baskets",
@@ -93,7 +93,8 @@ export type ActivityLocation = {
 };
 export const serviceStation: {
   name: string;
-  location: ActivityLocation;
+  locationImages: ActivityMedia[];
+  cover: ActivityMedia;
   date: string;
   hours: string;
   giveaways: Giveaway[];
@@ -101,14 +102,36 @@ export const serviceStation: {
   collection: string;
 } = {
   name: "江城服务站",
-  location: {
-    name: "服务站位置待公布",
-    address: "具体地址与领取点位将在确认后更新。",
+  locationImages: [
+    {
+      src: "/images/activities/service-station-route.jpg",
+      width: 1280,
+      height: 1059,
+      alt: "观众入场动线图，蓝色文字与箭头标注花篮及服务站位置",
+      caption: "入场路线与服务站位置",
+    },
+    {
+      src: "/images/activities/service-station-location.jpg",
+      width: 830,
+      height: 268,
+      alt: "服务站现场位置照片，红蓝线标出广场与台阶旁的位置",
+      caption: "现场位置示意",
+    },
+  ],
+  cover: {
+    src: "/images/activities/service-station-cover.jpg",
+    width: 1280,
+    height: 790,
+    alt: "服务站活动主题图：蓝色星空中的天依时间魔女",
   },
-  date: "活动日期待公布",
-  hours: "服务与发放时段待公布",
+  date: "10月30日",
+  hours: "10:00–17:00",
   giveaways: [],
-  supplies: [],
+  supplies: [
+    { name: "照片打印", description: "提供照片打印服务。" },
+    { name: "充电站", description: "提供现场充电服务。" },
+    { name: "免费水", description: "提供免费饮用水。" },
+  ],
   collection: "领取方式与数量安排待公布，请留意站点后续更新。",
 };
 export const haidilaoActivity = {

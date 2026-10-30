@@ -955,3 +955,65 @@
     gap: 8px;
   }
 }
+
+/* User-provided service-station artwork keeps its natural proportions. */
+.activity-cover.activity-cover-photo {
+  display: block;
+  height: auto;
+  min-height: 0;
+  align-self: center;
+}
+.activity-cover-photo > img,
+.station-location-images img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.station-overview-illustrated {
+  align-items: start;
+}
+.station-location-guide,
+.station-service-panels {
+  min-width: 0;
+}
+.station-location-images,
+.station-service-panels {
+  display: grid;
+  gap: 24px;
+}
+.station-location-images {
+  margin-top: 20px;
+}
+.station-location-images figure {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.station-location-images a {
+  display: block;
+  color: var(--theme-blue);
+}
+.station-location-images a:focus-visible {
+  outline: 2px solid var(--theme-blue);
+  outline-offset: -3px;
+}
+.station-location-images figcaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px;
+  font-size: 11px;
+  line-height: 1.8;
+}
+.station-location-images figcaption > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.station-service-panels .station-time dl,
+.station-service-panels .station-time dl > div:first-child {
+  margin-top: 0;
+}

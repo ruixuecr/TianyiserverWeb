@@ -1,6 +1,6 @@
 # 活动资料填写与验收入口
 
-适用分支：codex/encore-theme-elements。页面已可预览，首篮图片与摆放位置已由用户提供；群二维码、其他花篮和服务站/海底捞安排尚待补充。
+适用分支：codex/encore-theme-elements。页面已可预览，首篮图片与摆放位置已由用户提供；服务站位置示意、日期时段和三项现场服务也已提供；群二维码、其他花篮、服务站无料及海底捞安排仍待补充。
 
 ## 核对页面
 
@@ -9,7 +9,7 @@
 | /events | 恰好三个入口：服务站活动、应援花篮活动、海底捞活动 |
 | /events/flower-baskets | 10 个展示位，其中 1 个已填可点击、9 个等待补充 |
 | 花篮弹窗 | 屏幕居中；详细长图、单张无料图、摆放位置、花篮交流群；内部滚动；关闭按钮、Escape、点击遮罩关闭；关闭后焦点回到卡片 |
-| /events/service-station | 位置、日期、服务/发放时段、无料、物资、领取说明 |
+| /events/service-station | p2/p3 位置示意图、10月30日 10:00–17:00、照片打印/充电站/免费水，p6 封面；无料与领取说明待补充 |
 | /events/haidilao | 参与门店、日期、时段、活动内容与参与方式 |
 | / | 钟盘在钢琴角色图后方，桌面直径 500px；手机按视口缩放；动效默认开启并尊重系统减少动画设置 |
 | /recommendations | 美食/商场筛选、名称/区域搜索、空结果重置、高德选点和天宝攻略链接 |
@@ -31,10 +31,12 @@
 
 在 lib/activities.ts 修改 serviceStation 与 haidilaoActivity：
 
-- location.name / address：站点或参与门店名称、地址。
-- location.mapQuery：确认后填写精确地点搜索词，页面才会展示高德选点导航链接；没有确认地点时保持省略。
-- date / hours：日期、服务或活动时段。
-- serviceStation.giveaways / supplies：无料与物资数组；每项填写 name、description，可附 image；与花篮单图字段分开。空数组显示待公布。
+- serviceStation.locationImages：位置示意图数组，本次 p2 为 /images/activities/service-station-route.jpg（1280×1059），p3 为 /images/activities/service-station-location.jpg（830×268），都可打开原图。
+- serviceStation.cover：活动列表与详情共用封面，本次 p6 为 /images/activities/service-station-cover.jpg（1280×790），保留完整比例。
+- haidilaoActivity.location.name / address：参与门店名称、地址。
+- haidilaoActivity.location.mapQuery：确认后填写精确地点搜索词，页面才会展示高德选点导航链接；没有确认地点时保持省略。
+- date / hours：日期、服务或活动时段；服务站已确认 10月30日、10:00–17:00，服务时间卡只展示这两项。
+- serviceStation.giveaways / supplies：无料与物资数组；每项填写 name、description，可附 image；与花篮单图字段分开。空数组显示待公布。服务站 supplies 已填照片打印、充电站、免费水，giveaways 仍留空。
 - serviceStation.collection：领取方式与数量说明。
 - haidilaoActivity.participation：参与方式与现场安排。
 

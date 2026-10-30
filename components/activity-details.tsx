@@ -4,7 +4,6 @@ import {
   CalendarDays,
   Clock3,
   Gift,
-  HeartHandshake,
   MapPin,
   Package,
   Soup,
@@ -96,43 +95,61 @@ function DistributionList({
 export function ServiceStationDetails() {
   return (
     <div className="activity-detail-content">
-      <div className="station-overview">
-        <LocationCard location={serviceStation.location} />
-        <section className="community-panel station-time">
-          <span className="community-eyebrow">WHEN WE MEET / 服务时间</span>
-          <h2>把相遇，安排在刚好的时刻。</h2>
-          <dl>
-            <div>
-              <dt>
-                <CalendarDays size={17} />
-                日期
-              </dt>
-              <dd>{serviceStation.date}</dd>
-            </div>
-            <div>
-              <dt>
-                <Clock3 size={17} />
-                时段
-              </dt>
-              <dd>{serviceStation.hours}</dd>
-            </div>
-          </dl>
+      <div className="station-overview station-overview-illustrated">
+        <section
+          className="community-panel station-location-guide"
+          aria-labelledby="station-location-heading"
+        >
+          <span className="community-eyebrow">MEETING POINT</span>
+          <h2 id="station-location-heading">服务站位置示意</h2>
+          <div className="station-location-images">
+            {serviceStation.locationImages.map((image) => (
+              <figure key={image.src}>
+                <ActivityImage
+                  image={image}
+                  sizes="(max-width: 850px) calc(100vw - 84px), 620px"
+                />
+                <figcaption>
+                  <span>{image.caption}</span>
+                  <a
+                    href={image.src}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`查看${image.caption}大图（新窗口）`}
+                  >
+                    查看大图 <ArrowUpRight size={14} />
+                  </a>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </section>
-      </div>
-      <div className="community-section-heading">
-        <div>
-          <span className="community-eyebrow">A GIFT, A LITTLE CARE</span>
-          <h2>带走一份心意，补充一点能量。</h2>
+        <div className="station-service-panels">
+          <section className="community-panel station-time" aria-label="服务时间">
+            <dl>
+              <div>
+                <dt>
+                  <CalendarDays size={17} />
+                  日期
+                </dt>
+                <dd>{serviceStation.date}</dd>
+              </div>
+              <div>
+                <dt>
+                  <Clock3 size={17} />
+                  时段
+                </dt>
+                <dd>{serviceStation.hours}</dd>
+              </div>
+            </dl>
+          </section>
+          <DistributionList
+            title="现场物资"
+            items={serviceStation.supplies}
+            materials
+          />
+          <DistributionList title="发放无料" items={serviceStation.giveaways} />
         </div>
-        <HeartHandshake size={28} strokeWidth={1.2} />
-      </div>
-      <div className="distribution-grid">
-        <DistributionList title="发放无料" items={serviceStation.giveaways} />
-        <DistributionList
-          title="现场物资"
-          items={serviceStation.supplies}
-          materials
-        />
       </div>
       <div className="collection-note">
         <Gift size={20} />
