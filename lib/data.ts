@@ -44,13 +44,14 @@ export const spots: Spot[] = [
     name: "中百罗森(广厦华庭店)",
     en: "LAWSON · GUANGSHA HUATING",
     category: "街角小店",
-    area: "武汉 · 门店位置待核实",
+    area: "洪山区",
+    matchAddress: "梳子桥路2附43号广厦华庭1楼104商铺",
     x: 75,
     y: 59,
     description:
       "天依与罗森在武汉的联动店，时隔三年依旧保留着当年的痕迹",
     tip: "请认准广厦华庭店；拍照时请勿遮挡店门或影响顾客通行，营业与店内活动以门店信息为准。",
-    address: "武汉市中百罗森广厦华庭店（以高德门店地址为准）",
+    address: "洪山区梳子桥路2附43号广厦华庭1楼104商铺",
     theme: "shop",
   },
   {
