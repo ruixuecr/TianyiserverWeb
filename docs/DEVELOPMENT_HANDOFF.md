@@ -114,7 +114,7 @@
 
 ## 当前 Sites 预览
 
-最新已发布东湖“2020年3月 & 7月”日期及详情第二张照片，对应 GitHub 应用提交 26745c6b0a00d0e4c8ffa95b56ef6c6398a1f620；原生部署于 2026-10-30 21:45:36 UTC 返回 succeeded。原 URL、权限与环境 revision 1 保持，完整发布和验证记录见 SITES_PREVIEW.md。腾讯云版本仍为 65457b6022e107b7641b887ae4bba0b9a4c65264，本次东湖更新、新增平湖珞樱观湖平台、武汉汉口里竹林、武汉大学樱花路、黄鹤楼及 2D/3D 切换均累计待发布。
+最新已发布中百罗森完整地址与门牌匹配，对应 GitHub 应用提交 86e3acb9dddd607f186bb229f4abe4e0075bae53；原生部署于 2026-10-30 21:50:25 UTC 返回 succeeded。原 URL、权限与环境 revision 1 保持，完整发布和验证记录见 SITES_PREVIEW.md。腾讯云版本仍为 65457b6022e107b7641b887ae4bba0b9a4c65264，中百罗森地址、东湖更新、新增平湖珞樱观湖平台、武汉汉口里竹林、武汉大学樱花路、黄鹤楼及 2D/3D 切换均累计待发布。
 
 2026-10-29 用户指定使用 Sites 重新部署，随后提供高德凭据并要求配置。当前为带服务端代理的 Worker 预览：https://tianyi-encore-preview-ruixue.ratsnaiwazcr.chatgpt.site ，原生部署状态 succeeded，仅所有者可访问。项目 ID 已保存在 .openai/hosting.json；复用既有站点，勿重新创建。导出脚本、版本/部署 ID 和更新步骤见 SITES_PREVIEW.md。
 

@@ -134,6 +134,8 @@
 
 中百罗森本批验证：生产构建、类型检查、静态导出与 Worker 构建通过；实际 Worker 的 /map/ 与 /spots/lawson-guangsha/ 均返回 200，旧“门店位置待核实”文本消失，完整门牌、原介绍及带精确店名和门牌的导航链接检查通过，总数仍为 13。真实高德查询核对名称与地址一致；本次未增加浏览器视觉验收结论。Worker 仍为 303 资源、约 9.90 MiB，未调整图片配置或体积上限。
 
+中百罗森本批发布：GitHub 应用提交 86e3acb9dddd607f186bb229f4abe4e0075bae53、Sites 源码提交 25b447b1d7afe1a9b8ecee29424bb62e7510acfb 均已推送并核对；2026-10-30 21:50:25 UTC 原生部署返回 succeeded，原 URL、仅所有者权限与高德环境 revision 1 保持。版本与部署 ID 见 SITES_PREVIEW.md；腾讯云未更新。
+
 ## 已有验证证据及边界
 
 - 最新应用代码在 2026-10-29 通过 npm run build，包含 TypeScript 检查。
