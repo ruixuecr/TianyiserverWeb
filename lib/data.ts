@@ -119,6 +119,30 @@ export const spots: Spot[] = [
     },
   },
   {
+    id: "hankouli-bamboo",
+    name: "武汉汉口里竹林",
+    en: "HANKOULI BAMBOO GROVE",
+    memoryDate: { year: 2020, month: 3 },
+    category: "街巷漫步",
+    area: "武汉 · 汉口里",
+    // The user chose Hankouli as the navigation area; the bamboo viewpoint is unverified.
+    searchName: "武汉园博园-汉口里",
+    x: 28,
+    y: 23,
+    description: `洛天依跨次元芭莎登封取景
+
+“每一张被定格的美丽画面背后，都有一段美好的故事，这是天依与武汉的美好邂逅，也是天依与时尚芭莎的神奇相遇。”`,
+    tip: "",
+    address: "武汉园博园-汉口里（竹林具体位置待确认）",
+    theme: "house",
+    featuredImage: {
+      src: "/images/spots/hankouli-bamboo.jpg",
+      width: 1280,
+      height: 853,
+      alt: "洛天依在武汉汉口里竹林的芭莎取景图片",
+    },
+  },
+  {
     id: "tianbao",
     memoryDate: { year: 2025, month: 12 },
     searchName: "天宝饭庄",
