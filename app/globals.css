@@ -1885,6 +1885,9 @@ footer > span {
   max-width: 460px;
   margin: 0;
 }
+.spot-introduction p + p {
+  margin-top: 16px;
+}
 .spot-photo-area {
   margin-top: 48px;
   min-height: 460px;

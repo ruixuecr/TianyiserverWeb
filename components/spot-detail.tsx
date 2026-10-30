@@ -48,7 +48,9 @@ export function SpotDetail({ spot }: { spot: Spot }) {
         </section>
         <section className="spot-introduction">
           <h1>{spot.name}</h1>
-          <p>{spot.description}</p>
+          {spot.description.split("\n\n").map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
         </section>
       </div>
       <section className="spot-photo-area" aria-label={`${spot.name}图片展示`}>

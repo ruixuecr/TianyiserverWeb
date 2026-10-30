@@ -56,6 +56,10 @@ Marker 内容用 DOM 创建，名称写入 textContent；外观沿用原有图�
 
 地图年份筛选与选中状态位于客户端组件内；已移除搜索框、query 状态和文本过滤，仅按年份筛选。没有跨设备保存机制。当前不实现站内完整路线规划或主动用户定位。
 
+## 地点介绍
+
+lib/data.ts 的 Spot.description 仍为字符串，双换行分隔自然段。SpotDetail 将各段作为独立 p 渲染，连续段落间隔 16px；单段介绍行为不变。鹦鹉洲大桥、东湖和中百罗森使用用户提供的正式文案，东湖全文保留历史叙述；地图相机、导航、地点日期与图片配置没有改动。
+
 ## 图片交付
 
 主题分支使用 next/image 为 public/images/ 中的本地素材生成响应式 srcset；浏览器通过 /_next/image 按 Accept 请求 WebP。SpotImage 包含原图 width/height，组件据此保留比例并预留空间；sizes 分别匹配地图卡片、详情大图、首页主视觉和装饰的实际展示宽度。地图大图为选中后 eager 加载；首页主视觉使用 loading="eager" 和 fetchPriority="high"；详情下方照片及装饰使用默认 lazy 加载。失败回退仍显示原有插画或占位。
