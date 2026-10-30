@@ -306,3 +306,11 @@ Sites 预览不依赖旧 Tunnelmole 隧道进程；旧 .preview/url.txt 中的�
 2026-10-30 将用户本次提供的 640×853 JPEG 原样保存为 public/images/spots/gutian-bridge.jpg，featuredImage 供古田桥详情页与地图选中大图共用。原图 SHA-256：a0bb6396193238eb3c868a5d2f36ed5f8db3b347b238dc596ac36e7852bd4bb6。未补写介绍，未从图片推断岸侧、入口或坐标。
 
 验证：npm run build、npm run typecheck 与 Sites 导出构建通过。实际 Worker 在 1440/390px、2 倍像素比下，地图列表选中古田桥后显示新图，卡片链接可进入详情，两处图片均成功解码并保持 640:853 比例，详情占位已替换，无横向溢出或浏览器运行错误；手机详情及卡片截图正常。本地未配置高德凭据，此次不增加真实地图渲染或入口坐标验证结论。19 张原图生成响应式 WebP，Worker 含 355 项资源，压缩约 9.66 MiB，10 MiB 体积保护保持。
+
+发布结果：2026-10-30 17:47:07 UTC，Sites 返回 succeeded；现有网址、私有权限与高德环境 revision 1 沿用。
+
+- 应用提交：63381642c0ac824c18740c4ddf3fef1cfecc7ad8，已推送并核对 GitHub。
+- Sites 源码提交：86d40fc5105592687c7ef6d13293713369d50eca，已推送并核对远端。
+- 版本 ID：appgprj_6ae2b571b6488191aff989a1a1654416~appgver_8e7d18f7733881918a59970acd911863。
+- 部署 ID：appgdep_6ae4d80cacac81918a8171c14548b0d9。
+- 发布归档从上述 Sites 提交生成，线上预览独立运行。
