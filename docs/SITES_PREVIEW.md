@@ -414,3 +414,9 @@ Sites 预览不依赖旧 Tunnelmole 隧道进程；旧 .preview/url.txt 中的�
 - 版本 ID：appgprj_6ae2b571b6488191aff989a1a1654416~appgver_94a97d2d82908191b17f6180fd069ea0。
 - 部署 ID：appgdep_6ae4e61aa2648191a0c983153f9629f1。
 - 发布归档从上述 Sites 提交生成，线上预览独立运行。
+
+## 加入反诈提醒公告
+
+2026-10-30 按用户原文加入标题“反诈提醒”及完整正文（全文见 PROJECT_REQUIREMENTS.md），仅新增 fraud-alert 一条公告；恢复详情路由，generateStaticParams 仅生成该条，dynamicParams 为 false。tag/date 改为可选且未提供时省略，取消首条自动置顶，不新增日期、标签或正文。原 welcome/travel/map 三条示例仍删除。
+
+验证：npm run build、npm run typecheck 与 Sites 导出构建通过，共生成 19 页。实际 Worker 在 1440/390/320px 下公告列表仅一条，标题与正文逐字匹配用户原文；列表可进入完整详情，浏览器标题正确，返回通知列表正常，未生成空元信息或标签。新地址带或不带尾斜杠均返回 200，旧三条及未知地址均返回 404。手机列表/详情截图正常，无横向溢出或浏览器运行错误。Worker 含 358 项资源，压缩约 9.82 MiB，体积保护通过。

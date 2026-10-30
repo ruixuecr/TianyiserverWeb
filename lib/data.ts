@@ -260,8 +260,14 @@ export function spotSearchUrl(spot: Spot) {
 export type Notice = {
   id: string;
   title: string;
-  tag: string;
-  date: string;
+  tag?: string;
+  date?: string;
   text: string;
 };
-export const notices: Notice[] = [];
+export const notices: Notice[] = [
+  {
+    id: "fraud-alert",
+    title: "反诈提醒",
+    text: "线下活动期间骗子频发，注意谨防上当受骗，如遇卖笔，擦鞋，聋哑人扫码献爱心，纸制票，洛天依亲签专辑通通是诈骗！周边交易请走平台，请勿线下交易和与陌生人直接转账。",
+  },
+];

@@ -10,16 +10,13 @@ export default function Page() {
         <ThemeMotif kind="blossoms" className="listing-blossoms" />
         <h1>通知公告</h1>
         <div className="notice-list">
-          {notices.map((n, i) => (
+          {notices.map((n) => (
             <Link href={`/notices/${n.id}`} key={n.id}>
               <span className="notice-icon">
                 <Bell size={22} />
               </span>
               <div>
-                <span className="notice-tag">
-                  {n.tag}
-                  {i === 0 ? " · 置顶" : ""}
-                </span>
+                {n.tag && <span className="notice-tag">{n.tag}</span>}
                 <h2>{n.title}</h2>
                 <p>{n.text}</p>
               </div>

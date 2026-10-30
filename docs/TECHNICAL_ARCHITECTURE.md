@@ -146,7 +146,7 @@ activities 移除 english / description，FlowerBasket 移除 description / grou
 
 标题更新（2026-10-30）：Shell 品牌改为“活动指南”，图标由 Music2 换为 Compass，移除旧英文品牌 span 及 brand-en 专用样式；/map 导航和 MapExplorer h1 使用“打卡推荐”。RootLayout、地点详情和推荐页元数据品牌及公告引用名称同步更新，路由和地图实现不变。
 
-通知清空（2026-10-30）：lib/data.ts 用显式 Notice 类型保留空 notices 数组，通知列表组件不渲染任何条目。当前没有有效详情，因此移除 app/notices/[id]/page.tsx，避免 Next.js 静态导出对零条动态路径的限制；旧详情返回 404。没有生成虚拟通知或占位详情路径，未来添加正式通知时恢复详情路由。
+通知更新（2026-10-30）：清空示例时曾移除零条路径的动态详情路由，避免 Next.js 静态导出限制；用户现提供正式“反诈提醒”，已恢复 app/notices/[id]/page.tsx，generateStaticParams 仅生成 fraud-alert，dynamicParams 为 false，未知 ID 返回 404。Notice.tag / date 可选，列表与详情仅渲染已提供元信息，取消列表首条自动置顶；正文严格来自 notices.text。详情生成对应浏览器标题，并提供返回通知列表链接。将来若再次清空全部通知，需同时处理静态导出的零条动态路径限制，不创建虚构占位公告。
 
 古田桥图片更新（2026-10-30）：featuredImage 指向 public/images/spots/gutian-bridge.jpg（640×853），复用 SpotDetail 与 SpotImageCard 的原比例响应式图片展示；原始 JPEG 字节不变，不补写介绍或推定导航坐标。
 
