@@ -84,6 +84,8 @@
 
 52. 用户要求加入“反诈提醒”公告，并提供完整正文。已加入 fraud-alert，原文从“线下活动期间骗子频发”至“与陌生人直接转账。”逐字保留，包括“纸制票”；恢复公告详情路由和返回通知列表链接，仅该条有效。未提供日期或标签则省略，取消首条自动置顶；此前删除的 welcome/travel/map 仍返回 404，不恢复旧示例或自拟正文。完整原文见 PROJECT_REQUIREMENTS.md。
 
+53. 用户明确要求“把高德apikey写入github，我授权了”。已将当前站点浏览器使用的高德 Web JS API Key 写入跟踪文件 .env.example 的 NEXT_PUBLIC_AMAP_KEY，覆盖此前关于该公开 Key 不入库的约定，并在 AGENTS.md 记录限定授权。AMAP_SECURITY_CODE 仍为空且仅服务端配置，认证令牌和真实 .env.local 不入库；不修改 Sites 环境变量、权限或线上版本。后续部署需复制模板或设置运行时变量，不能误认为 .env.example 会自动生效。
+
 ## 已有验证证据及边界
 
 - 最新应用代码在 2026-10-29 通过 npm run build，包含 TypeScript 检查。

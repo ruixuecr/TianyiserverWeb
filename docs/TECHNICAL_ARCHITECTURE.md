@@ -70,6 +70,8 @@ lib/data.ts 的 Spot.description 为可选字符串，双换行分隔自然段�
 
 ## 配置与代理
 
+2026-10-30 用户明确授权将当前浏览器 Web JS API Key 纳入 GitHub。已从现有站点仅返回公开 Key 的 /api/map-config 读取并写入 .env.example 的 NEXT_PUBLIC_AMAP_KEY；AMAP_SECURITY_CODE 留空，不读取或提交服务端安全密钥。此模板不参与自动环境加载，Next.js 和 Sites 仍读取各自运行时配置，公开配置端点与安全代理逻辑不变。AGENTS.md 已记录该限定例外。
+
 | 变量 | 说明 |
 | --- | --- |
 | NEXT_PUBLIC_AMAP_KEY | 高德 Web JS API Key，由 /api/map-config 提供给浏览器；Sites 从运行时环境读取，更换后重新部署并刷新页面。Next.js 本地版本仍需重建/重启。 |

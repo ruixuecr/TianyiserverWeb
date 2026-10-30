@@ -34,7 +34,7 @@
 
 ## 高德配置
 
-复制 .env.example 为 .env.local，填写 NEXT_PUBLIC_AMAP_KEY 和 AMAP_SECURITY_CODE。配置文件不入库，安全密钥仅服务端使用。云端需要单独配置，不能依赖本地文件。
+用户已明确授权将当前高德 Web JS API Key 写入 GitHub，.env.example 已预填 NEXT_PUBLIC_AMAP_KEY。复制该模板为 .env.local 后，再通过服务器环境配置 AMAP_SECURITY_CODE；模板中的安全密钥保持为空，真实 .env.local 不入库。云端仍需单独设置运行时变量，.env.example 不会被应用自动加载；Sites 当前配置保持。
 
 当前地图固定为 3D 俯瞰，已通过行政区遮罩限制武汉范围。无 Key 时显示待配置提示，加载失败时显示错误状态，不会回退为旧 SVG 地图。9 个地点条目不代表每次一定显示 9 个标签：当前仍依赖浏览器端 POI 精确搜索，失败或歧义结果会暂不标注；新增东湖的具体打卡位置尚待确认。
 

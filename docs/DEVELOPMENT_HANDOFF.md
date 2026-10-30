@@ -59,7 +59,7 @@
 
 ## 地图环境变量
 
-只提交空值模板 .env.example，不提交真实 .env.local。本机已有凭据不代表云端自动继承。
+用户于 2026-10-30 明确授权把高德 API Key 写入 GitHub，.env.example 现已预填当前站点使用的浏览器 Web JS API Key（NEXT_PUBLIC_AMAP_KEY），AMAP_SECURITY_CODE 保持空值；不提交真实 .env.local、服务端安全密钥或认证令牌。模板不会自动加载，需复制为 .env.local 并安全注入服务端安全密钥，或在云服务器设置对应环境变量。本机已有配置不代表云端自动继承；Sites 现有加密运行时配置保持。
 
 - NEXT_PUBLIC_AMAP_KEY：高德 Web JS API Key，浏览器端需要；更换后重新构建。
 - AMAP_SECURITY_CODE：对应安全密钥，必须仅服务端使用。
