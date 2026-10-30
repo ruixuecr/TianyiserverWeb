@@ -137,7 +137,7 @@ export function ServiceStationDetails() {
             </dl>
           </section>
           <DistributionList
-            title="现场物资"
+            title="免费服务"
             items={serviceStation.supplies}
             materials
           />

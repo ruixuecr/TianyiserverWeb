@@ -37,7 +37,7 @@
 - haidilaoActivity.location.name / address：参与门店名称、地址。
 - haidilaoActivity.location.mapQuery：确认后填写精确地点搜索词，页面才会展示高德选点导航链接；没有确认地点时保持省略。
 - date / hours：日期、服务或活动时段；服务站已确认 10月30日、10:00–17:00，服务时间卡只展示这两项。
-- serviceStation.giveaways / supplies：无料与物资数组；每项填写 name，可附用户提供的 description 和 image；与花篮单图字段分开。空数组显示待公布。服务站 supplies 已填照片打印、充电站、免费水，giveaways 已按顺序填写：「纯蓝幻乐」武汉场鲜花卡、倡议书、主题镭射票、双魔女花篮众筹无料、五校联合花篮众筹无料、「无界」洛花篮众筹无料，仅展示原名，不补写说明、图片、数量或领取条件。
+- serviceStation.giveaways / supplies：无料与物资数组；每项填写 name，可附用户提供的 description 和 image；与花篮单图字段分开。空数组显示待公布。服务站 supplies 在“免费服务”卡片列出照片打印、充电站、免费水，giveaways 已按顺序填写：「纯蓝幻乐」武汉场鲜花卡、倡议书、主题镭射票、双魔女花篮众筹无料、五校联合花篮众筹无料、「无界」洛花篮众筹无料，仅展示原名，不补写说明、图片、数量或领取条件。
 - serviceStation.collection：领取方式与数量说明。
 - haidilaoActivity.participation：参与方式与现场安排。
 
