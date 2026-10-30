@@ -30,7 +30,7 @@ node scripts/build-sites-worker.mjs
 
 输出目录是可替换的生成目录，请勿指向手写源码。脚本在被忽略的 .preview/sites-build 中复制应用，以 Next.js 官方 output: export 模式构建，不改动根目录 next.config.ts。依赖沿用已安装版本；使用 Next.js 带入的 sharp 提前生成质量 75 的响应式 WebP，保留 next/image 的尺寸、优先加载、延迟加载和原比例展示。
 
-第一步输出 .preview/sites-export，仍不复制 .env 文件、不携带任何地图凭据。第二步将页面资源、sites/worker.mjs 和 lib/amap-service.ts 合为 dist/server/index.js，并写入 dist/.openai/hosting.json。Worker 请求时读取 Sites 注入的环境变量。当前 364 项资源、压缩脚本约 9.84 MiB；构建会拒绝超过 10 MiB 的压缩包，后续素材明显增加时需调整资源托管方式，不可静默删减图片。完整 Next.js 服务器版仍可通过 npm run build / npm start 运行。
+第一步输出 .preview/sites-export，仍不复制 .env 文件、不携带任何地图凭据。第二步将页面资源、sites/worker.mjs 和 lib/amap-service.ts 合为 dist/server/index.js，并写入 dist/.openai/hosting.json。Worker 请求时读取 Sites 注入的环境变量。资源量与压缩脚本大小以最新发布记录为准；构建会拒绝超过 10 MiB 的压缩包，后续素材明显增加时需调整资源托管方式，不可静默删减图片。完整 Next.js 服务器版仍可通过 npm run build / npm start 运行。
 
 导出保留活动、10 位花篮和居中弹窗、美食商场筛选、实时时钟、倒计时和彩色进度环。旧 /events/weekend、/events/sunset、/events/walk 使用静态 HTML 跳转至 /events/；这三条仅为兼容入口。
 
@@ -187,3 +187,12 @@ Sites 预览不依赖旧 Tunnelmole 隧道进程；旧 .preview/url.txt 中的�
 - 版本 ID：appgprj_6ae2b571b6488191aff989a1a1654416~appgver_1307cbc47c1c81919733bffcb6f0d219。
 - 部署 ID：appgdep_6ae4617afb588191aa12c0a73e1159b7。
 - 发布归档从上述 Sites 提交生成，线上预览独立运行。
+
+
+## 东湖城市巡礼图片与引用原文
+
+2026-10-30 使用用户新提供的 853×1280 JPEG 作为东湖详情与地图选中大图，原始文件字节保持；介绍标题为“东湖：天依城市巡礼系列最后一站”，正文按用户最新原文保留完整首尾中文引号与自然段，未增加文案。东湖具体打卡位置仍待确认。
+
+为容纳新图，Sites 导出同时调整 deviceSizes 与生成缓存图的尺寸集合，省去相邻的 1080px 版本，由已有 1200px 版本覆盖；所有原图、最高分辨率和 WebP 质量 75 保持。完整 Next.js 图片配置不变，10 MiB 发布保护仍生效。
+
+验证：npm run build、npm run typecheck 通过；252 个响应式图片映射均指向存在的资源。实际 Worker 包在 1440/820/390/320px 下核对东湖正文、引号、原图比例与地图选中图片，原 JPEG 响应与上传文件字节一致；另在减少动画模式下检查首页、活动、服务站、花篮弹窗及全部已有地点照片，共 33 张渲染图片解码成功，无横向溢出或浏览器运行错误。图片遍历初次因装饰动画无法稳定滚动而中断，改用原生滚动与减少动画后完成，应用代码无需修复。发布包为 367 项资源、约 9.53 MiB；不增加真实 3D 或 POI 坐标验证结论。

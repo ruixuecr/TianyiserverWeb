@@ -100,7 +100,7 @@ codex/encore-theme-elements 在 mapapi 基线上新增以下模块：
 
 用户要求动效默认开启并移除开关，故已删除 MotionContext、偏好读取与设置行，不再使用 localStorage 的 encore-theme-motion。CSS prefers-reduced-motion 仍关闭花瓣、刻度动画和环的旋转；倒计时文本持续更新。地点筛选与选择不持久化。弹层由 Radix 处理焦点、Escape 关闭和移动端位置；装饰图片使用空 alt、aria-hidden 和 pointer-events: none。
 
-地点 memoryDate 统一存年/月，spotDateLabel 输出中文年月，spotDateValue 提供 HTML time 的 YYYY-MM。列表使用排序后的副本，不改变底层地点 ID、类型与既有链接。新增东湖标记 locationPending，避免把宽泛景区误当成已核实的入口；古田桥保留精确名称搜索，二者均无预填坐标或假照片。
+地点 memoryDate 统一存年/月，spotDateLabel 输出中文年月，spotDateValue 提供 HTML time 的 YYYY-MM。列表使用排序后的副本，不改变底层地点 ID、类型与既有链接。新增东湖标记 locationPending，避免把宽泛景区误当成已核实的入口；古田桥保留精确名称搜索，二者均无预填坐标；东湖已使用用户随后提供的城市巡礼原图，古田桥照片仍待补充。
 
 初次时光主题未修改地图逻辑和地点内容；后续图片优化为 SpotDetail 和地点图片补充了响应式加载及宽高信息。完整构建、独立类型检查、桌面与手机浏览器交互检查通过；浏览器检查覆盖跨时区报时、弹层焦点、动效保存、减少动态效果、地点搜索/选择及长图比例，不包含缺少凭据的真实高德地图。
 
@@ -131,3 +131,5 @@ codex/encore-theme-elements 在 mapapi 基线上新增以下模块：
 ## 文案清理（2026-10-30）
 
 activities 移除 english / description，FlowerBasket 移除 description / groupNote，Recommendation 移除 description。活动与推荐展示名称、图片和现有事实字段；花篮弹窗移除自拟介绍后显式设置 aria-describedby={undefined}，仍由 DialogTitle 提供可访问名称。Giveaway.description 改为可选，仅在用户提供说明时渲染；当前三项服务只显示已确认名称。其他六处地点移除自拟 description，三处用户原文保持。首页装饰、页脚、地图侧栏、时钟和通知页的宣传性句子已删；页面标题采用原有功能名称。保留已确认的首页大标题、装饰图片和现有交互。
+
+东湖图片更新（2026-10-30）：featuredImage 指向 public/images/spots/donghu-city-tour.jpg（853×1280），详情和地图选中独立大图复用，原文件字节保持。介绍标题按用户最新文字增加“东湖：”，全文首尾增加中文引号；段落内容不改写，locationPending 继续保留。Sites 导出仅省去相邻的 1080px 缓存尺寸，deviceSizes 与实际生成宽度同步，浏览器改选已有 1200px 版本；原图、最高分辨率与 WebP 质量 75 保持，完整 Next.js 部署的图片配置不变。此调整避免新素材使嵌入 Worker 超过 10 MiB，构建体积保护继续生效。

@@ -28,7 +28,11 @@ await symlink(path.join(root, "node_modules"), path.join(build, "node_modules"),
 const imageMap = {};
 const optimized = path.join(build, "public/images/optimized");
 await mkdir(optimized, { recursive: true });
-const widths = [...imageConfigDefault.deviceSizes, ...imageConfigDefault.imageSizes];
+// Omit the nearby 1080px variant in the embedded Sites build. Browsers use the
+// existing 1200px variant instead, keeping resolution while avoiding duplicate
+// raster payloads near the Worker size limit. Original images remain untouched.
+const deviceSizes = imageConfigDefault.deviceSizes.filter((width) => width !== 1080);
+const widths = [...deviceSizes, ...imageConfigDefault.imageSizes];
 async function optimizeDirectory(directory) {
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     const file = path.join(directory, entry.name);
@@ -63,7 +67,7 @@ const config: NextConfig = {
   output: "export",
   trailingSlash: true,
   devIndicators: false,
-  images: { loader: "custom", loaderFile: "./sites-image-loader.ts" },
+  images: { loader: "custom", loaderFile: "./sites-image-loader.ts", deviceSizes: ${JSON.stringify(deviceSizes)} },
 };
 export default config;
 `);
