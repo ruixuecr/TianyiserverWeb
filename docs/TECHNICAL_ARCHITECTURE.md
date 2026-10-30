@@ -116,11 +116,13 @@ codex/encore-theme-elements 在 mapapi 基线上新增以下模块：
 | components/ui/dialog.tsx | Radix Dialog Portal、居中弹窗、遮罩、关闭按钮 |
 | components/activity-image.tsx | 活动图片响应式加载、错误回退与重试；二维码保留原图 |
 | components/activity-details.tsx | 服务站位置、时间、免费服务和发放无料 |
-| lib/recommendations.ts | 独立于地图点位的 6 条美食商场推荐 |
+| lib/recommendations.ts | 独立于地图点位的 5 条美食商场推荐（2 家美食、3 家商场） |
 | components/recommendation-explorer.tsx | 推荐类别、搜索、空状态及导航链接 |
 | app/community.css | 活动、弹窗、推荐及五项导航的响应式样式 |
 
 /events/[id] 仍使用 Promise params，预生成 service-station、flower-baskets；haidilao 已删除并返回 404；旧 weekend/sunset/walk 地址通过 redirect 返回 /events，未知 ID 继续 notFound。/recommendations 是静态页，筛选与搜索由客户端组件完成。
+
+推荐名单更新后，Recommendation.district / area 为可选，地址行仅在已有信息时渲染，避免继承旧推荐地址或生成空分隔符；tags 为空时不生成空标签容器。名称和标签使用用户原文，大小写归一化搜索支持 x118 / X118、stay / STAY；天寶保留 tianbao spotId 与已确认地址，其余通过带武汉及店名/分店的关键词打开高德选点，不推定坐标。
 
 新增 @radix-ui/react-dialog 1.3.1，其他已有依赖版本不变。每个已填花篮使用独立 Dialog Root/Trigger；Portal 仅在打开时挂载详情内容，弹窗内滚动，Radix 处理遮罩、Escape、焦点圈定、背景滚动锁定和焦点恢复。Portal 不继承 Shell 的 CSS 变量，因此在 encore-dialog 中显式定义同一蓝白色板。FlowerBasket.location 是 basketLocations 的键，只接受 popup / stadium；首条指向 popup，名称为“双魔女应援花篮”。ActivityCover 的 flower-baskets 分支直接引用 flowerBaskets[0].images[0]，供活动列表、详情页标题区和花篮卡片共用；复用 activity-cover-photo 自然比例样式，没有复制图片文件。花篮移除 organizer、time、sample 与示例 giveaways，改为可选 giveawayImage 单张图；服务站仍使用 Giveaway 数组与自己的日期/时间。按最新纠正，原图 3 用于 images 详细图，文件重命名为 public/images/activities/basket-01-piano.jpg（1280×663）；原图 4 用于 giveawayImage 无料图，重命名为 basket-01-poster.jpg（428×1280）。仅改用途、文件名与相应尺寸/alt，保留图片内容和原比例响应式加载。摆放位置放在弹窗滚动区首部，避免被长图挤到末尾。群二维码不提供伪造值；有真实图片时才渲染，使用 unoptimized 避免有损转码影响扫描。
 

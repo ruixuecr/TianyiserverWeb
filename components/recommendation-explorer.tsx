@@ -20,9 +20,9 @@ export function RecommendationExplorer() {
   const visible = recommendations.filter(
     (place) =>
       (kind === "全部推荐" || place.kind === kind) &&
-      `${place.name}${place.district}${place.area}${place.tags.join("")}`.includes(
-        query.trim(),
-      ),
+      `${place.name}${place.district ?? ""}${place.area ?? ""}${place.tags.join("")}`
+        .toLowerCase()
+        .includes(query.trim().toLowerCase()),
   );
   return (
     <>
@@ -76,15 +76,19 @@ export function RecommendationExplorer() {
                 <span className="recommendation-kind">{place.kind}</span>
               </div>
               <h2>{place.name}</h2>
-              <p className="recommendation-address">
-                <MapPin size={13} />
-                {place.district} · {place.area}
-              </p>
-              <div className="recommendation-tags">
-                {place.tags.map((tag) => (
-                  <span key={tag}>{tag}</span>
-                ))}
-              </div>
+              {(place.district || place.area) && (
+                <p className="recommendation-address">
+                  <MapPin size={13} />
+                  {[place.district, place.area].filter(Boolean).join(" · ")}
+                </p>
+              )}
+              {place.tags.length > 0 && (
+                <div className="recommendation-tags">
+                  {place.tags.map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </div>
+              )}
               <div className="recommendation-actions">
                 <a
                   href={placeSearchUrl(place.mapQuery)}
