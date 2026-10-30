@@ -28,7 +28,11 @@ async function originalImage(request, asset, headers) {
       .join("");
     if (hash !== asset.sha256) throw new Error("Original integrity mismatch");
     return new Response(body, { headers });
-  } catch {
+  } catch (error) {
+    console.error(
+      "Original image delivery failed:",
+      error instanceof Error ? error.message : "Unknown failure",
+    );
     return new Response("Original image temporarily unavailable", {
       status: 502,
       headers: {
