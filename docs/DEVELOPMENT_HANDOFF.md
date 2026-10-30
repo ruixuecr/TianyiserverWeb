@@ -14,7 +14,7 @@
 
 ## 新环境启动
 
-腾讯云部署：scripts/deploy-ubuntu.sh、deploy/tianyi.service 和 deploy/tianyi.nginx.conf 按固定提交安装，非 root 构建/运行，配置 Nginx 和开机自启。仅设置 TIANYI_STANDALONE=1 时生成独立运行包；普通开发和 Sites 导出流程保持。用户已执行部署，返回版本 65457b6022e107b7641b887ae4bba0b9a4c65264；公网页面与图片缓存已独立核验，高德安全密钥仍为空、地图待补配。助手未通过 SSH 登录，后续服务器操作继续由用户终端执行。详情见 TENCENT_DEPLOYMENT.md。
+腾讯云部署：scripts/deploy-ubuntu.sh、deploy/tianyi.service 和 deploy/tianyi.nginx.conf 按固定提交安装，非 root 构建/运行，配置 Nginx 和开机自启。仅设置 TIANYI_STANDALONE=1 时生成独立运行包；普通开发和 Sites 导出流程保持。用户已执行部署，返回版本 65457b6022e107b7641b887ae4bba0b9a4c65264；公网页面与图片缓存已独立核验。安全密钥随后补配，服务 active，高德 SDK 的武汉行政区与地点搜索均成功；云端浏览器不支持 WebGL，真实 3D 视觉仍待用户设备确认。助手未通过 SSH 登录，后续服务器操作继续由用户终端执行。详情见 TENCENT_DEPLOYMENT.md。
 
 2026-10-30 巴公房子文案：lib/data.ts 已加入用户提供的完整介绍，从“2025年巡演海报打卡点”至“具有深厚的历史文化底蕴。”，按原文空格和标点显示；原海报、2025-12 年月、地址与导航保持。全文见 PROJECT_REQUIREMENTS.md。
 

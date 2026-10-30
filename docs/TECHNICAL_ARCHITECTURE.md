@@ -4,7 +4,7 @@
 
 ## 技术栈与目录
 
-腾讯云独立部署使用 next.config.ts 的 TIANYI_STANDALONE=1 开关，生成 .next/standalone；复制 public 与 .next/static 后通过 server.js 运行。systemd 以 tianyi 用户监听 127.0.0.1:3000，Nginx 在 80 端口反向代理；哈希静态资源直接交付，图片优化响应按 URL 和 Accept 缓存，HTML/RSC 与地图 API 不加代理缓存。环境配置存于服务器 /etc/tianyi.env（root 0600），安全密钥只在运行时载入，不参与构建。用户已在服务器执行安装，公网页面与图片缓存核验通过，安全密钥仍待补配；详情见 TENCENT_DEPLOYMENT.md。
+腾讯云独立部署使用 next.config.ts 的 TIANYI_STANDALONE=1 开关，生成 .next/standalone；复制 public 与 .next/static 后通过 server.js 运行。systemd 以 tianyi 用户监听 127.0.0.1:3000，Nginx 在 80 端口反向代理；哈希静态资源直接交付，图片优化响应按 URL 和 Accept 缓存，HTML/RSC 与地图 API 不加代理缓存。环境配置存于服务器 /etc/tianyi.env（root 0600），安全密钥只在运行时载入，不参与构建。用户已在服务器完成安装及安全密钥补配，公网页面、图片缓存、高德 SDK 行政区和地点查询核验通过；完整 3D 视觉仍需支持 WebGL 的用户设备确认，详情见 TENCENT_DEPLOYMENT.md。
 
 当前已验证版本为 Next.js 16.3.8、React 19；TypeScript、Tailwind CSS 4、lucide-react。依赖声明允许版本范围，实际版本以锁文件为准。数据集中在 TypeScript 文件中，没有数据库。Next.js 服务端承载高德代理，因此完整功能不能仅作为静态 HTML 托管。
 

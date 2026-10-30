@@ -1,6 +1,6 @@
 # 腾讯云 Ubuntu 部署
 
-状态：用户已在腾讯云终端完成安装，返回页面、公开地图配置及开机自启配置检查通过；**公网页面已验证可用，高德安全密钥仍为空，地图待补配**。当前地址为 http://81.70.239.136/ ，暂未提供域名。助手仍无法直接 SSH，服务器安装结果来自用户终端输出，公网 HTTP 结果已独立核验。
+状态：用户已在腾讯云终端完成安装并补配安全密钥，服务返回 active；**公网页面、图片缓存及高德 SDK 行政区/地点查询均已验证成功**。当前地址为 http://81.70.239.136/ ，暂未提供域名。当前测试浏览器不支持高德 WebGL，完整 3D 画面需在用户设备确认。助手仍无法直接 SSH，服务器操作结果来自用户终端输出，公网访问和接口结果已独立核验。
 
 目标为用户新购的 Ubuntu Server 24.04、2 核 8GB、80GB SSD 轻量服务器。截图已确认入站 TCP 22 和 80 允许。当前工作环境 TCP 允许列表为空，配置中的 TCP 代理连接被拒绝，因此无法发起 SSH 或验证登录密码。腾讯云入站防火墙与本工作环境出站网络属于不同环节；未提供界面入口时，不反复让用户寻找不存在的设置，也不尝试绕过出站策略。
 
@@ -72,4 +72,6 @@ sudo nginx -t
 
 用户已返回脚本完成输出，部署版本为 65457b6022e107b7641b887ae4bba0b9a4c65264，并明确提示高德安全密钥尚未填写。随后从当前工作环境通过正常 HTTP 出站访问公网 IP，核验首页、/map、/notices/fraud-alert、/spots/aoti、/recommendations 均返回 200，且匹配当前正式文案；/api/map-config 只返回浏览器 Key 并带 no-store。图片优化返回 WebP，重复请求 X-Image-Cache=HIT。
 
-/_AMapService/v4/map/styles 返回 503 和 Map security code not configured，证明安全密钥仍需补配。用户已提供安全密钥用于服务器配置，不记录值；通过终端命令更新 /etc/tianyi.env 的 AMAP_SECURITY_CODE、保留浏览器 Key、保持 0600 权限后重启 tianyi。补配命令尚待用户执行与结果确认，不能提前写为地图正常；域名、HTTPS、重启服务器后的自启效果及承载能力仍未验证。
+首次检查时 /_AMapService/v4/map/styles 返回 503 和 Map security code not configured。用户随后执行终端配置命令，更新 /etc/tianyi.env 的 AMAP_SECURITY_CODE、保留浏览器 Key、保持 0600 权限并重启 tianyi，返回 active 和“密钥已保存，服务已重启”。密钥值不写入仓库。
+
+补配后，在 Chromium 打开公网 /map 并通过真实高德 JS SDK 发起查询：服务端代理的 /v3/log/init、/v3/config/district、/v3/place/text 均返回 200；DistrictSearch 查询 420100 返回 complete / OK、武汉行政区代码 420100 和 4 条边界环；PlaceSearch 搜索古田桥返回 complete / OK 和 5 条候选。页面无运行错误。测试浏览器的 AMap.Browser.isWebGL=false，页面正确显示兼容提示，因此没有验证完整 3D 渲染、全部地点标签或自定义样式视觉效果；未把查询候选当成已确认导航坐标。域名、HTTPS、重启服务器后的自启效果及承载能力仍未验证。
