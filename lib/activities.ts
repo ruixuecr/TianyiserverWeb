@@ -112,7 +112,14 @@ export const serviceStation: {
   },
   date: "10月30日",
   hours: "10:00–17:00",
-  giveaways: [],
+  giveaways: [
+    { name: "「纯蓝幻乐」武汉场鲜花卡" },
+    { name: "倡议书" },
+    { name: "主题镭射票" },
+    { name: "双魔女花篮众筹无料" },
+    { name: "五校联合花篮众筹无料" },
+    { name: "「无界」洛花篮众筹无料" },
+  ],
   supplies: [
     { name: "照片打印" },
     { name: "充电站" },

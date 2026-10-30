@@ -124,7 +124,7 @@ codex/encore-theme-elements 在 mapapi 基线上新增以下模块：
 
 首页 time-orbit 的 z-index 为 0，piano-duet 为 2，图像自身关闭 multiply 混合；整体外层仍与浅色底融合。主图 clip-path 仅用于当前素材的外围白色留白，更换主视觉时应重新核对边界。普通地点照片不使用此裁切规则。
 
-服务站资料更新（2026-10-30）：serviceStation.locationImages 保存两张位置示意，cover 保存本次 p6，两处 ActivityCover 根据 service-station 复用同一照片。ServiceStationDetails 的左列完整展示路线图与现场照片，查看大图链接打开同源原图；右列展示日期/时段、三项现场服务与待补充无料，窄屏改为单列。日期显示 10月30日、时段 10:00–17:00；服务包括照片打印、充电站和免费水。站点不再使用未知文本地址 LocationCard，未从示意图推算或固化坐标；海底捞继续使用原 LocationCard。普通图片仍通过 ActivityImage/next/image 响应式 WebP 与错误重试交付，封面和位置图自然比例完整展示。
+服务站资料更新（2026-10-30）：serviceStation.locationImages 保存两张位置示意，cover 保存本次 p6，两处 ActivityCover 根据 service-station 复用同一照片。ServiceStationDetails 的左列完整展示路线图与现场照片，查看大图链接打开同源原图；右列展示日期/时段、三项现场服务与已确认的六项无料，窄屏改为单列。日期显示 10月30日、时段 10:00–17:00；服务包括照片打印、充电站和免费水。站点不再使用未知文本地址 LocationCard，未从示意图推算或固化坐标；海底捞继续使用原 LocationCard。普通图片仍通过 ActivityImage/next/image 响应式 WebP 与错误重试交付，封面和位置图自然比例完整展示。
 
 地图搜索移除范围：只删除 MapExplorer 中面向访客的输入框与 query 过滤逻辑。CityMap 的高德 PlaceSearch 仍用于已收录地点的 POI 解析，年份筛选、日期标签、缩放、选择/取消选择和详情导航继续保留；美食商场推荐页的独立搜索和共享 .search 样式保持。
 
@@ -133,3 +133,5 @@ codex/encore-theme-elements 在 mapapi 基线上新增以下模块：
 activities 移除 english / description，FlowerBasket 移除 description / groupNote，Recommendation 移除 description。活动与推荐展示名称、图片和现有事实字段；花篮弹窗移除自拟介绍后显式设置 aria-describedby={undefined}，仍由 DialogTitle 提供可访问名称。Giveaway.description 改为可选，仅在用户提供说明时渲染；当前三项服务只显示已确认名称。其他六处地点移除自拟 description，三处用户原文保持。首页装饰、页脚、地图侧栏、时钟和通知页的宣传性句子已删；页面标题采用原有功能名称。保留已确认的首页大标题、装饰图片和现有交互。
 
 东湖图片更新（2026-10-30）：featuredImage 指向 public/images/spots/donghu-city-tour.jpg（853×1280），详情和地图选中独立大图复用，原文件字节保持。介绍标题按用户最新文字增加“东湖：”，全文首尾增加中文引号；段落内容不改写，locationPending 继续保留。Sites 导出仅省去相邻的 1080px 缓存尺寸，deviceSizes 与实际生成宽度同步，浏览器改选已有 1200px 版本；原图、最高分辨率与 WebP 质量 75 保持，完整 Next.js 部署的图片配置不变。此调整避免新素材使嵌入 Worker 超过 10 MiB，构建体积保护继续生效。
+
+服务站无料更新（2026-10-30）：serviceStation.giveaways 按用户顺序填入六个仅含 name 的对象，原有 DistributionList 直接显示清单并替换空数组的待公布状态。名称严格保留用户文字（包括「无界」后的单字“洛”），不添加 description、图片、数量或领取条件。collection 仍为领取方式与数量待公布。
