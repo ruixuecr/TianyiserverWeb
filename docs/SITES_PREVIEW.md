@@ -334,3 +334,11 @@ Sites 预览不依赖旧 Tunnelmole 隧道进程；旧 .preview/url.txt 中的�
 2026-10-30 将用户原文“2025年巡演打卡点，一家特色的湖北菜小店”与带中文引号的“来到武汉，当然要体验一下武汉的过早文化啦！”加入 description，以两个自然段展示，保留引号与感叹号；照片、日期、地址和导航保持。
 
 验证：npm run build、npm run typecheck 与 Sites 导出构建通过。解析实际导出的天宝饭庄详情 HTML，介绍区恰有两个段落，逐字匹配用户原文，并保留原照片。此次为文案更新，未重做真实地图验证。Worker 含 355 项资源，压缩约 9.66 MiB，体积保护通过。
+
+发布结果：2026-10-30 18:09:39 UTC，Sites 返回 succeeded；现有网址、私有权限与高德环境 revision 1 沿用。
+
+- 应用提交：4c83d288f917d427deca31d0db686f2f1f4f806f，已推送并核对 GitHub。
+- Sites 源码提交：c6213e37a71a81c2c5c3c12d84470e9815cddb00，已推送并核对远端。
+- 版本 ID：appgprj_6ae2b571b6488191aff989a1a1654416~appgver_55feaba5e84c8191bea40e77ba978d2a。
+- 部署 ID：appgdep_6ae4dd5520288191a39c5abcebb4daaf。
+- 发布归档从上述 Sites 提交生成，线上预览独立运行。
