@@ -120,7 +120,7 @@ export function BasketGallery() {
               <DialogTrigger asChild>
                 <button
                   className="basket-card"
-                  aria-label={`查看${basket.name}花篮详情`}
+                  aria-label={`查看${basket.name}详情`}
                 >
                   <ActivityCover kind="flower-baskets" />
                   <div className="basket-card-copy">

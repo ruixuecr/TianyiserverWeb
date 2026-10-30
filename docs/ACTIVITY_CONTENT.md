@@ -16,11 +16,11 @@
 
 ## 花篮
 
-修改 lib/activities.ts 中的 flowerBaskets 列表。当前只有 firstBasket 一条，页面名称为“1号应援花篮”。按顺序添加记录即可填入剩余展示位，最多 10 条；每条 id 保持唯一。
+修改 lib/activities.ts 中的 flowerBaskets 列表。当前只有 firstBasket 一条，页面名称为“双魔女应援花篮”。按顺序添加记录即可填入剩余展示位，最多 10 条；每条 id 保持唯一。
 
 - name、description：花篮名称与介绍，不再使用示例名称“蓝白花语”。
 - location：只能填写 basketLocations 的 popup 或 stadium。对应“快闪店 武汉伟星星悦广场 LG大中庭”与“湖北奥林匹克体育中心体育馆”；首篮为 popup。不要添加第三种地点，不填写尚未确认的具体坐标。
-- images：详细图数组；每张填写 src、width、height、alt，可附 caption。首篮按最新纠正采用原图 3 横版钢琴角色图，1280×663，路径 /images/activities/basket-01-piano.jpg。
+- images：详细图数组；每张填写 src、width、height、alt，可附 caption。首篮按最新纠正采用原图 3 横版钢琴角色图，1280×663，路径 /images/activities/basket-01-piano.jpg；活动列表、活动详情页与花篮卡片的封面也共用这张详细图。
 - giveawayImage：无料只放一张展示图，同样填写 src、width、height、alt。首篮按最新纠正采用原图 4 竖版长图，428×1280，路径 /images/activities/basket-01-poster.jpg。不要重建明信片、小卡的示例列表或从海报推测发放清单。
 - groupQr：真实群二维码图片；未提供时保持省略。二维码按原图交付，不做有损压缩。
 - groupNote：入群说明或二维码有效期提醒。
@@ -48,6 +48,6 @@ lib/recommendations.ts 保存 6 条出行推荐（3 处美食、3 处商场/街�
 
 ## 图片与更新
 
-活动图片可放在 public/images/activities/，使用新的描述性文件名，并记录原始宽高。普通图片由 next/image 按展示尺寸交付 WebP，弹窗未打开时不请求其中的详情图或二维码；二维码保留原图清晰度。换图应使用新文件名，避免复用旧缓存。
+活动图片可放在 public/images/activities/，使用新的描述性文件名，并记录原始宽高。普通图片由 next/image 按展示尺寸交付 WebP，弹窗未打开时不请求其中独有的无料图或二维码；首篮详细图同时作为活动封面，会随可见封面加载；二维码保留原图清晰度。换图应使用新文件名，避免复用旧缓存。
 
 修改完成后执行 npm run build、npm run typecheck，按 SITES_PREVIEW.md 更新现有 Sites 预览；旧临时隧道不再使用。请勿在内容文件放入地图密钥。

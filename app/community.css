@@ -956,7 +956,7 @@
   }
 }
 
-/* User-provided service-station artwork keeps its natural proportions. */
+/* User-provided activity artwork keeps its natural proportions. */
 .activity-cover.activity-cover-photo {
   display: block;
   height: auto;

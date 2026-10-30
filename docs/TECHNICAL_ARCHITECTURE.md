@@ -105,7 +105,7 @@ codex/encore-theme-elements 在 mapapi 基线上新增以下模块：
 | 文件 | 职责 |
 | --- | --- |
 | lib/activities.ts | 三类活动元数据、花篮列表及 10 个展示位、服务站/海底捞信息、高德选点链接 |
-| components/activity-cover.tsx | 服务站共用用户指定照片封面；其他活动保留主题图标封面 |
+| components/activity-cover.tsx | 服务站共用用户指定照片封面；花篮共用首篮第一张详细图；海底捞保留主题图标封面 |
 | components/basket-gallery.tsx | 花篮列表、两处摆放地点和弹窗中的详细图、单张无料图、二维码 |
 | components/ui/dialog.tsx | Radix Dialog Portal、居中弹窗、遮罩、关闭按钮 |
 | components/activity-image.tsx | 活动图片响应式加载、错误回退与重试；二维码保留原图 |
@@ -116,7 +116,7 @@ codex/encore-theme-elements 在 mapapi 基线上新增以下模块：
 
 /events/[id] 仍使用 Promise params，预生成 service-station、flower-baskets、haidilao；旧 weekend/sunset/walk 地址通过 redirect 返回 /events，未知 ID 继续 notFound。/recommendations 是静态页，筛选与搜索由客户端组件完成。
 
-新增 @radix-ui/react-dialog 1.3.1，其他已有依赖版本不变。每个已填花篮使用独立 Dialog Root/Trigger；Portal 仅在打开时挂载详情内容，弹窗内滚动，Radix 处理遮罩、Escape、焦点圈定、背景滚动锁定和焦点恢复。Portal 不继承 Shell 的 CSS 变量，因此在 encore-dialog 中显式定义同一蓝白色板。FlowerBasket.location 是 basketLocations 的键，只接受 popup / stadium；首条指向 popup。花篮移除 organizer、time、sample 与示例 giveaways，改为可选 giveawayImage 单张图；服务站仍使用 Giveaway 数组与自己的日期/时间。按最新纠正，原图 3 用于 images 详细图，文件重命名为 public/images/activities/basket-01-piano.jpg（1280×663）；原图 4 用于 giveawayImage 无料图，重命名为 basket-01-poster.jpg（428×1280）。仅改用途、文件名与相应尺寸/alt，保留图片内容和原比例响应式加载。摆放位置放在弹窗滚动区首部，避免被长图挤到末尾。群二维码不提供伪造值；有真实图片时才渲染，使用 unoptimized 避免有损转码影响扫描。
+新增 @radix-ui/react-dialog 1.3.1，其他已有依赖版本不变。每个已填花篮使用独立 Dialog Root/Trigger；Portal 仅在打开时挂载详情内容，弹窗内滚动，Radix 处理遮罩、Escape、焦点圈定、背景滚动锁定和焦点恢复。Portal 不继承 Shell 的 CSS 变量，因此在 encore-dialog 中显式定义同一蓝白色板。FlowerBasket.location 是 basketLocations 的键，只接受 popup / stadium；首条指向 popup，名称为“双魔女应援花篮”。ActivityCover 的 flower-baskets 分支直接引用 flowerBaskets[0].images[0]，供活动列表、详情页标题区和花篮卡片共用；复用 activity-cover-photo 自然比例样式，没有复制图片文件。花篮移除 organizer、time、sample 与示例 giveaways，改为可选 giveawayImage 单张图；服务站仍使用 Giveaway 数组与自己的日期/时间。按最新纠正，原图 3 用于 images 详细图，文件重命名为 public/images/activities/basket-01-piano.jpg（1280×663）；原图 4 用于 giveawayImage 无料图，重命名为 basket-01-poster.jpg（428×1280）。仅改用途、文件名与相应尺寸/alt，保留图片内容和原比例响应式加载。摆放位置放在弹窗滚动区首部，避免被长图挤到末尾。群二维码不提供伪造值；有真实图片时才渲染，使用 unoptimized 避免有损转码影响扫描。
 
 首页 time-orbit 的 z-index 为 0，piano-duet 为 2，图像自身关闭 multiply 混合；整体外层仍与浅色底融合。主图 clip-path 仅用于当前素材的外围白色留白，更换主视觉时应重新核对边界。普通地点照片不使用此裁切规则。
 

@@ -57,7 +57,7 @@ export type BasketSlot = { number: number; basket?: FlowerBasket };
 // The user supplied images and the first basket's venue. Other slots stay empty.
 const firstBasket: FlowerBasket = {
   id: "basket-01",
-  name: "1号应援花篮",
+  name: "双魔女应援花篮",
   description:
     "在快闪店相遇，把热爱写进花里。这里收录花篮详细图与无料展示。",
   location: "popup",
@@ -66,14 +66,14 @@ const firstBasket: FlowerBasket = {
       src: "/images/activities/basket-01-piano.jpg",
       width: 1280,
       height: 663,
-      alt: "1号应援花篮详细图：时间魔女角色与钢琴主题图",
+      alt: "双魔女应援花篮详细图：时间魔女角色与钢琴主题图",
     },
   ],
   giveawayImage: {
     src: "/images/activities/basket-01-poster.jpg",
     width: 428,
     height: 1280,
-    alt: "1号应援花篮无料展示：时间魔女主题众筹感谢长图",
+    alt: "双魔女应援花篮无料展示：时间魔女主题众筹感谢长图",
   },
   groupNote: "花篮群二维码待补充，公布后可在这里查看。",
 };
