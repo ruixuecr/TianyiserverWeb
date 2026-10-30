@@ -144,13 +144,6 @@ export function ServiceStationDetails() {
           <DistributionList title="发放无料" items={serviceStation.giveaways} />
         </div>
       </div>
-      <div className="collection-note">
-        <Gift size={20} />
-        <div>
-          <h3>领取说明</h3>
-          <p>{serviceStation.collection}</p>
-        </div>
-      </div>
     </div>
   );
 }

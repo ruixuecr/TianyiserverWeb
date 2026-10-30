@@ -579,38 +579,11 @@ button {
   font-size: 10px;
   margin-top: 13px;
 }
-footer {
-  border-top: 1px solid var(--line);
-  max-width: 1312px;
-  margin: 20px auto 0;
-  padding: 30px 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-footer .brand {
-  font-size: 16px;
-}
-footer .brand-en {
-  font-size: 20px;
-}
-footer p,
-footer > span {
-  font-size: 10px;
-  color: #909586;
-}
-footer > span {
-  letter-spacing: 1px;
-}
 .explorer {
   display: grid;
   grid-template-columns: 345px 1fr;
   min-height: 690px;
   height: calc(100dvh - 92px);
-}
-.explorer + footer {
-  display: none;
 }
 .map-sidebar {
   padding: 24px;
@@ -1299,9 +1272,6 @@ footer > span {
   .ticker > span:nth-child(2) {
     display: none;
   }
-  footer {
-    margin-inline: 35px;
-  }
   .explorer {
     grid-template-columns: 300px 1fr;
   }
@@ -1496,19 +1466,6 @@ footer > span {
   }
   .event-strip p {
     font-size: 10px;
-  }
-  footer {
-    margin: 12px 22px 0;
-    padding: 24px 0;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  footer p {
-    font-size: 9px;
-  }
-  footer > span {
-    font-size: 8px;
-    width: 100%;
   }
   .explorer {
     display: flex;

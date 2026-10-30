@@ -3,7 +3,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight, MapPin, Music2 } from "lucide-react";
 import { TimeTheme, WuhanMoment } from "./time-theme";
-import { ThemeMotif } from "./theme-artwork";
 export function Shell({ children }: { children: React.ReactNode }) {
   const path = usePathname();
   return (
@@ -46,15 +45,6 @@ export function Shell({ children }: { children: React.ReactNode }) {
         </div>
       </header>
       {children}
-      <footer>
-        <Link href="/" className="brand">
-          江城 <span className="brand-en">encore.</span>
-        </Link>
-        <p>
-          <ThemeMotif kind="note" />
-        </p>
-        <span>武汉漫游指南 · DEMO 2026</span>
-      </footer>
     </TimeTheme>
   );
 }

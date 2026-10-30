@@ -134,4 +134,6 @@ activities 移除 english / description，FlowerBasket 移除 description / grou
 
 东湖图片更新（2026-10-30）：featuredImage 指向 public/images/spots/donghu-city-tour.jpg（853×1280），详情和地图选中独立大图复用，原文件字节保持。介绍标题按用户最新文字增加“东湖：”，全文首尾增加中文引号；段落内容不改写，locationPending 继续保留。Sites 导出仅省去相邻的 1080px 缓存尺寸，deviceSizes 与实际生成宽度同步，浏览器改选已有 1200px 版本；原图、最高分辨率与 WebP 质量 75 保持，完整 Next.js 部署的图片配置不变。此调整避免新素材使嵌入 Worker 超过 10 MiB，构建体积保护继续生效。
 
-服务站无料更新（2026-10-30）：serviceStation.giveaways 按用户顺序填入六个仅含 name 的对象，原有 DistributionList 直接显示清单并替换空数组的待公布状态。名称严格保留用户文字（包括「无界」后的单字“洛”），不添加 description、图片、数量或领取条件。collection 仍为领取方式与数量待公布。
+服务站无料更新（2026-10-30）：serviceStation.giveaways 按用户顺序填入六个仅含 name 的对象，原有 DistributionList 直接显示清单并替换空数组的待公布状态。名称严格保留用户文字（包括「无界」后的单字“洛”），不添加 description、图片、数量或领取条件。随后按用户要求删除“领取说明”卡片及 collection 字段。
+
+组件删除（2026-10-30）：ServiceStationDetails 不再包含 collection-note 节点，serviceStation 类型与对象不再有 collection；Shell 删除完整 footer 及仅供页脚使用的 ThemeMotif 导入，页脚和领取说明的专用 CSS 一并清理。顶部导航品牌和其他 ThemeMotif 用途保持。

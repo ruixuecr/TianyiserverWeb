@@ -244,3 +244,9 @@ Sites 预览不依赖旧 Tunnelmole 隧道进程；旧 .preview/url.txt 中的�
 - 版本 ID：appgprj_6ae2b571b6488191aff989a1a1654416~appgver_14a67ce201ac8191badb5a565d746141。
 - 部署 ID：appgdep_6ae474eeb1d4819180873b7671b22a95。
 - 发布归档从上述 Sites 提交生成，线上预览独立运行。
+
+## 删除领取说明与全站页脚
+
+2026-10-30 按用户截图删除服务站“领取说明”卡片、collection 字段和专用样式，并从共享 Shell 删除完整品牌页脚（江城 encore.、音乐装饰、武汉漫游指南 · DEMO 2026）及专用样式。
+
+验证：npm run build、npm run typecheck 与 Sites 导出构建通过；实际 Worker 在 1440/390px 核对首页、服务站页，两处节点和对应文字均已移除，顶部导航品牌、免费服务与六项无料正常，无横向溢出或浏览器运行错误，服务站底部截图排版正常。资源为 368 项、压缩 Worker 约 9.53 MiB。

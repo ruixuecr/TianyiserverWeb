@@ -85,7 +85,6 @@ export const serviceStation: {
   hours: string;
   giveaways: Giveaway[];
   supplies: Giveaway[];
-  collection: string;
 } = {
   name: "江城服务站",
   locationImages: [
@@ -125,7 +124,6 @@ export const serviceStation: {
     { name: "充电站" },
     { name: "免费水" },
   ],
-  collection: "领取方式与数量安排待公布。",
 };
 export const haidilaoActivity = {
   location: {

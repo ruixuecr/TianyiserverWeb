@@ -47,10 +47,7 @@
     .detail-description,
     .spot-introduction p,
     .spot-photo-placeholder,
-    .notice-tag,
-    footer,
-    footer > p,
-    footer > span
+    .notice-tag
   ) {
   color: var(--muted);
 }
@@ -663,14 +660,6 @@
 .listing-blossoms img {
   width: 100%;
 }
-.encore-theme footer {
-  border-top-color: #dce5e3;
-}
-.encore-theme footer > p {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
 @keyframes petal-drift {
   0%,
   100% {
@@ -804,9 +793,6 @@
     height: 100px;
     right: 10px;
     opacity: 0.25;
-  }
-  .encore-theme footer > p {
-    gap: 4px;
   }
 }
 @media (max-width: 370px) {

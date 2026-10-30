@@ -531,25 +531,6 @@
   font-size: 16px;
   margin: 12px 0;
 }
-.collection-note {
-  display: flex;
-  align-items: start;
-  gap: 15px;
-  padding: 22px;
-  margin-top: 24px;
-  background: #f3f1e9;
-  border-radius: 8px;
-  color: #8b7850;
-}
-.collection-note h3 {
-  font-weight: 500;
-  font-size: 13px;
-  margin-bottom: 7px;
-}
-.collection-note p {
-  font-size: 12px;
-  line-height: 1.8;
-}
 .community-link {
   display: inline-flex;
   align-items: center;
