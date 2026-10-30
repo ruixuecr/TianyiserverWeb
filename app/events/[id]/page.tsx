@@ -29,9 +29,7 @@ export default async function Page({
         </Link>
         <header className="activity-detail-heading">
           <div>
-            <span className="community-eyebrow">{activity.english}</span>
             <h1>{activity.title}</h1>
-            <p>{activity.description}</p>
             <span className="activity-status">{activity.status}</span>
           </div>
           <ActivityCover kind={activity.id} />

@@ -22,10 +22,9 @@ function LocationCard({ location }: { location: ActivityLocation }) {
     <section className="station-location community-panel">
       <div className="location-emblem" aria-hidden="true">
         <MapPin size={38} strokeWidth={1.2} />
-        <span>WUHAN · MEET HERE</span>
       </div>
       <div>
-        <span className="community-eyebrow">MEETING POINT / 活动位置</span>
+        <span className="community-eyebrow">活动位置</span>
         <h2>{location.name}</h2>
         <p>{location.address}</p>
         {location.mapQuery ? (
@@ -73,7 +72,7 @@ function DistributionList({
                 />
               )}
               <h3>{item.name}</h3>
-              <p>{item.description}</p>
+              {item.description && <p>{item.description}</p>}
             </li>
           ))}
         </ul>
@@ -81,11 +80,6 @@ function DistributionList({
         <div className="distribution-pending">
           <Icon size={34} strokeWidth={1} />
           <h3>{materials ? "发放物资待公布" : "无料清单待公布"}</h3>
-          <p>
-            {materials
-              ? "物资种类、数量及领取安排，确认后在这里更新。"
-              : "无料款式、数量与领取方式，确认后在这里更新。"}
-          </p>
         </div>
       )}
     </section>
@@ -100,7 +94,6 @@ export function ServiceStationDetails() {
           className="community-panel station-location-guide"
           aria-labelledby="station-location-heading"
         >
-          <span className="community-eyebrow">MEETING POINT</span>
           <h2 id="station-location-heading">服务站位置示意</h2>
           <div className="station-location-images">
             {serviceStation.locationImages.map((image) => (
@@ -168,8 +161,7 @@ export function HaidilaoDetails() {
       <div className="station-overview">
         <LocationCard location={haidilaoActivity.location} />
         <section className="community-panel station-time">
-          <span className="community-eyebrow">SAVE A MOMENT / 活动时间</span>
-          <h2>散场之后，还有一桌相聚。</h2>
+          <h2>活动时间</h2>
           <dl>
             <div>
               <dt>
@@ -196,10 +188,6 @@ export function HaidilaoDetails() {
         </div>
       </section>
       <div className="community-bottom-link">
-        <div>
-          <h3>先给江城的烟火气留一点时间。</h3>
-          <p>看看附近的美食街与商场，为出行多留一个选择。</p>
-        </div>
         <Link className="community-link" href="/recommendations">
           美食与商场推荐 <ArrowUpRight size={18} />
         </Link>

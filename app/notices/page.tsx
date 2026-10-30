@@ -8,9 +8,7 @@ export default function Page() {
     <Shell>
       <main className="listing-page notice-page">
         <ThemeMotif kind="blossoms" className="listing-blossoms" />
-        <div className="eyebrow">A LITTLE HEADS-UP</div>
-        <h1>出发之前，告诉你。</h1>
-        <p className="page-intro">把实用提醒收好，把更多时间留给快乐。</p>
+        <h1>通知公告</h1>
         <div className="notice-list">
           {notices.map((n, i) => (
             <Link href={`/notices/${n.id}`} key={n.id}>

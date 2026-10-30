@@ -11,7 +11,6 @@ import {
   X,
 } from "lucide-react";
 import {
-  spots,
   chronologicalSpots,
   spotYears,
   spotDateLabel,
@@ -44,9 +43,7 @@ export function MapExplorer() {
         <Link href="/" className="back-link">
           ← 回到首页
         </Link>
-        <div className="eyebrow">WUHAN CITY EXPLORER</div>
-        <h1>下一站，去哪里？</h1>
-        <p>把江城的风景，装进你的行程。</p>
+        <h1>探索地图</h1>
         <div className="filters" role="group" aria-label="按年份筛选地点">
           {["全部地点", ...spotYears.map(String)].map((value) => (
             <button
@@ -60,7 +57,7 @@ export function MapExplorer() {
           ))}
         </div>
         <div className="list-caption">
-          发现 {visible.length} 个好地方 <span>武汉 · WUHAN</span>
+          {visible.length} 个地点 <span>武汉 · WUHAN</span>
         </div>
         <div className="location-list">
           {visible.map((s) => (
@@ -94,9 +91,6 @@ export function MapExplorer() {
         </div>
         <div className="sidebar-note">
           <ThemeMotif kind="ribbon" />
-          <span>
-            不赶路，去感受路。<small>{spots.length} 个精选地点，慢慢逛。</small>
-          </span>
         </div>
       </aside>
       <section className="map-canvas">

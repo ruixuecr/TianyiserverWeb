@@ -8,11 +8,6 @@ const icons = {
   "flower-baskets": Flower2,
   haidilao: Soup,
 };
-const labels = {
-  "service-station": "MEET & SHARE",
-  "flower-baskets": "LOVE IN BLOOM",
-  haidilao: "GATHER & GLOW",
-};
 export function ActivityCover({ kind }: { kind: ActivityKind }) {
   const image = kind === "service-station"
     ? serviceStation.cover
@@ -38,8 +33,6 @@ export function ActivityCover({ kind }: { kind: ActivityKind }) {
         className="activity-cover-motif"
       />
       <Icon className="activity-cover-icon" size={68} strokeWidth={1} />
-      <span className="activity-cover-word">{labels[kind]}</span>
-      <span className="activity-cover-caption">江城 · 与你相遇</span>
     </div>
   );
 }

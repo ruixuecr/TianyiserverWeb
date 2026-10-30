@@ -7,7 +7,6 @@ import { ActivityCover } from "./activity-cover";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
@@ -16,9 +15,7 @@ function BasketDetails({ basket }: { basket: FlowerBasket }) {
   return (
     <>
       <header className="basket-dialog-heading">
-        <span className="community-eyebrow">FLOWERS FOR YOU</span>
         <DialogTitle>{basket.name}</DialogTitle>
-        <DialogDescription>{basket.description}</DialogDescription>
       </header>
       <div className="basket-dialog-scroll">
         <dl className="basket-facts">
@@ -83,7 +80,6 @@ function BasketDetails({ basket }: { basket: FlowerBasket }) {
                   <span>群二维码待补充</span>
                 </div>
               )}
-              <p className="community-muted">{basket.groupNote}</p>
             </section>
           </div>
         </div>
@@ -97,10 +93,7 @@ export function BasketGallery() {
   return (
     <>
       <div className="community-section-heading">
-        <div>
-          <span className="community-eyebrow">THE FLOWER COLLECTION</span>
-          <h2>每一份心意，都有自己的花期。</h2>
-        </div>
+        <h2>应援花篮</h2>
         <span className="collection-count">
           {String(filled).padStart(2, "0")} / {basketSlots.length} 个展示位
         </span>
@@ -136,7 +129,7 @@ export function BasketGallery() {
                   </div>
                 </button>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent aria-describedby={undefined}>
                 <BasketDetails basket={basket} />
               </DialogContent>
             </Dialog>
@@ -150,7 +143,6 @@ export function BasketGallery() {
                 {String(number).padStart(2, "0")}
               </span>
               <Flower2 size={32} strokeWidth={1} />
-              <h3>静候花开</h3>
               <p>花篮信息待公布</p>
             </div>
           ),

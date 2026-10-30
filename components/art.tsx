@@ -144,16 +144,6 @@ export function Art({
             stroke="var(--art-slate, #6c7662)"
             strokeWidth="12"
           />
-          <text
-            x="400"
-            y="170"
-            textAnchor="middle"
-            fontSize="14"
-            fill="var(--art-slate, #7e846d)"
-            letterSpacing="5"
-          >
-            {theme === "shop" ? "街角补给站" : "江城烟火气"}
-          </text>
         </g>
       ) : theme === "house" ? (
         <g>

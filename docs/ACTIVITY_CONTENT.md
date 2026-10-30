@@ -2,6 +2,8 @@
 
 适用分支：codex/encore-theme-elements。页面已可预览，首篮图片与摆放位置已由用户提供；服务站位置示意、日期时段和三项现场服务也已提供；群二维码、其他花篮、服务站无料及海底捞安排仍待补充。
 
+用户要求不擅自添加内容。活动与花篮不再展示自行补充的介绍或装饰口号；内容只按用户提供或明确确认的资料填写，缺项保留简短状态或省略，不编造宣传文案。
+
 ## 核对页面
 
 | 地址 | 核对内容 |
@@ -18,12 +20,11 @@
 
 修改 lib/activities.ts 中的 flowerBaskets 列表。当前只有 firstBasket 一条，页面名称为“双魔女应援花篮”。按顺序添加记录即可填入剩余展示位，最多 10 条；每条 id 保持唯一。
 
-- name、description：花篮名称与介绍，不再使用示例名称“蓝白花语”。
+- name：用户确认的花篮名称；已移除 description 字段，不另行生成介绍。
 - location：只能填写 basketLocations 的 popup 或 stadium。对应“快闪店 武汉伟星星悦广场 LG大中庭”与“湖北奥林匹克体育中心体育馆”；首篮为 popup。不要添加第三种地点，不填写尚未确认的具体坐标。
 - images：详细图数组；每张填写 src、width、height、alt，可附 caption。首篮按最新纠正采用原图 3 横版钢琴角色图，1280×663，路径 /images/activities/basket-01-piano.jpg；活动列表、活动详情页与花篮卡片的封面也共用这张详细图。
 - giveawayImage：无料只放一张展示图，同样填写 src、width、height、alt。首篮按最新纠正采用原图 4 竖版长图，428×1280，路径 /images/activities/basket-01-poster.jpg。不要重建明信片、小卡的示例列表或从海报推测发放清单。
 - groupQr：真实群二维码图片；未提供时保持省略。二维码按原图交付，不做有损压缩。
-- groupNote：入群说明或二维码有效期提醒。
 
 用户已要求移除花篮活动时间与发起人，FlowerBasket 类型中不再保留 time / organizer。两张素材只按指定用途展示，长图中的众筹金额不扩展成站内支付功能或无料领取条件。群二维码尚未提供，不虚构可扫描值。
 
@@ -36,7 +37,7 @@
 - haidilaoActivity.location.name / address：参与门店名称、地址。
 - haidilaoActivity.location.mapQuery：确认后填写精确地点搜索词，页面才会展示高德选点导航链接；没有确认地点时保持省略。
 - date / hours：日期、服务或活动时段；服务站已确认 10月30日、10:00–17:00，服务时间卡只展示这两项。
-- serviceStation.giveaways / supplies：无料与物资数组；每项填写 name、description，可附 image；与花篮单图字段分开。空数组显示待公布。服务站 supplies 已填照片打印、充电站、免费水，giveaways 仍留空。
+- serviceStation.giveaways / supplies：无料与物资数组；每项填写 name，可附用户提供的 description 和 image；与花篮单图字段分开。空数组显示待公布。服务站 supplies 已填照片打印、充电站、免费水，giveaways 仍留空。
 - serviceStation.collection：领取方式与数量说明。
 - haidilaoActivity.participation：参与方式与现场安排。
 
@@ -44,7 +45,7 @@
 
 ## 美食商场
 
-lib/recommendations.ts 保存 6 条出行推荐（3 处美食、3 处商场/街区）。填写名称、类别、区域、介绍、标签与精确搜索词；有既有打卡攻略时填写 spotId。推荐不代表活动参与门店，不包含未经核实的营业时间、价格或实时营业状态。
+lib/recommendations.ts 保存 6 条出行推荐（3 处美食、3 处商场/街区）。填写名称、类别、区域、标签与精确搜索词；已移除自拟 description；有既有打卡攻略时填写 spotId。推荐不代表活动参与门店，不包含未经核实的营业时间、价格或实时营业状态。
 
 ## 图片与更新
 

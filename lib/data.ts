@@ -17,7 +17,7 @@ export type Spot = {
   locationPending?: boolean;
   x: number;
   y: number;
-  description: string;
+  description?: string;
   tip: string;
   address: string;
   theme: string;
@@ -88,8 +88,6 @@ export const spots: Spot[] = [
     area: "江岸区",
     x: 32,
     y: 37,
-    description:
-      "给旅程留一顿好好吃饭的时间。和同行的人围坐一桌，把期待与快乐都聊进烟火气里。",
     tip: "门店位于西马街道苗栗路12号，从苗栗路地铁站D口步行约480米。营业时间与预约要求以门店信息为准。",
     address: "武汉市江岸区西马街道苗栗路12号",
     theme: "food",
@@ -109,8 +107,6 @@ export const spots: Spot[] = [
     area: "江岸区",
     x: 47,
     y: 26,
-    description:
-      "沿着汉口老街走到红砖转角，在巴公房子前，收下一张有旧时光温度的城市照片。",
     tip: "建议从公共街道取景，留意路口来车。建筑内部开放与消费规则以现场为准。",
     address: "武汉市江岸区鄱阳街、洞庭街一带",
     theme: "house",
@@ -130,8 +126,6 @@ export const spots: Spot[] = [
     area: "汉阳区",
     x: 26,
     y: 78,
-    description:
-      "在武汉国际博览中心，遇见期待的展览与现场。先确认场馆与入口，再轻松开启今天的行程。",
     tip: "国博包含多个展馆与入口，请以活动主办方公布的馆号、入场口和时间为准。",
     address: "武汉国际博览中心 · 汉阳区鹦鹉大道619号",
     theme: "stage",
@@ -147,8 +141,6 @@ export const spots: Spot[] = [
     area: "江夏区 · 东湖高新区",
     x: 83,
     y: 78,
-    description:
-      "把热爱带到现场，把合唱留给夜空。提前核对具体场馆，让这场奔赴从容一点。",
     tip: "目的地为湖北省奥林匹克体育中心体育馆西门，位于佛祖岭一路2号。活动当天请以主办方公布的入场安排为准。",
     address:
       "武汉市江夏区东湖新技术开发区佛祖岭一路2号湖北省奥林匹克体育中心体育馆西门",
@@ -170,8 +162,6 @@ export const spots: Spot[] = [
     area: "江汉区",
     x: 69,
     y: 34,
-    description:
-      "走进武汉博物馆，在文物与城市历史之间，认识这座城的另一面。给演唱会之外的武汉，再留一段安静的时光。",
     tip: "出发前请通过武汉博物馆官方渠道查看预约要求、开放时间与入馆安排。",
     address: "武汉市江汉区青年路373号",
     theme: "museum",
@@ -212,8 +202,6 @@ export const spots: Spot[] = [
     searchName: "古田桥",
     x: 20,
     y: 47,
-    description:
-      "在古田桥边停留片刻，把桥影、江风与这次相聚的期待，记在 2026 年 10 月。",
     tip: "请从合法开放的江岸或人行区域观景，具体岸侧与步行入口需在出发前确认。",
     address: "武汉市汉江古田桥（具体到访岸侧与入口待确认）",
     theme: "river",
@@ -248,7 +236,7 @@ export const notices = [
     title: "欢迎来到江城 Encore",
     tag: "站点公告",
     date: "演示内容",
-    text: `当前收录 ${spots.length} 个指定打卡点，按 2020、2023、2025、2026 年的记忆分类，并提供服务站、应援花篮和海底捞活动入口。活动具体安排待公布，花篮首条为展示示例；地点入口与未确认分店请在高德中核实后再导航。`,
+    text: `当前收录 ${spots.length} 个指定打卡点，按 2020、2023、2025、2026 年的记忆分类，并提供服务站、应援花篮和海底捞活动入口。地点入口与未确认分店请在高德中核实后再导航。`,
   },
   {
     id: "travel",

@@ -58,7 +58,7 @@ Marker 内容用 DOM 创建，名称写入 textContent；外观沿用原有图�
 
 ## 地点介绍
 
-lib/data.ts 的 Spot.description 仍为字符串，双换行分隔自然段。SpotDetail 将各段作为独立 p 渲染，连续段落间隔 16px；单段介绍行为不变。鹦鹉洲大桥、东湖和中百罗森使用用户提供的正式文案，东湖全文保留历史叙述；地图相机、导航、地点日期与图片配置没有改动。
+lib/data.ts 的 Spot.description 为可选字符串，双换行分隔自然段。SpotDetail 将各段作为独立 p 渲染，连续段落间隔 16px；单段介绍行为不变，未提供时不渲染空段落或生成替代内容。鹦鹉洲大桥、东湖和中百罗森使用用户提供的正式文案，东湖全文保留历史叙述；地图相机、导航、地点日期与图片配置没有改动。
 
 ## 图片交付
 
@@ -127,3 +127,7 @@ codex/encore-theme-elements 在 mapapi 基线上新增以下模块：
 服务站资料更新（2026-10-30）：serviceStation.locationImages 保存两张位置示意，cover 保存本次 p6，两处 ActivityCover 根据 service-station 复用同一照片。ServiceStationDetails 的左列完整展示路线图与现场照片，查看大图链接打开同源原图；右列展示日期/时段、三项现场服务与待补充无料，窄屏改为单列。日期显示 10月30日、时段 10:00–17:00；服务包括照片打印、充电站和免费水。站点不再使用未知文本地址 LocationCard，未从示意图推算或固化坐标；海底捞继续使用原 LocationCard。普通图片仍通过 ActivityImage/next/image 响应式 WebP 与错误重试交付，封面和位置图自然比例完整展示。
 
 地图搜索移除范围：只删除 MapExplorer 中面向访客的输入框与 query 过滤逻辑。CityMap 的高德 PlaceSearch 仍用于已收录地点的 POI 解析，年份筛选、日期标签、缩放、选择/取消选择和详情导航继续保留；美食商场推荐页的独立搜索和共享 .search 样式保持。
+
+## 文案清理（2026-10-30）
+
+activities 移除 english / description，FlowerBasket 移除 description / groupNote，Recommendation 移除 description。活动与推荐展示名称、图片和现有事实字段；花篮弹窗移除自拟介绍后显式设置 aria-describedby={undefined}，仍由 DialogTitle 提供可访问名称。Giveaway.description 改为可选，仅在用户提供说明时渲染；当前三项服务只显示已确认名称。其他六处地点移除自拟 description，三处用户原文保持。首页装饰、页脚、地图侧栏、时钟和通知页的宣传性句子已删；页面标题采用原有功能名称。保留已确认的首页大标题、装饰图片和现有交互。

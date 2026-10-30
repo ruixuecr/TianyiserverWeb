@@ -48,7 +48,7 @@ export function SpotDetail({ spot }: { spot: Spot }) {
         </section>
         <section className="spot-introduction">
           <h1>{spot.name}</h1>
-          {spot.description.split("\n\n").map((paragraph) => (
+          {spot.description?.split("\n\n").map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
         </section>

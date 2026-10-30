@@ -52,7 +52,6 @@ export function Shell({ children }: { children: React.ReactNode }) {
         </Link>
         <p>
           <ThemeMotif kind="note" />
-          为一场演唱会而来，为一座城市停留。
         </p>
         <span>武汉漫游指南 · DEMO 2026</span>
       </footer>

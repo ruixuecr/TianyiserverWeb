@@ -4,30 +4,21 @@ export type ActivityKind = "service-station" | "flower-baskets" | "haidilao";
 export const activities: {
   id: ActivityKind;
   title: string;
-  english: string;
-  description: string;
   status: string;
 }[] = [
   {
     id: "service-station",
     title: "服务站活动",
-    english: "A LITTLE HELP, A LOT OF LOVE",
-    description:
-      "找到同行的伙伴，也收下为你准备的一份心意。站点位置、无料与物资，在这里查看。",
     status: "10月30日 · 10:00–17:00",
   },
   {
     id: "flower-baskets",
     title: "应援花篮活动",
-    english: "LET OUR LOVE BLOOM",
-    description: "把热爱写进花里。查看每一份花篮心意、随篮无料与同好交流群。",
     status: "首个花篮信息已更新",
   },
   {
     id: "haidilao",
     title: "海底捞活动",
-    english: "ONE MORE GATHERING",
-    description: "把相聚的时间再延长一点。关注参与门店、活动时段与现场安排。",
     status: "门店安排待公布",
   },
 ];
@@ -35,7 +26,7 @@ export const activities: {
 export type ActivityMedia = SpotImage & { caption?: string };
 export type Giveaway = {
   name: string;
-  description: string;
+  description?: string;
   image?: ActivityMedia;
 };
 export const basketLocations = {
@@ -45,12 +36,10 @@ export const basketLocations = {
 export type FlowerBasket = {
   id: string;
   name: string;
-  description: string;
   location: keyof typeof basketLocations;
   images: ActivityMedia[];
   giveawayImage?: ActivityMedia;
   groupQr?: ActivityMedia;
-  groupNote: string;
 };
 export type BasketSlot = { number: number; basket?: FlowerBasket };
 
@@ -58,8 +47,6 @@ export type BasketSlot = { number: number; basket?: FlowerBasket };
 const firstBasket: FlowerBasket = {
   id: "basket-01",
   name: "双魔女应援花篮",
-  description:
-    "在快闪店相遇，把热爱写进花里。这里收录花篮详细图与无料展示。",
   location: "popup",
   images: [
     {
@@ -75,7 +62,6 @@ const firstBasket: FlowerBasket = {
     height: 1280,
     alt: "双魔女应援花篮无料展示：时间魔女主题众筹感谢长图",
   },
-  groupNote: "花篮群二维码待补充，公布后可在这里查看。",
 };
 export const flowerBaskets: FlowerBasket[] = [firstBasket];
 export const basketSlots: BasketSlot[] = Array.from(
@@ -128,11 +114,11 @@ export const serviceStation: {
   hours: "10:00–17:00",
   giveaways: [],
   supplies: [
-    { name: "照片打印", description: "提供照片打印服务。" },
-    { name: "充电站", description: "提供现场充电服务。" },
-    { name: "免费水", description: "提供免费饮用水。" },
+    { name: "照片打印" },
+    { name: "充电站" },
+    { name: "免费水" },
   ],
-  collection: "领取方式与数量安排待公布，请留意站点后续更新。",
+  collection: "领取方式与数量安排待公布。",
 };
 export const haidilaoActivity = {
   location: {

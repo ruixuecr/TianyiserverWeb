@@ -164,8 +164,7 @@ export function WuhanMoment() {
       <PopoverContent className="moment-popover" aria-labelledby={headingId}>
         <div className="moment-heading">
           <div>
-            <span className="moment-kicker">A MOMENT IN WUHAN</span>
-            <h2 id={headingId}>把这一刻，留给热爱。</h2>
+            <h2 id={headingId}>演唱会倒计时</h2>
           </div>
           <PopoverClose className="moment-close" aria-label="关闭时钟">
             <X size={17} />

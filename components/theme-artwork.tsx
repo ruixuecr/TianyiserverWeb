@@ -68,7 +68,6 @@ export function TimeArtwork() {
       <figcaption>
         <span className="artwork-caption-rule" />
         <Music2 size={13} strokeWidth={1.5} />
-        <span>有些瞬间，值得无限回放。</span>
       </figcaption>
       <span className="artwork-edition" aria-hidden="true">
         MOMENTS / MELODIES

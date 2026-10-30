@@ -73,9 +73,6 @@ export function RecommendationExplorer() {
                 <span className="recommendation-icon">
                   <Icon size={29} strokeWidth={1.2} />
                 </span>
-                <span className="community-eyebrow">
-                  {place.kind === "美食" ? "TASTE WUHAN" : "SLOW CITY WALK"}
-                </span>
                 <span className="recommendation-kind">{place.kind}</span>
               </div>
               <h2>{place.name}</h2>
@@ -83,7 +80,6 @@ export function RecommendationExplorer() {
                 <MapPin size={13} />
                 {place.district} · {place.area}
               </p>
-              <p className="recommendation-description">{place.description}</p>
               <div className="recommendation-tags">
                 {place.tags.map((tag) => (
                   <span key={tag}>{tag}</span>
